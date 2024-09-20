@@ -1,15 +1,21 @@
 package com.vendrellignacio.controlflotavehicular.logic;
 
-//import javax.persistence.Entity;
+import java.io.Serializable;
+import javax.persistence.Entity;
 
 import java.util.List;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
-//@Entity
-public class Chasis {
+@Entity
+public class Chasis implements Serializable {
     //ATRIBUTOS
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     protected int id_chasis;
     private String marca;
     private String modelo;
@@ -18,9 +24,10 @@ public class Chasis {
     private int ano; 
     private double carga_max;
     //RELACIONES
+    @OneToOne
     private Patente patente; // Foreign key
     //Un chasis tiene muchos viajes
-    //@OneToMany(mappedBy = "unChasis")
+    @OneToMany(mappedBy = "unChasis")
     private List<Viaje> listaViajes;
 
     public Chasis() {

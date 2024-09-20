@@ -3,24 +3,25 @@ package com.vendrellignacio.controlflotavehicular.logic;
 
 import java.io.Serializable;
 import java.util.Date;
-/*import javax.persistence.Entity;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;*/
+import javax.persistence.TemporalType;
 
-//@Entity
+@Entity
 public class Viaje implements Serializable {
     //atributos
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id_viaje;
-    //@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date fechaSalida;
-    //@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date fechaLlegada;
     private String lugarOrigen;
     private String destino;
@@ -33,13 +34,13 @@ public class Viaje implements Serializable {
     private int guia;
     private int dte;
     
-    //@ManyToOne
-    //@JoinColumn(name = "fk_acoplado")
+    @ManyToOne
+    @JoinColumn(name = "fk_acoplado")
     private Acoplado unAcoplado;
-    //@ManyToOne
-    //@JoinColumn(name = "fk_chasis")
+    @ManyToOne
+    @JoinColumn(name = "fk_chasis")
     private Chasis unChasis;
-    //@OneToOne
+    @OneToOne
     private Gasto unGasto;
    
     //constructores

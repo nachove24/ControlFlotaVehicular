@@ -1,22 +1,28 @@
 package com.vendrellignacio.controlflotavehicular.logic;
 
-//import java.io.Serializable;
+import java.io.Serializable;
 
 import java.util.List;
 
-//import javax.persistence.Entity;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-//@Entity
-public class Acoplado {
+@Entity
+public class Acoplado implements Serializable {
     //ATRIBUTOS
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id_acoplado;
     private String tipo_acoplado;
     //RELACIONES
+    @OneToOne
     private Patente patente; // Foreign key
     //Un acoplado tiene muchos viajes
-    //@OneToMany(mappedBy = "unAcoplado")
+    @OneToMany(mappedBy = "unAcoplado")
     private List<Viaje> listaViajes;
     
     public Acoplado() {

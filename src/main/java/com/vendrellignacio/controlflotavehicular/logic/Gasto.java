@@ -2,15 +2,15 @@
 package com.vendrellignacio.controlflotavehicular.logic;
 
 import java.io.Serializable;
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-//@Entity
+@Entity
 public class Gasto implements Serializable {
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id_gasto;
     private double totalCombus;
     private double peaje;
