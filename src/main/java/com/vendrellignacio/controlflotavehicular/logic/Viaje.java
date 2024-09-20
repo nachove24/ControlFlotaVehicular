@@ -34,13 +34,15 @@ public class Viaje implements Serializable {
     private int dte;
     
     //@ManyToOne
+    //@JoinColumn(name = "fk_acoplado")
     private Acoplado unAcoplado;
     //@ManyToOne
+    //@JoinColumn(name = "fk_chasis")
     private Chasis unChasis;
     //@OneToOne
     private Gasto unGasto;
+   
     //constructores
-
     public Viaje() {
     }
 

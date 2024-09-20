@@ -1,6 +1,9 @@
 package com.vendrellignacio.controlflotavehicular.logic;
 
 //import java.io.Serializable;
+
+import java.util.List;
+
 //import javax.persistence.Entity;
 
 //@Entity
@@ -10,16 +13,23 @@ public class Acoplado {
     //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id_acoplado;
     private String tipo_acoplado;
+    //RELACIONES
     private Patente patente; // Foreign key
+    //Un acoplado tiene muchos viajes
+    //@OneToMany(mappedBy = "unAcoplado")
+    private List<Viaje> listaViajes;
     
     public Acoplado() {
     }
 
-    public Acoplado(int id_acoplado, String tipo_acoplado, Patente patente) {
+    public Acoplado(int id_acoplado, String tipo_acoplado, Patente patente, List<Viaje> listaViajes) {
         this.id_acoplado = id_acoplado;
         this.tipo_acoplado = tipo_acoplado;
         this.patente = patente;
+        this.listaViajes = listaViajes;
     }
+
+    
     
 
     public int getId_acoplado() {
@@ -45,6 +55,15 @@ public class Acoplado {
     public void setPatente(Patente patente) {
         this.patente = patente;
     }
+
+    public List<Viaje> getListaViajes() {
+        return listaViajes;
+    }
+
+    public void setListaViajes(List<Viaje> listaViajes) {
+        this.listaViajes = listaViajes;
+    }
+    
     
     
 }

@@ -2,6 +2,9 @@ package com.vendrellignacio.controlflotavehicular.logic;
 
 //import javax.persistence.Entity;
 
+import java.util.List;
+
+
 //@Entity
 public class Chasis {
     //ATRIBUTOS
@@ -14,12 +17,16 @@ public class Chasis {
     private String color;
     private int ano; 
     private double carga_max;
+    //RELACIONES
     private Patente patente; // Foreign key
+    //Un chasis tiene muchos viajes
+    //@OneToMany(mappedBy = "unChasis")
+    private List<Viaje> listaViajes;
 
     public Chasis() {
     }
 
-    public Chasis(int id_chasis, String marca, String modelo, String num_serie, String color, int ano, double carga_max, Patente patente) {
+    public Chasis(int id_chasis, String marca, String modelo, String num_serie, String color, int ano, double carga_max, Patente patente, List<Viaje> listaViajes) {
         this.id_chasis = id_chasis;
         this.marca = marca;
         this.modelo = modelo;
@@ -28,10 +35,16 @@ public class Chasis {
         this.ano = ano;
         this.carga_max = carga_max;
         this.patente = patente;
+        this.listaViajes = listaViajes;
     }
-    
 
-    
+    public List<Viaje> getListaViajes() {
+        return listaViajes;
+    }
+
+    public void setListaViajes(List<Viaje> listaViajes) {
+        this.listaViajes = listaViajes;
+    }
 
     public int getId_chasis() {
         return id_chasis;
