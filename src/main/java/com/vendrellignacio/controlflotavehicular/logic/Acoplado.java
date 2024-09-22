@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.logic;
 import java.io.Serializable;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ public class Acoplado implements Serializable {
     private int id_acoplado;
     private String tipo_acoplado;
     //RELACIONES
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE) // Cascada para eliminar la entidad relacionada
     private Patente patente; // Foreign key
     //Un acoplado tiene muchos viajes
     @OneToMany(mappedBy = "unAcoplado")

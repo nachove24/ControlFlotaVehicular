@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Chasis implements Serializable {
     private int ano; 
     private double carga_max;
     //RELACIONES
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE) // Cascada para eliminar la entidad relacionada
     private Patente patente; // Foreign key
     //Un chasis tiene muchos viajes
     @OneToMany(mappedBy = "unChasis")
