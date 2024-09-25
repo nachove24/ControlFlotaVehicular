@@ -18,9 +18,9 @@ public class Registros extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        btnAgregarChasis = new javax.swing.JButton();
+        btnChasis = new javax.swing.JButton();
         btnRegistrarViaje = new javax.swing.JButton();
-        btnAgregarAcoplado = new javax.swing.JButton();
+        btnAcoplado = new javax.swing.JButton();
         btnNeumatico = new javax.swing.JButton();
         btnTecnica = new javax.swing.JButton();
         btnMulta = new javax.swing.JButton();
@@ -43,11 +43,11 @@ public class Registros extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         jLabel1.setText("Cargar Datos");
 
-        btnAgregarChasis.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\chasis.jpg")); // NOI18N
-        btnAgregarChasis.setText("Agregar Chasis");
-        btnAgregarChasis.addActionListener(new java.awt.event.ActionListener() {
+        btnChasis.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\chasis.jpg")); // NOI18N
+        btnChasis.setText("Chasis");
+        btnChasis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarChasisActionPerformed(evt);
+                btnChasisActionPerformed(evt);
             }
         });
 
@@ -59,11 +59,11 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnAgregarAcoplado.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\acoplado.png")); // NOI18N
-        btnAgregarAcoplado.setText("Agregar Acoplado");
-        btnAgregarAcoplado.addActionListener(new java.awt.event.ActionListener() {
+        btnAcoplado.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\acoplado.png")); // NOI18N
+        btnAcoplado.setText("Acoplados");
+        btnAcoplado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarAcopladoActionPerformed(evt);
+                btnAcopladoActionPerformed(evt);
             }
         });
 
@@ -123,8 +123,8 @@ public class Registros extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnTecnica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregarChasis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregarAcoplado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnChasis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAcoplado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -141,12 +141,12 @@ public class Registros extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregarChasis, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChasis, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrarViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregarAcoplado, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAcoplado, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNeumatico, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -197,14 +197,14 @@ public class Registros extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgregarChasisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarChasisActionPerformed
+    private void btnChasisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChasisActionPerformed
          //Correspondiente a la pantalla principal, es decir, "Principal.java": 
-        Chasis menu = new Chasis();
+        MenuChasis menu = new MenuChasis();
         //Lo hacemos visible:
         menu.setVisible(true);
         //Lo centramos
         menu.setLocationRelativeTo(null);
-    }//GEN-LAST:event_btnAgregarChasisActionPerformed
+    }//GEN-LAST:event_btnChasisActionPerformed
 
     private void btnNeumaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNeumaticoActionPerformed
         // TODO add your handling code here:
@@ -242,20 +242,20 @@ public class Registros extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMantenimientoActionPerformed
 
-    private void btnAgregarAcopladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAcopladoActionPerformed
+    private void btnAcopladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcopladoActionPerformed
         MenuAcoplado menu = new MenuAcoplado();
         //Lo hacemos visible:
         menu.setVisible(true);
         //Lo centramos
         menu.setLocationRelativeTo(null);
-    }//GEN-LAST:event_btnAgregarAcopladoActionPerformed
+    }//GEN-LAST:event_btnAcopladoActionPerformed
 
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarAcoplado;
-    private javax.swing.JButton btnAgregarChasis;
+    private javax.swing.JButton btnAcoplado;
+    private javax.swing.JButton btnChasis;
     private javax.swing.JButton btnImpuesto;
     private javax.swing.JButton btnMantenimiento;
     private javax.swing.JButton btnMulta;

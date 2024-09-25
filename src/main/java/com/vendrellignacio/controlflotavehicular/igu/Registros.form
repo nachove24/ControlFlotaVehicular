@@ -101,8 +101,8 @@
                       <EmptySpace min="47" pref="47" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnTecnica" max="32767" attributes="0"/>
-                          <Component id="btnAgregarChasis" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnAgregarAcoplado" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnChasis" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnAcoplado" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnImpuesto" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -123,13 +123,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnAgregarChasis" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="btnChasis" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="btnRegistrarViaje" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="btnMantenimiento" alignment="3" min="-2" pref="56" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnAgregarAcoplado" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
+                          <Component id="btnAcoplado" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                           <Component id="btnNeumatico" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="43" max="32767" attributes="0"/>
@@ -148,15 +148,15 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnAgregarChasis">
+            <Component class="javax.swing.JButton" name="btnChasis">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="2" name="C:\Users\nacho\Downloads\chasis.jpg"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Agregar Chasis"/>
+                <Property name="text" type="java.lang.String" value="Chasis"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarChasisActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChasisActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnRegistrarViaje">
@@ -170,15 +170,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarViajeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnAgregarAcoplado">
+            <Component class="javax.swing.JButton" name="btnAcoplado">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="2" name="C:\Users\nacho\Downloads\acoplado.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Agregar Acoplado"/>
+                <Property name="text" type="java.lang.String" value="Acoplados"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarAcopladoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAcopladoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnNeumatico">

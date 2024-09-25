@@ -2,6 +2,7 @@
 package com.vendrellignacio.controlflotavehicular.persistence;
 
 import com.vendrellignacio.controlflotavehicular.logic.Acoplado;
+import com.vendrellignacio.controlflotavehicular.logic.Chasis;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
 import java.util.List;
@@ -17,7 +18,8 @@ public class ControladoraPersistencia {
     ViajeJpaController viajeJpa = new ViajeJpaController();
 
     ///////////////ACOPLADO/////////////////////////////////////////////////////////////////////
-    public void guardar(Acoplado aco, Patente pat) {
+    
+    public void guardarAco(Acoplado aco, Patente pat) {
         patenteJpa.create(pat);
         acopladoJpa.create(aco);
     }
@@ -53,5 +55,29 @@ public class ControladoraPersistencia {
         
     }
     
-    ///////////////ACOPLADO/////////////////////////////////////////////////////////////////////
+    ///////////////CHASIS/////////////////////////////////////////////////////////////////////
+
+    public List<Chasis> traerChas() {
+        return chasisJpa.findChasisEntities();
+    }
+
+    public void guardarCha(Chasis cha, Patente pat) {
+        patenteJpa.create(pat);
+        chasisJpa.create(cha);
+    }
+
+    public void borrarCha(int idCha) throws NonexistentEntityException {
+        chasisJpa.destroy(idCha);
+    }
+
+    public Chasis traerCha(int idCha) {
+        return chasisJpa.findChasis(idCha);
+    }
+
+    public void editarCha(Patente pat, Chasis cha) throws Exception {
+        patenteJpa.edit(pat);
+        chasisJpa.edit(cha);
+    }
+
+    
 }
