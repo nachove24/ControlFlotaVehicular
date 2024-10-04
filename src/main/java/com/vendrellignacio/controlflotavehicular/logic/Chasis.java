@@ -30,11 +30,12 @@ public class Chasis implements Serializable {
     //Un chasis tiene muchos viajes
     @OneToMany(mappedBy = "unChasis")
     private List<Viaje> listaViajes;
-
+    @OneToMany(mappedBy = "unChasis")
+    private List<Neumatico> listaNeumaticos;
     public Chasis() {
     }
 
-    public Chasis(int id_chasis, String marca, String modelo, String num_serie, String color, int ano, double carga_max, Patente patente, List<Viaje> listaViajes) {
+    public Chasis(int id_chasis, String marca, String modelo, String num_serie, String color, int ano, double carga_max, Patente patente, List<Viaje> listaViajes, List<Neumatico> listaNeumaticos) {
         this.id_chasis = id_chasis;
         this.marca = marca;
         this.modelo = modelo;
@@ -44,7 +45,10 @@ public class Chasis implements Serializable {
         this.carga_max = carga_max;
         this.patente = patente;
         this.listaViajes = listaViajes;
+        this.listaNeumaticos = listaNeumaticos;
     }
+
+    
 
     public List<Viaje> getListaViajes() {
         return listaViajes;
@@ -116,6 +120,14 @@ public class Chasis implements Serializable {
 
     public void setPatente(Patente patente) {
         this.patente = patente;
+    }
+
+    public List<Neumatico> getListaNeumaticos() {
+        return listaNeumaticos;
+    }
+
+    public void setListaNeumaticos(List<Neumatico> listaNeumaticos) {
+        this.listaNeumaticos = listaNeumaticos;
     }
 
     

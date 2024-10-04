@@ -2,6 +2,7 @@
 package com.vendrellignacio.controlflotavehicular.logic;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ public class Patente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id_patente;
+    @Column(unique = true)
     private String codigoPatente;
 
     public Patente() {

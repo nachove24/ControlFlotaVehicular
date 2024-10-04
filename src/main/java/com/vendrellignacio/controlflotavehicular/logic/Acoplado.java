@@ -25,15 +25,28 @@ public class Acoplado implements Serializable {
     //Un acoplado tiene muchos viajes
     @OneToMany(mappedBy = "unAcoplado")
     private List<Viaje> listaViajes;
+    @OneToMany(mappedBy = "unAcoplado")
+    private List<Neumatico> listaNeumatico;
     
     public Acoplado() {
     }
 
-    public Acoplado(int id_acoplado, String tipo_acoplado, Patente patente, List<Viaje> listaViajes) {
+    
+
+    public Acoplado(int id_acoplado, String tipo_acoplado, Patente patente, List<Viaje> listaViajes, List<Neumatico> listaNeumatico) {
         this.id_acoplado = id_acoplado;
         this.tipo_acoplado = tipo_acoplado;
         this.patente = patente;
         this.listaViajes = listaViajes;
+        this.listaNeumatico = listaNeumatico;
+    }
+
+    public List<Neumatico> getListaNeumatico() {
+        return listaNeumatico;
+    }
+
+    public void setListaNeumatico(List<Neumatico> listaNeumatico) {
+        this.listaNeumatico = listaNeumatico;
     }
 
     
