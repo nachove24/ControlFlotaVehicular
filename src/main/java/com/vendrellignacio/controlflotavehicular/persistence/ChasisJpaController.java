@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -190,5 +192,34 @@ public class ChasisJpaController implements Serializable {
             em.close();
         }
     }
+
+    /*Integer findChaIdByPatente(String chaViaje) {
+        
+        EntityManager em = getEntityManager();
+        try {
+            // La letra "c" es un alias para la entidad Coche
+            TypedQuery<Integer> q = em.createQuery("SELECT c.id_chasis FROM Chasis c INNER JOIN Patente p ON c.patente_id_patente = p.id_patente WHERE p.codigoPatente = :patente", Integer.class);
+            q.setParameter("patente", chaViaje);
+            return q.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Devuelve null si no se encuentra ningún coche con esa patente
+        } finally {
+            em.close();
+        }
+    }*/
+    public Integer findChaIdByPatente(String chaViaje) {
+    EntityManager em = getEntityManager();
+    try {
+        // Se utiliza un alias "c" para la entidad Chasis y "p" para la entidad Patente
+        TypedQuery<Integer> q = em.createQuery("SELECT c.id_chasis FROM Chasis c JOIN c.patente p WHERE p.codigoPatente = :patente", Integer.class);
+        q.setParameter("patente", chaViaje); // Asigna el parámetro como String
+        return q.getSingleResult();
+    } catch (NoResultException e) {
+        return null; // Devuelve null si no se encuentra ningún chasis con esa patente
+    } finally {
+        em.close();
+    }
+}
+
     
 }

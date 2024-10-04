@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -190,5 +192,35 @@ public class AcopladoJpaController implements Serializable {
             em.close();
         }
     }
+
+    // -.--...-.-.--.-.FIND BY PATENTE..--.-.-..--.-..-
+    /*public Integer findAcoIdByPatente(String acoViaje) {
+        
+        EntityManager em = getEntityManager();
+        try {
+            // La letra "c" es un alias para la entidad Coche
+            TypedQuery<Integer> q = em.createQuery("SELECT a.id_acoplado FROM Acoplado a INNER JOIN Patente p ON a.patente_id_patente = p.id_patente WHERE p.codigoPatente = :patente", Integer.class);
+            q.setParameter("patente", acoViaje);
+            return q.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Devuelve null si no se encuentra ningún coche con esa patente
+        } finally {
+            em.close();
+        }
+    }*/
+    public Integer findAcoIdByPatente(String acoViaje) {
+    EntityManager em = getEntityManager();
+    try {
+        // Se utiliza un alias "c" para la entidad Chasis y "p" para la entidad Patente
+        TypedQuery<Integer> q = em.createQuery("SELECT a.id_acoplado FROM Acoplado a JOIN a.patente p WHERE p.codigoPatente = :patente", Integer.class);
+        q.setParameter("patente", acoViaje); // Asigna el parámetro como String
+        return q.getSingleResult();
+    } catch (NoResultException e) {
+        return null; // Devuelve null si no se encuentra ningún chasis con esa patente
+    } finally {
+        em.close();
+    }
+}
+
     
 }

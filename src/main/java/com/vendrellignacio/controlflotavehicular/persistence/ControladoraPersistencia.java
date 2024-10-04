@@ -3,7 +3,9 @@ package com.vendrellignacio.controlflotavehicular.persistence;
 
 import com.vendrellignacio.controlflotavehicular.logic.Acoplado;
 import com.vendrellignacio.controlflotavehicular.logic.Chasis;
+import com.vendrellignacio.controlflotavehicular.logic.Gasto;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
+import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
 import java.util.List;
 import java.util.logging.Level;
@@ -77,6 +79,51 @@ public class ControladoraPersistencia {
     public void editarCha(Patente pat, Chasis cha) throws Exception {
         patenteJpa.edit(pat);
         chasisJpa.edit(cha);
+    }
+
+    public Integer traerIdAco(String acoViaje) {
+        return acopladoJpa.findAcoIdByPatente(acoViaje);
+    }
+
+    public Integer traerIdCha(String chaViaje) {
+        return chasisJpa.findChaIdByPatente(chaViaje);
+    }
+    
+///////////////////////////VIAJE//////////////////////////////////////////////////////////////////77
+    public void crearViaje(Viaje via, Gasto gas) {
+        gastoJpa.create(gas); 
+        viajeJpa.create(via);
+        System.out.println("Persistencia CREARVIAJE");
+    }
+
+    public List<Viaje> traerViajes() {
+        return viajeJpa.findViajeEntities();
+    }
+
+    public void borrarVia(int idVia) {
+        try {
+            viajeJpa.destroy(idVia);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Viaje traerVia(int idVia) {
+        return viajeJpa.findViaje(idVia);
+    }
+
+    public Gasto traerGas(int id_gasto) {
+        return gastoJpa.findGasto(id_gasto);
+    }
+
+    public void editarVia(Gasto gas, Viaje via) {
+        try {
+            gastoJpa.edit(gas);
+            viajeJpa.edit(via);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     

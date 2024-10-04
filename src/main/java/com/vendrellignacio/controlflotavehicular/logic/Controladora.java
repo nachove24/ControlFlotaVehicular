@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.logic;
 
 import com.vendrellignacio.controlflotavehicular.persistence.ControladoraPersistencia;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,6 +87,108 @@ public class Controladora {
         cha.setNum_serie(numSerieChasis);
         cha.setPatente(pat);
         controlPersis.editarCha(pat,cha);
+    }
+/////////////////////////////////////////////VIAJE///////////////////////////////////////////////////////////
+    public Integer traerIdAco(String acoViaje) {
+        return controlPersis.traerIdAco(acoViaje);
+    }
+
+    public Integer traerIdCha(String chaViaje) {
+        return controlPersis.traerIdCha(chaViaje);
+    }
+
+    public void crearViaje(Date fechaLl, Date fechaSa, String lugOriViaje, String lugDesViaje, String kmInViaje, 
+            String kmFiViaje, String pesoCarViaje, String costoCarViaje, String ctgViaje, String dteViaje, 
+            String guiaViaje, String acoViaje, String chaViaje, String combGasto, String peaGasto, String comiGasto) {
+        System.out.println("Controladora CREARVIAJE");
+        
+        Viaje via = new Viaje();
+        via.setCostoCarga(Integer.parseInt(costoCarViaje));
+        via.setCtg(Integer.parseInt(ctgViaje));
+        via.setDestino(lugDesViaje);
+        via.setDte(Integer.parseInt(dteViaje));
+        via.setFechaLlegada(fechaLl);
+        via.setFechaSalida(fechaSa);
+        via.setGuia(Integer.parseInt(guiaViaje));
+        
+        via.setKmFinal(Double.parseDouble(kmFiViaje));
+        via.setKmInicial(Double.parseDouble(kmInViaje));
+        via.setKmRecorrido(via.getKmFinal() - via.getKmInicial());
+        
+        via.setLugarOrigen(lugOriViaje);
+        via.setPesoCarga(Double.parseDouble(pesoCarViaje));
+        //REGISTRAR LOS MANY
+        Acoplado aco;
+        aco = controlPersis.traerAco(Integer.parseInt(acoViaje));
+        via.setUnAcoplado(aco);
+        Chasis cha;
+        cha = controlPersis.traerCha(Integer.parseInt(chaViaje));
+        via.setUnChasis(cha);
+        /*Rol rol2 = new Rol();
+        rol2 = this.traerRol(rol1);
+        if(rol2!=null){
+            user.setUnRol(rol2);
+        }*/
+        //REGISTRAR el ONE
+        Gasto gas = new Gasto();
+        gas.setComida(Double.parseDouble(comiGasto));
+        gas.setPeaje(Double.parseDouble(peaGasto));
+        gas.setTotalCombus(Double.parseDouble(combGasto));
+        via.setUnGasto(gas);
+        
+        controlPersis.crearViaje(via, gas);
+    }
+
+    
+
+    public List<Viaje> traerViajes() {
+        return controlPersis.traerViajes();
+    }
+
+    public void borrarVia(int idVia) {
+        controlPersis.borrarVia(idVia);
+    }
+
+    public Viaje traerVia(int idVia) {
+        return controlPersis.traerVia(idVia);
+    }
+
+    public Gasto traerGas(int id_gasto) {
+        return controlPersis.traerGas(id_gasto);
+    }
+
+    public void editarViaje(Viaje via, Gasto gas, Date fechaLl, Date fechaSa, String lugOriViaje, 
+            String lugDesViaje, String kmInViaje, String kmFiViaje, String pesoCarViaje, String costoCarViaje, 
+            String ctgViaje, String dteViaje, String guiaViaje, String acoViaje, String chaViaje, String combGasto, 
+            String peaGasto, String comiGasto) {
+        gas.setComida(Double.parseDouble(comiGasto));
+        gas.setPeaje(Double.parseDouble(peaGasto));
+        gas.setTotalCombus(Double.parseDouble(peaGasto));
+        via.setUnGasto(gas);
+        via.setCostoCarga(Double.parseDouble(costoCarViaje));
+        via.setCtg(Integer.parseInt(ctgViaje));
+        via.setDestino(lugDesViaje);
+        via.setDte(Integer.parseInt(dteViaje));
+        via.setFechaLlegada(fechaLl);
+        via.setFechaSalida(fechaSa);
+        via.setGuia(Integer.parseInt(guiaViaje));
+        
+        via.setKmFinal(Double.parseDouble(kmFiViaje));
+        via.setKmInicial(Double.parseDouble(kmInViaje));
+        via.setKmRecorrido(via.getKmFinal() - via.getKmInicial());
+        
+        via.setLugarOrigen(lugOriViaje);
+        via.setPesoCarga(Double.parseDouble(pesoCarViaje));
+        
+        Acoplado aco;
+        aco = controlPersis.traerAco(Integer.parseInt(acoViaje));
+        via.setUnAcoplado(aco);
+        Chasis cha;
+        cha = controlPersis.traerCha(Integer.parseInt(chaViaje));
+        via.setUnChasis(cha);
+        
+        controlPersis.editarVia(gas, via);
+        
     }
     
     

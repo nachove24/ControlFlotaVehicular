@@ -219,7 +219,7 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMultaActionPerformed
 
     private void btnRegistrarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarViajeActionPerformed
-        Viaje menu = new Viaje();
+        MenuViaje menu = new MenuViaje();
         //Lo hacemos visible:
         menu.setVisible(true);
         //Lo centramos

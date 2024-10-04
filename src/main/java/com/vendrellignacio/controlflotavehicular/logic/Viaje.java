@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.logic;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,7 +41,7 @@ public class Viaje implements Serializable {
     @ManyToOne
     @JoinColumn(name = "fk_chasis")
     private Chasis unChasis;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Gasto unGasto;
    
     //constructores
