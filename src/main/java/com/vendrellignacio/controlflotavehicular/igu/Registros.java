@@ -68,7 +68,7 @@ public class Registros extends javax.swing.JFrame {
         });
 
         btnNeumatico.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\neumatico.png")); // NOI18N
-        btnNeumatico.setText("Agregar Neumatico");
+        btnNeumatico.setText("Neumatico");
         btnNeumatico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNeumaticoActionPerformed(evt);
@@ -207,7 +207,11 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChasisActionPerformed
 
     private void btnNeumaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNeumaticoActionPerformed
-        // TODO add your handling code here:
+        MenuNeumatico menu = new MenuNeumatico();
+        //Lo hacemos visible:
+        menu.setVisible(true);
+        //Lo centramos
+        menu.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnNeumaticoActionPerformed
 
     private void btnTecnicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicaActionPerformed
