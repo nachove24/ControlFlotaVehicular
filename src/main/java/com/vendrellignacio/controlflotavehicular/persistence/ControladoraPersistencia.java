@@ -4,6 +4,7 @@ package com.vendrellignacio.controlflotavehicular.persistence;
 import com.vendrellignacio.controlflotavehicular.logic.Acoplado;
 import com.vendrellignacio.controlflotavehicular.logic.Chasis;
 import com.vendrellignacio.controlflotavehicular.logic.Gasto;
+import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
@@ -18,6 +19,7 @@ public class ControladoraPersistencia {
     GastoJpaController gastoJpa = new GastoJpaController();
     PatenteJpaController patenteJpa = new PatenteJpaController();
     ViajeJpaController viajeJpa = new ViajeJpaController();
+    NeumaticoJpaController neumaticoJpa = new NeumaticoJpaController();
 
     ///////////////ACOPLADO/////////////////////////////////////////////////////////////////////
     
@@ -124,6 +126,12 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    //////////////////NEUMATICO////////////////////////////////////////////////////////////////
+
+    public List<Neumatico> traerNeus() {
+        return neumaticoJpa.findNeumaticoEntities();
     }
 
     

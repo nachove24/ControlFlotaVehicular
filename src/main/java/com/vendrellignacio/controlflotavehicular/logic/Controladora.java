@@ -190,6 +190,10 @@ public class Controladora {
         controlPersis.editarVia(gas, via);
         
     }
+
+    public List<Neumatico> traerNeus() {
+        return controlPersis.traerNeus();
+    }
     
     
     
