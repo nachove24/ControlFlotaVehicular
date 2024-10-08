@@ -4,18 +4,18 @@
  */
 package com.vendrellignacio.controlflotavehicular.persistence;
 
+import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import com.vendrellignacio.controlflotavehicular.logic.Acoplado;
-import com.vendrellignacio.controlflotavehicular.logic.Chasis;
-import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
+import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -31,30 +31,25 @@ public class NeumaticoJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+    public NeumaticoJpaController() {
+        emf = Persistence.createEntityManagerFactory("flotaPU");
+    }
 
     public void create(Neumatico neumatico) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Acoplado unAcoplado = neumatico.getUnAcoplado();
-            if (unAcoplado != null) {
-                unAcoplado = em.getReference(unAcoplado.getClass(), unAcoplado.getId_acoplado());
-                neumatico.setUnAcoplado(unAcoplado);
-            }
-            Chasis unChasis = neumatico.getUnChasis();
-            if (unChasis != null) {
-                unChasis = em.getReference(unChasis.getClass(), unChasis.getId_chasis());
-                neumatico.setUnChasis(unChasis);
+            Patente unPatente = neumatico.getUnPatente();
+            if (unPatente != null) {
+                unPatente = em.getReference(unPatente.getClass(), unPatente.getId_patente());
+                neumatico.setUnPatente(unPatente);
             }
             em.persist(neumatico);
-            if (unAcoplado != null) {
-                unAcoplado.getListaNeumatico().add(neumatico);
-                unAcoplado = em.merge(unAcoplado);
-            }
-            if (unChasis != null) {
-                unChasis.getListaNeumaticos().add(neumatico);
-                unChasis = em.merge(unChasis);
+            if (unPatente != null) {
+                unPatente.getListaNeumaticos().add(neumatico);
+                unPatente = em.merge(unPatente);
             }
             em.getTransaction().commit();
         } finally {
@@ -70,34 +65,20 @@ public class NeumaticoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Neumatico persistentNeumatico = em.find(Neumatico.class, neumatico.getId_neumatico());
-            Acoplado unAcopladoOld = persistentNeumatico.getUnAcoplado();
-            Acoplado unAcopladoNew = neumatico.getUnAcoplado();
-            Chasis unChasisOld = persistentNeumatico.getUnChasis();
-            Chasis unChasisNew = neumatico.getUnChasis();
-            if (unAcopladoNew != null) {
-                unAcopladoNew = em.getReference(unAcopladoNew.getClass(), unAcopladoNew.getId_acoplado());
-                neumatico.setUnAcoplado(unAcopladoNew);
-            }
-            if (unChasisNew != null) {
-                unChasisNew = em.getReference(unChasisNew.getClass(), unChasisNew.getId_chasis());
-                neumatico.setUnChasis(unChasisNew);
+            Patente unPatenteOld = persistentNeumatico.getUnPatente();
+            Patente unPatenteNew = neumatico.getUnPatente();
+            if (unPatenteNew != null) {
+                unPatenteNew = em.getReference(unPatenteNew.getClass(), unPatenteNew.getId_patente());
+                neumatico.setUnPatente(unPatenteNew);
             }
             neumatico = em.merge(neumatico);
-            if (unAcopladoOld != null && !unAcopladoOld.equals(unAcopladoNew)) {
-                unAcopladoOld.getListaNeumatico().remove(neumatico);
-                unAcopladoOld = em.merge(unAcopladoOld);
+            if (unPatenteOld != null && !unPatenteOld.equals(unPatenteNew)) {
+                unPatenteOld.getListaNeumaticos().remove(neumatico);
+                unPatenteOld = em.merge(unPatenteOld);
             }
-            if (unAcopladoNew != null && !unAcopladoNew.equals(unAcopladoOld)) {
-                unAcopladoNew.getListaNeumatico().add(neumatico);
-                unAcopladoNew = em.merge(unAcopladoNew);
-            }
-            if (unChasisOld != null && !unChasisOld.equals(unChasisNew)) {
-                unChasisOld.getListaNeumaticos().remove(neumatico);
-                unChasisOld = em.merge(unChasisOld);
-            }
-            if (unChasisNew != null && !unChasisNew.equals(unChasisOld)) {
-                unChasisNew.getListaNeumaticos().add(neumatico);
-                unChasisNew = em.merge(unChasisNew);
+            if (unPatenteNew != null && !unPatenteNew.equals(unPatenteOld)) {
+                unPatenteNew.getListaNeumaticos().add(neumatico);
+                unPatenteNew = em.merge(unPatenteNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -128,15 +109,10 @@ public class NeumaticoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The neumatico with id " + id + " no longer exists.", enfe);
             }
-            Acoplado unAcoplado = neumatico.getUnAcoplado();
-            if (unAcoplado != null) {
-                unAcoplado.getListaNeumatico().remove(neumatico);
-                unAcoplado = em.merge(unAcoplado);
-            }
-            Chasis unChasis = neumatico.getUnChasis();
-            if (unChasis != null) {
-                unChasis.getListaNeumaticos().remove(neumatico);
-                unChasis = em.merge(unChasis);
+            Patente unPatente = neumatico.getUnPatente();
+            if (unPatente != null) {
+                unPatente.getListaNeumaticos().remove(neumatico);
+                unPatente = em.merge(unPatente);
             }
             em.remove(neumatico);
             em.getTransaction().commit();

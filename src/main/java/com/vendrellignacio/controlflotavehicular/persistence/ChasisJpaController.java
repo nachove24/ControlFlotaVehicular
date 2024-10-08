@@ -11,10 +11,9 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.vendrellignacio.controlflotavehicular.logic.Viaje;
+import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.List;
-import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
-import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -35,16 +34,14 @@ public class ChasisJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
     public ChasisJpaController() {
         emf = Persistence.createEntityManagerFactory("flotaPU");
     }
-
+    
     public void create(Chasis chasis) {
         if (chasis.getListaViajes() == null) {
             chasis.setListaViajes(new ArrayList<Viaje>());
-        }
-        if (chasis.getListaNeumaticos() == null) {
-            chasis.setListaNeumaticos(new ArrayList<Neumatico>());
         }
         EntityManager em = null;
         try {
@@ -56,12 +53,6 @@ public class ChasisJpaController implements Serializable {
                 attachedListaViajes.add(listaViajesViajeToAttach);
             }
             chasis.setListaViajes(attachedListaViajes);
-            List<Neumatico> attachedListaNeumaticos = new ArrayList<Neumatico>();
-            for (Neumatico listaNeumaticosNeumaticoToAttach : chasis.getListaNeumaticos()) {
-                listaNeumaticosNeumaticoToAttach = em.getReference(listaNeumaticosNeumaticoToAttach.getClass(), listaNeumaticosNeumaticoToAttach.getId_neumatico());
-                attachedListaNeumaticos.add(listaNeumaticosNeumaticoToAttach);
-            }
-            chasis.setListaNeumaticos(attachedListaNeumaticos);
             em.persist(chasis);
             for (Viaje listaViajesViaje : chasis.getListaViajes()) {
                 Chasis oldUnChasisOfListaViajesViaje = listaViajesViaje.getUnChasis();
@@ -70,15 +61,6 @@ public class ChasisJpaController implements Serializable {
                 if (oldUnChasisOfListaViajesViaje != null) {
                     oldUnChasisOfListaViajesViaje.getListaViajes().remove(listaViajesViaje);
                     oldUnChasisOfListaViajesViaje = em.merge(oldUnChasisOfListaViajesViaje);
-                }
-            }
-            for (Neumatico listaNeumaticosNeumatico : chasis.getListaNeumaticos()) {
-                Chasis oldUnChasisOfListaNeumaticosNeumatico = listaNeumaticosNeumatico.getUnChasis();
-                listaNeumaticosNeumatico.setUnChasis(chasis);
-                listaNeumaticosNeumatico = em.merge(listaNeumaticosNeumatico);
-                if (oldUnChasisOfListaNeumaticosNeumatico != null) {
-                    oldUnChasisOfListaNeumaticosNeumatico.getListaNeumaticos().remove(listaNeumaticosNeumatico);
-                    oldUnChasisOfListaNeumaticosNeumatico = em.merge(oldUnChasisOfListaNeumaticosNeumatico);
                 }
             }
             em.getTransaction().commit();
@@ -97,8 +79,6 @@ public class ChasisJpaController implements Serializable {
             Chasis persistentChasis = em.find(Chasis.class, chasis.getId_chasis());
             List<Viaje> listaViajesOld = persistentChasis.getListaViajes();
             List<Viaje> listaViajesNew = chasis.getListaViajes();
-            List<Neumatico> listaNeumaticosOld = persistentChasis.getListaNeumaticos();
-            List<Neumatico> listaNeumaticosNew = chasis.getListaNeumaticos();
             List<Viaje> attachedListaViajesNew = new ArrayList<Viaje>();
             for (Viaje listaViajesNewViajeToAttach : listaViajesNew) {
                 listaViajesNewViajeToAttach = em.getReference(listaViajesNewViajeToAttach.getClass(), listaViajesNewViajeToAttach.getId_viaje());
@@ -106,13 +86,6 @@ public class ChasisJpaController implements Serializable {
             }
             listaViajesNew = attachedListaViajesNew;
             chasis.setListaViajes(listaViajesNew);
-            List<Neumatico> attachedListaNeumaticosNew = new ArrayList<Neumatico>();
-            for (Neumatico listaNeumaticosNewNeumaticoToAttach : listaNeumaticosNew) {
-                listaNeumaticosNewNeumaticoToAttach = em.getReference(listaNeumaticosNewNeumaticoToAttach.getClass(), listaNeumaticosNewNeumaticoToAttach.getId_neumatico());
-                attachedListaNeumaticosNew.add(listaNeumaticosNewNeumaticoToAttach);
-            }
-            listaNeumaticosNew = attachedListaNeumaticosNew;
-            chasis.setListaNeumaticos(listaNeumaticosNew);
             chasis = em.merge(chasis);
             for (Viaje listaViajesOldViaje : listaViajesOld) {
                 if (!listaViajesNew.contains(listaViajesOldViaje)) {
@@ -128,23 +101,6 @@ public class ChasisJpaController implements Serializable {
                     if (oldUnChasisOfListaViajesNewViaje != null && !oldUnChasisOfListaViajesNewViaje.equals(chasis)) {
                         oldUnChasisOfListaViajesNewViaje.getListaViajes().remove(listaViajesNewViaje);
                         oldUnChasisOfListaViajesNewViaje = em.merge(oldUnChasisOfListaViajesNewViaje);
-                    }
-                }
-            }
-            for (Neumatico listaNeumaticosOldNeumatico : listaNeumaticosOld) {
-                if (!listaNeumaticosNew.contains(listaNeumaticosOldNeumatico)) {
-                    listaNeumaticosOldNeumatico.setUnChasis(null);
-                    listaNeumaticosOldNeumatico = em.merge(listaNeumaticosOldNeumatico);
-                }
-            }
-            for (Neumatico listaNeumaticosNewNeumatico : listaNeumaticosNew) {
-                if (!listaNeumaticosOld.contains(listaNeumaticosNewNeumatico)) {
-                    Chasis oldUnChasisOfListaNeumaticosNewNeumatico = listaNeumaticosNewNeumatico.getUnChasis();
-                    listaNeumaticosNewNeumatico.setUnChasis(chasis);
-                    listaNeumaticosNewNeumatico = em.merge(listaNeumaticosNewNeumatico);
-                    if (oldUnChasisOfListaNeumaticosNewNeumatico != null && !oldUnChasisOfListaNeumaticosNewNeumatico.equals(chasis)) {
-                        oldUnChasisOfListaNeumaticosNewNeumatico.getListaNeumaticos().remove(listaNeumaticosNewNeumatico);
-                        oldUnChasisOfListaNeumaticosNewNeumatico = em.merge(oldUnChasisOfListaNeumaticosNewNeumatico);
                     }
                 }
             }
@@ -181,11 +137,6 @@ public class ChasisJpaController implements Serializable {
             for (Viaje listaViajesViaje : listaViajes) {
                 listaViajesViaje.setUnChasis(null);
                 listaViajesViaje = em.merge(listaViajesViaje);
-            }
-            List<Neumatico> listaNeumaticos = chasis.getListaNeumaticos();
-            for (Neumatico listaNeumaticosNeumatico : listaNeumaticos) {
-                listaNeumaticosNeumatico.setUnChasis(null);
-                listaNeumaticosNeumatico = em.merge(listaNeumaticosNeumatico);
             }
             em.remove(chasis);
             em.getTransaction().commit();

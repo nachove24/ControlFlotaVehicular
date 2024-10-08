@@ -3,11 +3,11 @@
   <persistence-unit name="flotaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.vendrellignacio.controlflotavehicular.logic.Gasto</class>
-    <class>com.vendrellignacio.controlflotavehicular.logic.Patente</class>
     <class>com.vendrellignacio.controlflotavehicular.logic.Viaje</class>
     <class>com.vendrellignacio.controlflotavehicular.logic.Acoplado</class>
     <class>com.vendrellignacio.controlflotavehicular.logic.Chasis</class>
     <class>com.vendrellignacio.controlflotavehicular.logic.Neumatico</class>
+    <class>com.vendrellignacio.controlflotavehicular.logic.Patente</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/controlFlotaVehicular?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

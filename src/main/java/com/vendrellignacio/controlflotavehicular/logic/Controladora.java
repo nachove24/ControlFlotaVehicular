@@ -190,6 +190,14 @@ public class Controladora {
         controlPersis.editarVia(gas, via);
         
     }
+
+    public List<Neumatico> traerNeus() {
+        return controlPersis.traerNeus();
+    }
+
+    public void borrarNeu(int idNeu) {
+        controlPersis.borrarNeu(idNeu);
+    }
     
     
     

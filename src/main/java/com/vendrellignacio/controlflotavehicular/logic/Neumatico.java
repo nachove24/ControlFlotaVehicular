@@ -26,41 +26,31 @@ public class Neumatico implements Serializable {
     private String estado;
     
     @ManyToOne
+    @JoinColumn(name = "fk_patente")
+    private Patente unPatente;
+    /*@ManyToOne
     @JoinColumn(name = "fk_acoplado")
     private Acoplado unAcoplado;
     @ManyToOne
     @JoinColumn(name = "fk_chasis")
     private Chasis unChasis;
-
+*/
     public Neumatico() {
     }
 
-    public Neumatico(int id_neumatico, String cod_neumatico, Date fechaUso, Double kmTotal, String marca, String estado, Acoplado unAcoplado, Chasis unChasis) {
+    public Neumatico(int id_neumatico, String cod_neumatico, Date fechaUso, Double kmTotal, String marca, String estado, Patente unPatente) {
         this.id_neumatico = id_neumatico;
         this.cod_neumatico = cod_neumatico;
         this.fechaUso = fechaUso;
         this.kmTotal = kmTotal;
         this.marca = marca;
         this.estado = estado;
-        this.unAcoplado = unAcoplado;
-        this.unChasis = unChasis;
+        this.unPatente = unPatente;
     }
 
-    public Acoplado getUnAcoplado() {
-        return unAcoplado;
-    }
+    
 
-    public void setUnAcoplado(Acoplado unAcoplado) {
-        this.unAcoplado = unAcoplado;
-    }
-
-    public Chasis getUnChasis() {
-        return unChasis;
-    }
-
-    public void setUnChasis(Chasis unChasis) {
-        this.unChasis = unChasis;
-    }
+    
 
     public int getId_neumatico() {
         return id_neumatico;
@@ -108,6 +98,14 @@ public class Neumatico implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Patente getUnPatente() {
+        return unPatente;
+    }
+
+    public void setUnPatente(Patente unPatente) {
+        this.unPatente = unPatente;
     }
     
     

@@ -2,7 +2,6 @@
 package com.vendrellignacio.controlflotavehicular.igu;
 
 
-import com.vendrellignacio.controlflotavehicular.logic.Acoplado;
 import com.vendrellignacio.controlflotavehicular.logic.Chasis;
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import java.util.List;

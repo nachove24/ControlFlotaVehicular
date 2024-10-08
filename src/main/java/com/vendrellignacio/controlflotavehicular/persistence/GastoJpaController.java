@@ -34,6 +34,7 @@ public class GastoJpaController implements Serializable {
     public GastoJpaController() {
         emf = Persistence.createEntityManagerFactory("flotaPU");
     }
+    
 
     public void create(Gasto gasto) {
         EntityManager em = null;

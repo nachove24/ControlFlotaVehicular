@@ -4,17 +4,19 @@
  */
 package com.vendrellignacio.controlflotavehicular.persistence;
 
+import java.io.Serializable;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  *
@@ -34,13 +36,31 @@ public class PatenteJpaController implements Serializable {
     public PatenteJpaController() {
         emf = Persistence.createEntityManagerFactory("flotaPU");
     }
-
+    
     public void create(Patente patente) {
+        if (patente.getListaNeumaticos() == null) {
+            patente.setListaNeumaticos(new ArrayList<Neumatico>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            List<Neumatico> attachedListaNeumaticos = new ArrayList<Neumatico>();
+            for (Neumatico listaNeumaticosNeumaticoToAttach : patente.getListaNeumaticos()) {
+                listaNeumaticosNeumaticoToAttach = em.getReference(listaNeumaticosNeumaticoToAttach.getClass(), listaNeumaticosNeumaticoToAttach.getId_neumatico());
+                attachedListaNeumaticos.add(listaNeumaticosNeumaticoToAttach);
+            }
+            patente.setListaNeumaticos(attachedListaNeumaticos);
             em.persist(patente);
+            for (Neumatico listaNeumaticosNeumatico : patente.getListaNeumaticos()) {
+                Patente oldUnPatenteOfListaNeumaticosNeumatico = listaNeumaticosNeumatico.getUnPatente();
+                listaNeumaticosNeumatico.setUnPatente(patente);
+                listaNeumaticosNeumatico = em.merge(listaNeumaticosNeumatico);
+                if (oldUnPatenteOfListaNeumaticosNeumatico != null) {
+                    oldUnPatenteOfListaNeumaticosNeumatico.getListaNeumaticos().remove(listaNeumaticosNeumatico);
+                    oldUnPatenteOfListaNeumaticosNeumatico = em.merge(oldUnPatenteOfListaNeumaticosNeumatico);
+                }
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -54,7 +74,34 @@ public class PatenteJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Patente persistentPatente = em.find(Patente.class, patente.getId_patente());
+            List<Neumatico> listaNeumaticosOld = persistentPatente.getListaNeumaticos();
+            List<Neumatico> listaNeumaticosNew = patente.getListaNeumaticos();
+            List<Neumatico> attachedListaNeumaticosNew = new ArrayList<Neumatico>();
+            for (Neumatico listaNeumaticosNewNeumaticoToAttach : listaNeumaticosNew) {
+                listaNeumaticosNewNeumaticoToAttach = em.getReference(listaNeumaticosNewNeumaticoToAttach.getClass(), listaNeumaticosNewNeumaticoToAttach.getId_neumatico());
+                attachedListaNeumaticosNew.add(listaNeumaticosNewNeumaticoToAttach);
+            }
+            listaNeumaticosNew = attachedListaNeumaticosNew;
+            patente.setListaNeumaticos(listaNeumaticosNew);
             patente = em.merge(patente);
+            for (Neumatico listaNeumaticosOldNeumatico : listaNeumaticosOld) {
+                if (!listaNeumaticosNew.contains(listaNeumaticosOldNeumatico)) {
+                    listaNeumaticosOldNeumatico.setUnPatente(null);
+                    listaNeumaticosOldNeumatico = em.merge(listaNeumaticosOldNeumatico);
+                }
+            }
+            for (Neumatico listaNeumaticosNewNeumatico : listaNeumaticosNew) {
+                if (!listaNeumaticosOld.contains(listaNeumaticosNewNeumatico)) {
+                    Patente oldUnPatenteOfListaNeumaticosNewNeumatico = listaNeumaticosNewNeumatico.getUnPatente();
+                    listaNeumaticosNewNeumatico.setUnPatente(patente);
+                    listaNeumaticosNewNeumatico = em.merge(listaNeumaticosNewNeumatico);
+                    if (oldUnPatenteOfListaNeumaticosNewNeumatico != null && !oldUnPatenteOfListaNeumaticosNewNeumatico.equals(patente)) {
+                        oldUnPatenteOfListaNeumaticosNewNeumatico.getListaNeumaticos().remove(listaNeumaticosNewNeumatico);
+                        oldUnPatenteOfListaNeumaticosNewNeumatico = em.merge(oldUnPatenteOfListaNeumaticosNewNeumatico);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -83,6 +130,11 @@ public class PatenteJpaController implements Serializable {
                 patente.getId_patente();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The patente with id " + id + " no longer exists.", enfe);
+            }
+            List<Neumatico> listaNeumaticos = patente.getListaNeumaticos();
+            for (Neumatico listaNeumaticosNeumatico : listaNeumaticos) {
+                listaNeumaticosNeumatico.setUnPatente(null);
+                listaNeumaticosNeumatico = em.merge(listaNeumaticosNeumatico);
             }
             em.remove(patente);
             em.getTransaction().commit();
