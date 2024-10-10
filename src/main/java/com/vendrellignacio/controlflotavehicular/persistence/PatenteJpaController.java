@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -190,5 +192,32 @@ public class PatenteJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public Integer obtenerIdPorCodigo(String codigo) {
+        EntityManager em = getEntityManager();
+    try {
+        return em.createQuery("SELECT p.id_patente FROM Patente p WHERE p.codigoPatente = :codigo", Integer.class)
+                            .setParameter("codigo", codigo)
+                            .getSingleResult();
+    } catch (NoResultException e) {
+        // Manejar caso donde no existe un registro con ese código.
+        System.out.println("No se encontró una patente con el código: " + codigo);
+        return null;
+    }
+}
+    /*public Integer findAcoIdByPatente(String codigo) {
+    EntityManager em = getEntityManager();
+    try {
+        // Se utiliza un alias "c" para la entidad Chasis y "p" para la entidad Patente
+        TypedQuery<Integer> q = em.createQuery("SELECT p.id_patente FROM Patente p WHERE p.codigoPatente = :codigo", Integer.class);
+        q.setParameter("codigo", codigo); // Asigna el parámetro como String
+        return q.getSingleResult();
+    } catch (NoResultException e) {
+        return null; // Devuelve null si no se encuentra ningún chasis con esa patente
+    } finally {
+        em.close();
+    }
+}*/
+
     
 }

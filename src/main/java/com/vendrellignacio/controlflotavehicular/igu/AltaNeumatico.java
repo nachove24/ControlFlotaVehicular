@@ -204,12 +204,11 @@ public class AltaNeumatico extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //ACOPLADO /\ CHASIS\\
-        String acoViaje = txtPatente.getText();
-        Integer idPat = control.traerIdAco(acoViaje);
-        
-        
-        
-        
+        String neuPatente = txtPatente.getText();
+        Integer idPat = control.traerIdAco(neuPatente);
+        if (idPat == null){
+            idPat = control.traerIdCha(neuPatente);
+        }
         if (idPat == null){
             JOptionPane optionPane = new JOptionPane("LA PATENTE NO EXISTE");
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -217,33 +216,21 @@ public class AltaNeumatico extends javax.swing.JFrame {
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
         }else{
-            Date fechaLl = dcFechaUso.getDate();
-            Date fechaSa = dcFechaSalida.getDate();
-            String lugOriViaje = txtCodigoNeu.getText();
-            String lugDesViaje = txtKmTotales.getText();
-            String kmInViaje = txtMarca.getText();
-            String kmFiViaje = txtEstado.getText();
-            String pesoCarViaje = txtPatente.getText();
-            String costoCarViaje = txtCostoCarga.getText();
-            String ctgViaje = txtCTG.getText();
-            String dteViaje = txtDTE.getText();
-            String guiaViaje = txtGuia.getText();
-            //GASTO
-            String combGasto = txtCombustible.getText();
-            String peaGasto = txtPeaje.getText();
-            String comiGasto = txtComida.getText();
-            //ACO Y CHA
-            acoViaje = idAco.toString();
-            chaViaje = idCha.toString();
-            System.out.println(acoViaje +" "+ chaViaje);
-            control.crearViaje(fechaLl,fechaSa, lugOriViaje,lugDesViaje,kmInViaje,kmFiViaje,pesoCarViaje,costoCarViaje,
-                ctgViaje,dteViaje,guiaViaje,acoViaje,chaViaje,combGasto,peaGasto,comiGasto);
+            Date fechaUso = dcFechaUso.getDate();
+            String codNeum = txtCodigoNeu.getText();
+            String kmTotales = txtKmTotales.getText();
+            String marcaNeum = txtMarca.getText();
+            String estadoNeum = txtEstado.getText();
+            //String patente = txtPatente.getText();
+            //neuPatente = idPat.toString();
+            System.out.println(idPat);
+            control.crearNeumatico(fechaUso, codNeum,kmTotales,marcaNeum,estadoNeum,neuPatente);
             
             JOptionPane optionPane = new JOptionPane("Se guardó correctamente.");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Guardado Exitoso");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Guardado Exitoso");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
         }
         
         

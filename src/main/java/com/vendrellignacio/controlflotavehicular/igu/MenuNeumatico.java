@@ -180,9 +180,9 @@ public class MenuNeumatico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        AltaChasis altaCha = new AltaChasis(control);
-        altaCha.setVisible(true);
-        altaCha.setLocationRelativeTo(null);
+        AltaNeumatico altaNeu = new AltaNeumatico(control);
+        altaNeu.setVisible(true);
+        altaNeu.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_btnCrearActionPerformed
 

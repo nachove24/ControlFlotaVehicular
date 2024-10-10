@@ -190,13 +190,28 @@ public class Controladora {
         controlPersis.editarVia(gas, via);
         
     }
-
+/////////////////////////////////////////////NEUMATICO///////////////////////////////////////
     public List<Neumatico> traerNeus() {
         return controlPersis.traerNeus();
     }
 
     public void borrarNeu(int idNeu) {
         controlPersis.borrarNeu(idNeu);
+    }
+
+    public void crearNeumatico(Date fechaUso, String codNeum, String kmTotales, 
+            String marcaNeum, String estadoNeum, String neuPatente) {
+        Neumatico neu = new Neumatico();
+        neu.setCod_neumatico(codNeum);
+        neu.setEstado(estadoNeum);
+        neu.setFechaUso(fechaUso);
+        neu.setKmTotal(Double.valueOf(kmTotales));
+        neu.setMarca(marcaNeum);
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(neuPatente);
+        neu.setUnPatente(pat);
+        
+        controlPersis.crearNeumatico(neu);
     }
     
     

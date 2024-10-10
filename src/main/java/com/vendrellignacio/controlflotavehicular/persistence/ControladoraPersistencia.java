@@ -140,5 +140,14 @@ public class ControladoraPersistencia {
         }
     }
 
+    public Patente traerPatbyPatente(String codigo) {
+        int idPat = patenteJpa.obtenerIdPorCodigo(codigo);
+        return patenteJpa.findPatente(idPat);
+    }
+
+    public void crearNeumatico(Neumatico neu) {
+        neumaticoJpa.create(neu);
+    }
+
     
 }
