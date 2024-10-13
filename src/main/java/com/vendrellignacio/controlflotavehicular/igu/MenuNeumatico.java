@@ -193,7 +193,7 @@ public class MenuNeumatico extends javax.swing.JFrame {
                 /*//obtengo el valor de una columna q fue seleccionada*/
                 int idNeu = Integer.parseInt(String.valueOf(tablaNeu.getValueAt(tablaNeu.getSelectedRow(),0)));
                 //MOSTRAMOS la pantala para modificar
-                ModificarCha pantallaModificar = new ModificarCha (idNeu,control);
+                ModificarNeu pantallaModificar = new ModificarNeu (idNeu,control);
                 pantallaModificar.setVisible(true);
                 pantallaModificar.setLocationRelativeTo(null);
 

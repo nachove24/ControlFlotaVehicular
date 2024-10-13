@@ -213,6 +213,28 @@ public class Controladora {
         
         controlPersis.crearNeumatico(neu);
     }
+
+    public Neumatico traerNeu(int idNeu) {
+        return controlPersis.traerNeu(idNeu);
+    }
+
+    public void editarNeumatico(Neumatico neu, Date fechaUso, String codNeum, String kmTotales, 
+            String marcaNeum, String estadoNeum, String neuPatente) {
+        neu.setCod_neumatico(codNeum);
+        neu.setEstado(estadoNeum);
+        neu.setFechaUso(fechaUso);
+        neu.setKmTotal(Double.valueOf(kmTotales));
+        neu.setMarca(marcaNeum);
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(neuPatente);
+        neu.setUnPatente(pat);
+        
+        try {
+            controlPersis.editarNeu(neu);
+        } catch (Exception ex) {
+            Logger.getLogger(Controladora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
     

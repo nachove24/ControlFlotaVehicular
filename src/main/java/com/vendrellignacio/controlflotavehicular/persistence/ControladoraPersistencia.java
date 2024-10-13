@@ -149,5 +149,13 @@ public class ControladoraPersistencia {
         neumaticoJpa.create(neu);
     }
 
+    public Neumatico traerNeu(int idNeu) {
+        return neumaticoJpa.findNeumatico(idNeu);
+    }
+
+    public void editarNeu(Neumatico neu) throws Exception {
+        neumaticoJpa.edit(neu);
+    }
+
     
 }
