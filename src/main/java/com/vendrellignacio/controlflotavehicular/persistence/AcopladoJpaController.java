@@ -34,10 +34,9 @@ public class AcopladoJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    public AcopladoJpaController() {
+public AcopladoJpaController() {
         emf = Persistence.createEntityManagerFactory("flotaPU");
     }
-
     public void create(Acoplado acoplado) {
         if (acoplado.getListaViajes() == null) {
             acoplado.setListaViajes(new ArrayList<Viaje>());
@@ -191,7 +190,6 @@ public class AcopladoJpaController implements Serializable {
             em.close();
         }
     }
-    
     public Integer findAcoIdByPatente(String acoViaje) {
     EntityManager em = getEntityManager();
     try {

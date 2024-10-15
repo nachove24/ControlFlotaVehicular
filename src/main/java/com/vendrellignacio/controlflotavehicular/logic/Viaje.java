@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.logic;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,12 +45,14 @@ public class Viaje implements Serializable {
     private Chasis unChasis;
     @OneToOne(cascade = CascadeType.REMOVE)
     private Gasto unGasto;
+    @OneToMany(mappedBy = "unViaje")
+    private List<Multa> listaMultas;
    
     //constructores
     public Viaje() {
     }
 
-    public Viaje(int id_viaje, Date fechaSalida, Date fechaLlegada, String lugarOrigen, String destino, double kmInicial, double kmFinal, double kmRecorrido, double pesoCarga, double costoCarga, int ctg, int guia, int dte, Acoplado unAcoplado, Chasis unChasis, Gasto unGasto) {
+    public Viaje(int id_viaje, Date fechaSalida, Date fechaLlegada, String lugarOrigen, String destino, double kmInicial, double kmFinal, double kmRecorrido, double pesoCarga, double costoCarga, int ctg, int guia, int dte, Acoplado unAcoplado, Chasis unChasis, Gasto unGasto, List<Multa> listaMultas) {
         this.id_viaje = id_viaje;
         this.fechaSalida = fechaSalida;
         this.fechaLlegada = fechaLlegada;
@@ -65,7 +69,10 @@ public class Viaje implements Serializable {
         this.unAcoplado = unAcoplado;
         this.unChasis = unChasis;
         this.unGasto = unGasto;
+        this.listaMultas = listaMultas;
     }
+
+    
 
 
     public int getId_viaje() {
@@ -194,6 +201,14 @@ public class Viaje implements Serializable {
 
     public void setUnGasto(Gasto unGasto) {
         this.unGasto = unGasto;
+    }
+
+    public List<Multa> getListaMultas() {
+        return listaMultas;
+    }
+
+    public void setListaMultas(List<Multa> listaMultas) {
+        this.listaMultas = listaMultas;
     }
     
 }

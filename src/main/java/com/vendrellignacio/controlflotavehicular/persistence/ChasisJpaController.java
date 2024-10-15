@@ -34,11 +34,9 @@ public class ChasisJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
-    public ChasisJpaController() {
+public ChasisJpaController() {
         emf = Persistence.createEntityManagerFactory("flotaPU");
     }
-    
     public void create(Chasis chasis) {
         if (chasis.getListaViajes() == null) {
             chasis.setListaViajes(new ArrayList<Viaje>());
@@ -192,7 +190,6 @@ public class ChasisJpaController implements Serializable {
             em.close();
         }
     }
-    
     public Integer findChaIdByPatente(String chaViaje) {
     EntityManager em = getEntityManager();
     try {
@@ -206,5 +203,6 @@ public class ChasisJpaController implements Serializable {
         em.close();
     }
 }
+
     
 }

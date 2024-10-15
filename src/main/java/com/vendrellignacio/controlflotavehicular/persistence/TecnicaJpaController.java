@@ -4,26 +4,25 @@
  */
 package com.vendrellignacio.controlflotavehicular.persistence;
 
-import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
+import com.vendrellignacio.controlflotavehicular.logic.Tecnica;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
  * @author nacho
  */
-public class NeumaticoJpaController implements Serializable {
+public class TecnicaJpaController implements Serializable {
 
-    public NeumaticoJpaController(EntityManagerFactory emf) {
+    public TecnicaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,22 +30,20 @@ public class NeumaticoJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-public NeumaticoJpaController() {
-        emf = Persistence.createEntityManagerFactory("flotaPU");
-    }
-    public void create(Neumatico neumatico) {
+
+    public void create(Tecnica tecnica) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Patente unPatente = neumatico.getUnPatente();
+            Patente unPatente = tecnica.getUnPatente();
             if (unPatente != null) {
                 unPatente = em.getReference(unPatente.getClass(), unPatente.getId_patente());
-                neumatico.setUnPatente(unPatente);
+                tecnica.setUnPatente(unPatente);
             }
-            em.persist(neumatico);
+            em.persist(tecnica);
             if (unPatente != null) {
-                unPatente.getListaNeumaticos().add(neumatico);
+                unPatente.getListaTecnicas().add(tecnica);
                 unPatente = em.merge(unPatente);
             }
             em.getTransaction().commit();
@@ -57,34 +54,34 @@ public NeumaticoJpaController() {
         }
     }
 
-    public void edit(Neumatico neumatico) throws NonexistentEntityException, Exception {
+    public void edit(Tecnica tecnica) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Neumatico persistentNeumatico = em.find(Neumatico.class, neumatico.getId_neumatico());
-            Patente unPatenteOld = persistentNeumatico.getUnPatente();
-            Patente unPatenteNew = neumatico.getUnPatente();
+            Tecnica persistentTecnica = em.find(Tecnica.class, tecnica.getId_tecnica());
+            Patente unPatenteOld = persistentTecnica.getUnPatente();
+            Patente unPatenteNew = tecnica.getUnPatente();
             if (unPatenteNew != null) {
                 unPatenteNew = em.getReference(unPatenteNew.getClass(), unPatenteNew.getId_patente());
-                neumatico.setUnPatente(unPatenteNew);
+                tecnica.setUnPatente(unPatenteNew);
             }
-            neumatico = em.merge(neumatico);
+            tecnica = em.merge(tecnica);
             if (unPatenteOld != null && !unPatenteOld.equals(unPatenteNew)) {
-                unPatenteOld.getListaNeumaticos().remove(neumatico);
+                unPatenteOld.getListaTecnicas().remove(tecnica);
                 unPatenteOld = em.merge(unPatenteOld);
             }
             if (unPatenteNew != null && !unPatenteNew.equals(unPatenteOld)) {
-                unPatenteNew.getListaNeumaticos().add(neumatico);
+                unPatenteNew.getListaTecnicas().add(tecnica);
                 unPatenteNew = em.merge(unPatenteNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = neumatico.getId_neumatico();
-                if (findNeumatico(id) == null) {
-                    throw new NonexistentEntityException("The neumatico with id " + id + " no longer exists.");
+                int id = tecnica.getId_tecnica();
+                if (findTecnica(id) == null) {
+                    throw new NonexistentEntityException("The tecnica with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -100,19 +97,19 @@ public NeumaticoJpaController() {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Neumatico neumatico;
+            Tecnica tecnica;
             try {
-                neumatico = em.getReference(Neumatico.class, id);
-                neumatico.getId_neumatico();
+                tecnica = em.getReference(Tecnica.class, id);
+                tecnica.getId_tecnica();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The neumatico with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The tecnica with id " + id + " no longer exists.", enfe);
             }
-            Patente unPatente = neumatico.getUnPatente();
+            Patente unPatente = tecnica.getUnPatente();
             if (unPatente != null) {
-                unPatente.getListaNeumaticos().remove(neumatico);
+                unPatente.getListaTecnicas().remove(tecnica);
                 unPatente = em.merge(unPatente);
             }
-            em.remove(neumatico);
+            em.remove(tecnica);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -121,19 +118,19 @@ public NeumaticoJpaController() {
         }
     }
 
-    public List<Neumatico> findNeumaticoEntities() {
-        return findNeumaticoEntities(true, -1, -1);
+    public List<Tecnica> findTecnicaEntities() {
+        return findTecnicaEntities(true, -1, -1);
     }
 
-    public List<Neumatico> findNeumaticoEntities(int maxResults, int firstResult) {
-        return findNeumaticoEntities(false, maxResults, firstResult);
+    public List<Tecnica> findTecnicaEntities(int maxResults, int firstResult) {
+        return findTecnicaEntities(false, maxResults, firstResult);
     }
 
-    private List<Neumatico> findNeumaticoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Tecnica> findTecnicaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Neumatico.class));
+            cq.select(cq.from(Tecnica.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -145,20 +142,20 @@ public NeumaticoJpaController() {
         }
     }
 
-    public Neumatico findNeumatico(int id) {
+    public Tecnica findTecnica(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Neumatico.class, id);
+            return em.find(Tecnica.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getNeumaticoCount() {
+    public int getTecnicaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Neumatico> rt = cq.from(Neumatico.class);
+            Root<Tecnica> rt = cq.from(Tecnica.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

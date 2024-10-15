@@ -11,8 +11,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.vendrellignacio.controlflotavehicular.logic.Acoplado;
 import com.vendrellignacio.controlflotavehicular.logic.Chasis;
+import com.vendrellignacio.controlflotavehicular.logic.Multa;
 import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,12 +34,13 @@ public class ViajeJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
-    public ViajeJpaController() {
+public ViajeJpaController() {
         emf = Persistence.createEntityManagerFactory("flotaPU");
     }
-
     public void create(Viaje viaje) {
+        if (viaje.getListaMultas() == null) {
+            viaje.setListaMultas(new ArrayList<Multa>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -52,6 +55,12 @@ public class ViajeJpaController implements Serializable {
                 unChasis = em.getReference(unChasis.getClass(), unChasis.getId_chasis());
                 viaje.setUnChasis(unChasis);
             }
+            List<Multa> attachedListaMultas = new ArrayList<Multa>();
+            for (Multa listaMultasMultaToAttach : viaje.getListaMultas()) {
+                listaMultasMultaToAttach = em.getReference(listaMultasMultaToAttach.getClass(), listaMultasMultaToAttach.getId_multa());
+                attachedListaMultas.add(listaMultasMultaToAttach);
+            }
+            viaje.setListaMultas(attachedListaMultas);
             em.persist(viaje);
             if (unAcoplado != null) {
                 unAcoplado.getListaViajes().add(viaje);
@@ -60,6 +69,15 @@ public class ViajeJpaController implements Serializable {
             if (unChasis != null) {
                 unChasis.getListaViajes().add(viaje);
                 unChasis = em.merge(unChasis);
+            }
+            for (Multa listaMultasMulta : viaje.getListaMultas()) {
+                Viaje oldUnViajeOfListaMultasMulta = listaMultasMulta.getUnViaje();
+                listaMultasMulta.setUnViaje(viaje);
+                listaMultasMulta = em.merge(listaMultasMulta);
+                if (oldUnViajeOfListaMultasMulta != null) {
+                    oldUnViajeOfListaMultasMulta.getListaMultas().remove(listaMultasMulta);
+                    oldUnViajeOfListaMultasMulta = em.merge(oldUnViajeOfListaMultasMulta);
+                }
             }
             em.getTransaction().commit();
         } finally {
@@ -79,6 +97,8 @@ public class ViajeJpaController implements Serializable {
             Acoplado unAcopladoNew = viaje.getUnAcoplado();
             Chasis unChasisOld = persistentViaje.getUnChasis();
             Chasis unChasisNew = viaje.getUnChasis();
+            List<Multa> listaMultasOld = persistentViaje.getListaMultas();
+            List<Multa> listaMultasNew = viaje.getListaMultas();
             if (unAcopladoNew != null) {
                 unAcopladoNew = em.getReference(unAcopladoNew.getClass(), unAcopladoNew.getId_acoplado());
                 viaje.setUnAcoplado(unAcopladoNew);
@@ -87,6 +107,13 @@ public class ViajeJpaController implements Serializable {
                 unChasisNew = em.getReference(unChasisNew.getClass(), unChasisNew.getId_chasis());
                 viaje.setUnChasis(unChasisNew);
             }
+            List<Multa> attachedListaMultasNew = new ArrayList<Multa>();
+            for (Multa listaMultasNewMultaToAttach : listaMultasNew) {
+                listaMultasNewMultaToAttach = em.getReference(listaMultasNewMultaToAttach.getClass(), listaMultasNewMultaToAttach.getId_multa());
+                attachedListaMultasNew.add(listaMultasNewMultaToAttach);
+            }
+            listaMultasNew = attachedListaMultasNew;
+            viaje.setListaMultas(listaMultasNew);
             viaje = em.merge(viaje);
             if (unAcopladoOld != null && !unAcopladoOld.equals(unAcopladoNew)) {
                 unAcopladoOld.getListaViajes().remove(viaje);
@@ -103,6 +130,23 @@ public class ViajeJpaController implements Serializable {
             if (unChasisNew != null && !unChasisNew.equals(unChasisOld)) {
                 unChasisNew.getListaViajes().add(viaje);
                 unChasisNew = em.merge(unChasisNew);
+            }
+            for (Multa listaMultasOldMulta : listaMultasOld) {
+                if (!listaMultasNew.contains(listaMultasOldMulta)) {
+                    listaMultasOldMulta.setUnViaje(null);
+                    listaMultasOldMulta = em.merge(listaMultasOldMulta);
+                }
+            }
+            for (Multa listaMultasNewMulta : listaMultasNew) {
+                if (!listaMultasOld.contains(listaMultasNewMulta)) {
+                    Viaje oldUnViajeOfListaMultasNewMulta = listaMultasNewMulta.getUnViaje();
+                    listaMultasNewMulta.setUnViaje(viaje);
+                    listaMultasNewMulta = em.merge(listaMultasNewMulta);
+                    if (oldUnViajeOfListaMultasNewMulta != null && !oldUnViajeOfListaMultasNewMulta.equals(viaje)) {
+                        oldUnViajeOfListaMultasNewMulta.getListaMultas().remove(listaMultasNewMulta);
+                        oldUnViajeOfListaMultasNewMulta = em.merge(oldUnViajeOfListaMultasNewMulta);
+                    }
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -142,6 +186,11 @@ public class ViajeJpaController implements Serializable {
             if (unChasis != null) {
                 unChasis.getListaViajes().remove(viaje);
                 unChasis = em.merge(unChasis);
+            }
+            List<Multa> listaMultas = viaje.getListaMultas();
+            for (Multa listaMultasMulta : listaMultas) {
+                listaMultasMulta.setUnViaje(null);
+                listaMultasMulta = em.merge(listaMultasMulta);
             }
             em.remove(viaje);
             em.getTransaction().commit();
