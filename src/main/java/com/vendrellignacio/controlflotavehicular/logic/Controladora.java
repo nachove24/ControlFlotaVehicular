@@ -235,6 +235,37 @@ public class Controladora {
             Logger.getLogger(Controladora.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public List<Tecnica> traerTecs() {
+        return controlPersis.traerTecs();
+    }
+
+    public void borrarTec(int idTec) {
+        controlPersis.borrarTec(idTec);
+    }
+
+    public void crearTecnica(String anoTecnica, String patenteTecnica, Date vencvtv) {
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(patenteTecnica);
+        Tecnica tec = new Tecnica();
+        tec.setAno(Integer.parseInt(anoTecnica));
+        tec.setVencVTV(vencvtv);
+        tec.setUnPatente(pat);
+        controlPersis.guardarTec(tec); 
+    }
+
+    public Tecnica traerTec(int idTec) {
+        return controlPersis.traerTec(idTec);
+    }
+
+    public void editarTecnica(Tecnica tec, String anoTecnica, String patenteTecnica, Date vencvtv) {
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(patenteTecnica);
+        tec.setAno(Integer.parseInt(anoTecnica));
+        tec.setVencVTV(vencvtv);
+        tec.setUnPatente(pat);
+        controlPersis.editarTec(tec); 
+    }
     
     
     

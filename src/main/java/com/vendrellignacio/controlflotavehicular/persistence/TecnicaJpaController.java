@@ -15,6 +15,7 @@ import com.vendrellignacio.controlflotavehicular.persistence.exceptions.Nonexist
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -29,6 +30,9 @@ public class TecnicaJpaController implements Serializable {
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+    public TecnicaJpaController() {
+        emf = Persistence.createEntityManagerFactory("flotaPU");
     }
 
     public void create(Tecnica tecnica) {

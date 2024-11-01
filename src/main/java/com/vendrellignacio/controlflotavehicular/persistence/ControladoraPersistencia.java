@@ -6,6 +6,7 @@ import com.vendrellignacio.controlflotavehicular.logic.Chasis;
 import com.vendrellignacio.controlflotavehicular.logic.Gasto;
 import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
+import com.vendrellignacio.controlflotavehicular.logic.Tecnica;
 import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
 import java.util.List;
@@ -20,6 +21,11 @@ public class ControladoraPersistencia {
     PatenteJpaController patenteJpa = new PatenteJpaController();
     ViajeJpaController viajeJpa = new ViajeJpaController();
     NeumaticoJpaController neumaticoJpa = new NeumaticoJpaController();
+    SeguroJpaController seguroJpa = new SeguroJpaController();
+    MultaJpaController multaJpa = new MultaJpaController();
+    MantenimientoJpaController mantenimientoJpa = new MantenimientoJpaController();
+    ImpuestoJpaController impuestoJpa = new ImpuestoJpaController();
+    TecnicaJpaController tecnicaJpa = new TecnicaJpaController();
 
     ///////////////ACOPLADO/////////////////////////////////////////////////////////////////////
     
@@ -155,6 +161,36 @@ public class ControladoraPersistencia {
 
     public void editarNeu(Neumatico neu) throws Exception {
         neumaticoJpa.edit(neu);
+    }
+    
+    
+//////////////////////////////////TECNICA//////////////////////////////////////////////////
+    public List<Tecnica> traerTecs() {
+        return tecnicaJpa.findTecnicaEntities();
+    }
+
+    public void borrarTec(int idTec) {
+        try {
+            tecnicaJpa.destroy(idTec);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void guardarTec(Tecnica tec) {
+        tecnicaJpa.create(tec);
+    }
+
+    public Tecnica traerTec(int idTec) {
+        return tecnicaJpa.findTecnica(idTec);
+    }
+
+    public void editarTec(Tecnica tec) {
+        try {
+            tecnicaJpa.edit(tec);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

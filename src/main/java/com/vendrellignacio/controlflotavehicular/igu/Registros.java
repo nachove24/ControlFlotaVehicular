@@ -215,7 +215,11 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNeumaticoActionPerformed
 
     private void btnTecnicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTecnicaActionPerformed
-        // TODO add your handling code here:
+        MenuTecnica menu = new MenuTecnica();
+        //Lo hacemos visible:
+        menu.setVisible(true);
+        //Lo centramos
+        menu.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnTecnicaActionPerformed
 
     private void btnMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultaActionPerformed
