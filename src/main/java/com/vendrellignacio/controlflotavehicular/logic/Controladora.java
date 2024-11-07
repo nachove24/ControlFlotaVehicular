@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.logic;
 
 import com.vendrellignacio.controlflotavehicular.persistence.ControladoraPersistencia;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -265,6 +266,72 @@ public class Controladora {
         tec.setVencVTV(vencvtv);
         tec.setUnPatente(pat);
         controlPersis.editarTec(tec); 
+    }
+
+    ////////////////////////////////SEGURO///////////////////////////////////////7
+    public void borrarSeg(int idSeg) {
+        controlPersis.borrarSeg(idSeg);
+    }
+
+    public void crearSeguro(Date fechaVenc, Date fechaInicio, String poliza, String tipo, 
+            String importe, String segPatente, String aseguradora) {
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(segPatente);
+        Seguro seg = new Seguro();
+        seg.setImporte(Double.parseDouble(importe));
+        seg.setPoliza(poliza);
+        seg.setFechaInicio(fechaInicio);
+        seg.setFechaVenc(fechaVenc);
+        seg.setTipo(tipo);
+        seg.setAseguradora(aseguradora);
+         // Obtener la fecha actual
+        Date fechaActual = new Date();
+        // Variable para almacenar el estado
+        String estado;
+        // Comparación de fechas
+        if (fechaActual.after(fechaVenc)) {
+            estado = "Vencida";
+        } else {
+            estado = "Activa";
+        }
+        seg.setEstado(estado);
+        
+        seg.setUnPatente(pat);
+        controlPersis.guardarSeg(seg); 
+    }
+
+    public List<Seguro> traerSegs() {
+        return controlPersis.traerSegs();
+    }
+
+    public Seguro traerSeg(int idSeg) {
+        return controlPersis.traerSeg(idSeg);
+    }
+
+    public void editarSeguro(Seguro seg, Date fechaVenc, Date fechaInicio, String poliza, String tipo, String importe, String segPatente, String aseguradora) {
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(segPatente);
+        
+        seg.setImporte(Double.parseDouble(importe));
+        seg.setPoliza(poliza);
+        seg.setFechaInicio(fechaInicio);
+        seg.setFechaVenc(fechaVenc);
+        seg.setTipo(tipo);
+        seg.setAseguradora(aseguradora);
+         // Obtener la fecha actual
+        Date fechaActual = new Date();
+        // Variable para almacenar el estado
+        String estado;
+        // Comparación de fechas
+        if (fechaActual.after(fechaVenc)) {
+            estado = "Vencida";
+        } else {
+            estado = "Activa";
+        }
+        seg.setEstado(estado);
+        
+        seg.setUnPatente(pat);
+        controlPersis.editarSeg(seg); 
     }
     
     

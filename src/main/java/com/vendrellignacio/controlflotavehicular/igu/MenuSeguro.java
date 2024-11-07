@@ -3,16 +3,17 @@ package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
+import com.vendrellignacio.controlflotavehicular.logic.Seguro;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
-public class MenuNeumatico extends javax.swing.JFrame {
+public class MenuSeguro extends javax.swing.JFrame {
 
     Controladora control;
-    public MenuNeumatico() {
+    public MenuSeguro() {
         initComponents();
         control = new Controladora();
     }
@@ -25,7 +26,7 @@ public class MenuNeumatico extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaNeu = new javax.swing.JTable();
+        tablaSeg = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnCrear = new javax.swing.JButton();
@@ -41,8 +42,8 @@ public class MenuNeumatico extends javax.swing.JFrame {
             }
         });
 
-        tablaNeu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tablaNeu.setModel(new javax.swing.table.DefaultTableModel(
+        tablaSeg.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tablaSeg.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -53,7 +54,7 @@ public class MenuNeumatico extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tablaNeu);
+        jScrollPane1.setViewportView(tablaSeg);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -73,23 +74,23 @@ public class MenuNeumatico extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
-        jLabel1.setText("Neumaticos");
+        jLabel1.setText("Seguros");
 
-        btnCrear.setText("Registrar Neumatico");
+        btnCrear.setText("Registrar Seguro");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearActionPerformed(evt);
             }
         });
 
-        btnEditar.setText("Editar Neumatico");
+        btnEditar.setText("Editar Seguro");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
             }
         });
 
-        btnBorrar.setText("Borrar Neumatico");
+        btnBorrar.setText("Borrar Seguro");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -185,20 +186,20 @@ public class MenuNeumatico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        AltaNeumatico altaNeu = new AltaNeumatico(control);
-        altaNeu.setVisible(true);
-        altaNeu.setLocationRelativeTo(null);
+        AltaSeguro alta = new AltaSeguro(control);
+        alta.setVisible(true);
+        alta.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (tablaNeu.getRowCount()>0){
+        if (tablaSeg.getRowCount()>0){
             //verifico si se seleccionó una celda
-            if (tablaNeu.getSelectedRow()!=-1){
+            if (tablaSeg.getSelectedRow()!=-1){
                 /*//obtengo el valor de una columna q fue seleccionada*/
-                int idNeu = Integer.parseInt(String.valueOf(tablaNeu.getValueAt(tablaNeu.getSelectedRow(),0)));
+                int idSeg = Integer.parseInt(String.valueOf(tablaSeg.getValueAt(tablaSeg.getSelectedRow(),0)));
                 //MOSTRAMOS la pantala para modificar
-                ModificarNeu pantallaModificar = new ModificarNeu (idNeu,control);
+                ModificarSeg pantallaModificar = new ModificarSeg (idSeg,control);
                 pantallaModificar.setVisible(true);
                 pantallaModificar.setLocationRelativeTo(null);
 
@@ -213,14 +214,14 @@ public class MenuNeumatico extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         //verifico si hay registros
-        if (tablaNeu.getRowCount()>0){
+        if (tablaSeg.getRowCount()>0){
             //verifico si se seleccionó una celda
-            if (tablaNeu.getSelectedRow()!=-1){
+            if (tablaSeg.getSelectedRow()!=-1){
                 /*//obtengo el valor de una columna q fue seleccionada*/
-                int idNeu = Integer.parseInt(String.valueOf(tablaNeu.getValueAt(tablaNeu.getSelectedRow(),0)));
+                int idSeg = Integer.parseInt(String.valueOf(tablaSeg.getValueAt(tablaSeg.getSelectedRow(),0)));
 
                 //llamo al metodo borrar de controladora
-                control.borrarNeu(idNeu);
+                control.borrarSeg(idSeg);
                 //muestro msj usando el metodo creado
                 mostrarMensaje("Se borro correctamente","info","Eliminado con exito");
                 cargarTabla();
@@ -258,7 +259,7 @@ public class MenuNeumatico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaNeu;
+    private javax.swing.JTable tablaSeg;
     // End of variables declaration//GEN-END:variables
     
     private void cargarTabla() {
@@ -269,22 +270,23 @@ public class MenuNeumatico extends javax.swing.JFrame {
                 return false; // Make all cells non-editable
             }
         };
-        String titulos[] = {"Id", "Codigo", "Fecha de Uso", "Km Totales", "Marca", "Estado", "Patente"};
+        String titulos[] = {"Id", "Aseguradora", "Poliza", "Estado", "Fecha Venc.", "Fecha Inicio", "Patente",
+            "Importe","Tipo"};
         model.setColumnIdentifiers(titulos);
-        tablaNeu.setModel(model);
+        tablaSeg.setModel(model);
         
         //traer los registros desde la bd
-        List <Neumatico> listaNeu = control.traerNeus();
-        if (listaNeu != null){
-            for (Neumatico neu : listaNeu){
-                Object[] obj = {neu.getId_neumatico(), neu.getCod_neumatico(), neu.getFechaUso(), 
-                    neu.getKmTotal(), neu.getMarca(), neu.getEstado(),
-                    neu.getUnPatente().getCodigoPatente()};
+        List <Seguro> listaSeg = control.traerSegs();
+        if (listaSeg != null){
+            for (Seguro seg : listaSeg){
+                Object[] obj = {seg.getId_seguro(), seg.getAseguradora(), seg.getPoliza(), 
+                    seg.getEstado(), seg.getFechaVenc(), seg.getFechaInicio(), seg.getImporte(),
+                    seg.getUnPatente().getCodigoPatente(), seg.getTipo()};
                 
                 model.addRow(obj);
             }
         }
-        tablaNeu.setModel(model);
+        tablaSeg.setModel(model);
     }
     
     

@@ -65,7 +65,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI Emoji" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Registro Neumatico"/>
+        <Property name="text" type="java.lang.String" value="Editar Neumatico"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">

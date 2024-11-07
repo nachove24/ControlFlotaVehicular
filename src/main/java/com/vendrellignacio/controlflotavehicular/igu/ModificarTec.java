@@ -46,7 +46,7 @@ public class ModificarTec extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        jLabel1.setText("Registro Neumatico");
+        jLabel1.setText("Editar Neumatico");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         jLabel5.setText("Venc. VTV");

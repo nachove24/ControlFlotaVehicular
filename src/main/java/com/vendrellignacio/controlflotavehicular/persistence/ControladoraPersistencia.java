@@ -6,6 +6,7 @@ import com.vendrellignacio.controlflotavehicular.logic.Chasis;
 import com.vendrellignacio.controlflotavehicular.logic.Gasto;
 import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
+import com.vendrellignacio.controlflotavehicular.logic.Seguro;
 import com.vendrellignacio.controlflotavehicular.logic.Tecnica;
 import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
@@ -188,6 +189,35 @@ public class ControladoraPersistencia {
     public void editarTec(Tecnica tec) {
         try {
             tecnicaJpa.edit(tec);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+//////////////////////////SEGURO/////////////////////////////////////////////////////////////////
+    public void borrarSeg(int idSeg) {
+        try {
+            seguroJpa.destroy(idSeg);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void guardarSeg(Seguro seg) {
+        seguroJpa.create(seg);
+    }
+
+    public List<Seguro> traerSegs() {
+        return seguroJpa.findSeguroEntities();
+    }
+
+    public Seguro traerSeg(int idSeg) {
+        return seguroJpa.findSeguro(idSeg);
+    }
+
+    public void editarSeg(Seguro seg) {
+        try {
+            seguroJpa.edit(seg);
         } catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -243,7 +243,11 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImpuestoActionPerformed
 
     private void btnSeguroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguroActionPerformed
-        // TODO add your handling code here:
+        MenuSeguro menu = new MenuSeguro();
+        //Lo hacemos visible:
+        menu.setVisible(true);
+        //Lo centramos
+        menu.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnSeguroActionPerformed
 
     private void btnMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientoActionPerformed
