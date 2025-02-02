@@ -236,7 +236,7 @@ public class Controladora {
             Logger.getLogger(Controladora.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+////////////////////////////////////////TECNICA?''''''''''''''''\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'
     public List<Tecnica> traerTecs() {
         return controlPersis.traerTecs();
     }
@@ -334,7 +334,126 @@ public class Controladora {
         controlPersis.editarSeg(seg); 
     }
     
+    ////////////MULTA////////////////////////////////////////
+    public List<Multa> traerMultas() {
+        return controlPersis.traerMultas();
+    }
+
+    public void crearMulta(String pagado, String importe, Viaje via, String infraccion, String estadoMul) {
+        Multa mul = new Multa();
+        mul.setEstado(estadoMul);
+        mul.setImporte(Double.parseDouble(importe));
+        mul.setImpPagado(Double.parseDouble(pagado));
+        mul.setInfraccion(infraccion);
+        mul.setUnViaje(via);
+        controlPersis.crearMulta(mul);
+    }
+
+    public Viaje traerViaje(String mulViaje) {
+        return controlPersis.traerVia(Integer.parseInt(mulViaje));
+    }
+
+    public void borrarMul(int idMul) {
+        controlPersis.borrarMul(idMul);
+    }
     
+    public Multa traerMul(int idMul) {
+        return controlPersis.traerMul(idMul);
+    }
     
+    public void editarMulta(Multa mul, String pagado, String importe, 
+            String mulViaje, String infraccion, String estadoMul) {
+        Viaje via;
+        via = controlPersis.traerVia(Integer.parseInt(mulViaje));
+        
+        mul.setImporte(Double.parseDouble(importe));
+        mul.setImpPagado(Double.parseDouble(pagado));
+        mul.setInfraccion(infraccion);
+        // Obtener valores actuales
+        double importeTotal = Double.parseDouble(importe);
+        double importePagado = Double.parseDouble(pagado);
+        // Variable para almacenar el estado
+        String estado;
+        // Comparación de importes
+        if (importePagado >= importeTotal) {
+            estado = "Pagada";
+        } else {
+            estado = "Pendiente";
+        }
+        mul.setEstado(estado);
+        
+        mul.setUnViaje(via);
+        controlPersis.editarMul(mul); 
+    }
     
+    ///////////////////////////MANTENIMENTO;_:;_:;_:_;:;_:;_:;_:_;:;_:;_:;_:_;:_;:;_:_;::;
+    public void crearMantenimiento(String patente, String km, Date fecha, String obsv) {
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(patente);
+        
+        Mantenimiento man = new Mantenimiento();
+        man.setKm(Double.parseDouble(km));
+        man.setFecha(fecha);
+        man.setObsv(obsv);
+        man.setUnPatente(pat);
+        controlPersis.crearMan(man); 
+    }
+    
+    public List<Mantenimiento> traerMans() {
+        return controlPersis.traerMans();
+    }
+    
+    public void borrarMan(int idMan) {
+        controlPersis.borrarMan(idMan);
+    }
+    
+    public Mantenimiento traerMan(int idMan) {
+        return controlPersis.traerMan(idMan);
+    }
+    
+    public void editarMantenimiento(Mantenimiento man, String patente, String km, 
+            Date fecha, String obsv) {
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(patente);
+        
+        man.setKm(Double.parseDouble(km));
+        man.setFecha(fecha);
+        man.setObsv(obsv);
+        man.setUnPatente(pat);
+        controlPersis.editarMan(man); 
+    }
+    
+    ////////////////////////////////IMPUESTO///////////////////////////////////////
+    public void borrarImp(int idImp) {
+        controlPersis.borrarImp(idImp);
+    }
+    
+    public void crearImpuesto(String patente, String ano, Date fechaPago) {
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(patente);
+        Impuesto imp = new Impuesto();
+        imp.setAno(Integer.parseInt(ano));
+        imp.setFechaPago(fechaPago);
+        imp.setUnPatente(pat);
+        controlPersis.crearImp(imp); 
+    }
+    
+    public List<Impuesto> traerImps() {
+        return controlPersis.traerImps();
+    }
+    
+    public Impuesto traerImp(int idImp) {
+        return controlPersis.traerImp(idImp);
+    }
+    
+    public void editarImpuesto(Impuesto imp, String patente, String ano, 
+            Date fechaPago) {
+        Patente pat;
+        pat = controlPersis.traerPatbyPatente(patente);
+        
+        imp.setAno(Integer.parseInt(ano));
+        imp.setFechaPago(fechaPago);
+        imp.setUnPatente(pat);
+        controlPersis.editarImp(imp); 
+    }
 }

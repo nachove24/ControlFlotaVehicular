@@ -4,6 +4,9 @@ package com.vendrellignacio.controlflotavehicular.persistence;
 import com.vendrellignacio.controlflotavehicular.logic.Acoplado;
 import com.vendrellignacio.controlflotavehicular.logic.Chasis;
 import com.vendrellignacio.controlflotavehicular.logic.Gasto;
+import com.vendrellignacio.controlflotavehicular.logic.Impuesto;
+import com.vendrellignacio.controlflotavehicular.logic.Mantenimiento;
+import com.vendrellignacio.controlflotavehicular.logic.Multa;
 import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.logic.Seguro;
@@ -222,6 +225,98 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+//////////////////MULTA////////////////////////////////
+    public List<Multa> traerMultas() {
+        return multaJpa.findMultaEntities();
+    }
+
+    public void crearMulta(Multa mul) {
+        multaJpa.create(mul);
+    }
+
+    public void borrarMul(int idMul) {
+        try {
+            multaJpa.destroy(idMul);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Multa traerMul(int idMul) {
+        return multaJpa.findMulta(idMul);
+    }
+
+    public void editarMul(Multa mul) {
+        try {
+            multaJpa.edit(mul);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+////////////////////////////////MANTENIMIENTO///////////////////////////////////////////////////
+    public void crearMan(Mantenimiento man) {
+        mantenimientoJpa.create(man);
+    }
+
+    public List<Mantenimiento> traerMans() {
+        return mantenimientoJpa.findMantenimientoEntities();
+    }
+
+    public void borrarMan(int idMan) {
+        try {
+            mantenimientoJpa.destroy(idMan);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Mantenimiento traerMan(int idMan) {
+        return mantenimientoJpa.findMantenimiento(idMan);
+    }
+
+    public void editarMan(Mantenimiento man) {
+        try {
+            mantenimientoJpa.edit(man);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+/////////////////////////////IMPUESTO/////////////////////////////////////////////////////////
+    public void borrarImp(int idImp) {
+        try {
+            impuestoJpa.destroy(idImp);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void crearImp(Impuesto imp) {
+        impuestoJpa.create(imp);
+    }
+
+    public List<Impuesto> traerImps() {
+        return impuestoJpa.findImpuestoEntities();
+    }
+
+    public Impuesto traerImp(int idImp) {
+        return impuestoJpa.findImpuesto(idImp);
+    }
+
+    public void editarImp(Impuesto imp) {
+        try {
+            impuestoJpa.edit(imp);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+    
+    
+    
 
     
 }

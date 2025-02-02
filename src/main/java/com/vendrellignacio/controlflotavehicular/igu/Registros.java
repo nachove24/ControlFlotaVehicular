@@ -223,7 +223,11 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTecnicaActionPerformed
 
     private void btnMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultaActionPerformed
-        // TODO add your handling code here:
+        MenuMulta menu = new MenuMulta();
+        //Lo hacemos visible:
+        menu.setVisible(true);
+        //Lo centramos
+        menu.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnMultaActionPerformed
 
     private void btnRegistrarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarViajeActionPerformed
@@ -239,7 +243,11 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpuestoActionPerformed
-        // TODO add your handling code here:
+        MenuImpuesto menu = new MenuImpuesto();
+        //Lo hacemos visible:
+        menu.setVisible(true);
+        //Lo centramos
+        menu.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnImpuestoActionPerformed
 
     private void btnSeguroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguroActionPerformed
@@ -251,7 +259,11 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeguroActionPerformed
 
     private void btnMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientoActionPerformed
-        // TODO add your handling code here:
+        MenuMantenimiento menu = new MenuMantenimiento();
+        //Lo hacemos visible:
+        menu.setVisible(true);
+        //Lo centramos
+        menu.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnMantenimientoActionPerformed
 
     private void btnAcopladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcopladoActionPerformed
