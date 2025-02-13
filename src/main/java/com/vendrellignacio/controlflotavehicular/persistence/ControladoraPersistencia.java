@@ -13,6 +13,7 @@ import com.vendrellignacio.controlflotavehicular.logic.Seguro;
 import com.vendrellignacio.controlflotavehicular.logic.Tecnica;
 import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -312,6 +313,38 @@ public class ControladoraPersistencia {
         }
     }
     
+    /////////////////MANTENIMIENTO BUSCAR/////////////////////////////////
+    public List<Mantenimiento> traerMantenimientosPorFecha(Date fechaInicial, Date fechaLimite) {
+        try {
+            return mantenimientoJpa.buscarPorRangoFechas(fechaInicial, fechaLimite);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public List<Mantenimiento> traerMantenimientosPorKmMenor(int km) {
+    try {
+        return mantenimientoJpa.buscarPorKmMenor(km);
+    } catch (Exception e) {
+        return null;
+    }
+}
+
+public List<Mantenimiento> traerMantenimientosPorKmMayor(int km) {
+    try {
+        return mantenimientoJpa.buscarPorKmMayor(km);
+    } catch (Exception e) {
+        return null;
+    }
+}
+
+public List<Mantenimiento> traerMantenimientosPorRangoKm(int kmInicial, int kmFinal) {
+    try {
+        return mantenimientoJpa.buscarPorRangoKm(kmInicial, kmFinal);
+    } catch (Exception e) {
+        return null;
+    }
+}
     
     
     

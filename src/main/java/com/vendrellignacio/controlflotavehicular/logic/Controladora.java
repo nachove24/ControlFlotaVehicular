@@ -456,4 +456,21 @@ public class Controladora {
         imp.setUnPatente(pat);
         controlPersis.editarImp(imp); 
     }
+    
+    /////////////////MANTENIMIENTO BUSCAR/////////////////////
+    public List<Mantenimiento> buscarMantenimientosPorFecha(Date fechaInicial, Date fechaLimite) {
+        return controlPersis.traerMantenimientosPorFecha(fechaInicial, fechaLimite);
+    }
+    
+    public List<Mantenimiento> buscarMantenimientosPorKmMenor(int km) {
+    return controlPersis.traerMantenimientosPorKmMenor(km);
+}
+
+public List<Mantenimiento> buscarMantenimientosPorKmMayor(int km) {
+    return controlPersis.traerMantenimientosPorKmMayor(km);
+}
+
+public List<Mantenimiento> buscarMantenimientosPorRangoKm(int kmInicial, int kmFinal) {
+    return controlPersis.traerMantenimientosPorRangoKm(kmInicial, kmFinal);
+}
 }

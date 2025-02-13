@@ -33,6 +33,11 @@ public class MenuFlota extends javax.swing.JFrame {
         });
 
         btnVerDatos.setText("Ver Datos");
+        btnVerDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDatosActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
 
@@ -104,6 +109,14 @@ public class MenuFlota extends javax.swing.JFrame {
         //Lo centramos
         menu.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnRegistrosActionPerformed
+
+    private void btnVerDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDatosActionPerformed
+        Buscador menu = new Buscador();
+        //Lo hacemos visible:
+        menu.setVisible(true);
+        //Lo centramos
+        menu.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnVerDatosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

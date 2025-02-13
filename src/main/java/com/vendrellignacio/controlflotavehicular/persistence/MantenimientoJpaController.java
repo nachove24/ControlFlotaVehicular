@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -167,5 +168,56 @@ public class MantenimientoJpaController implements Serializable {
             em.close();
         }
     }
+    
+     public List<Mantenimiento> buscarPorRangoFechas(Date fechaInicial, Date fechaLimite) {
+        EntityManager em = getEntityManager();
+        try {
+            String query = "SELECT m FROM Mantenimiento m WHERE m.fecha BETWEEN :fechaInicial AND :fechaLimite ORDER BY m.fecha DESC";
+            
+            return em.createQuery(query, Mantenimiento.class)
+                .setParameter("fechaInicial", fechaInicial)
+                .setParameter("fechaLimite", fechaLimite)
+                .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+     
+     public List<Mantenimiento> buscarPorKmMenor(int km) {
+    EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT m FROM Mantenimiento m WHERE m.km < :km ORDER BY m.fecha DESC";
+        return em.createQuery(query, Mantenimiento.class)
+            .setParameter("km", km)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+}
+
+public List<Mantenimiento> buscarPorKmMayor(int km) {
+    EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT m FROM Mantenimiento m WHERE m.km > :km ORDER BY m.fecha DESC";
+        return em.createQuery(query, Mantenimiento.class)
+            .setParameter("km", km)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+}
+
+public List<Mantenimiento> buscarPorRangoKm(int kmInicial, int kmFinal) {
+    EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT m FROM Mantenimiento m WHERE m.km BETWEEN :kmInicial AND :kmFinal ORDER BY m.fecha DESC";
+        return em.createQuery(query, Mantenimiento.class)
+            .setParameter("kmInicial", kmInicial)
+            .setParameter("kmFinal", kmFinal)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+}
     
 }
