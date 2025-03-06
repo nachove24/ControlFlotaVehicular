@@ -23,7 +23,7 @@ public class Seguro implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaVenc;
     private double importe;
-    private String estado;
+    //private String estado;
     private String tipo;
     @ManyToOne
     @JoinColumn(name = "fk_patente")
@@ -39,7 +39,7 @@ public class Seguro implements Serializable {
         this.fechaInicio = fechaInicio;
         this.fechaVenc = fechaVenc;
         this.importe = importe;
-        this.estado = estado;
+        //this.estado = estado;
         this.tipo = tipo;
         this.unPatente = unPatente;
     }
@@ -92,13 +92,13 @@ public class Seguro implements Serializable {
         this.importe = importe;
     }
 
-    public String getEstado() {
+    /*public String getEstado() {
         return estado;
     }
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
+    }*/
 
     public String getTipo() {
         return tipo;

@@ -289,12 +289,12 @@ public class Controladora {
         // Variable para almacenar el estado
         String estado;
         // Comparación de fechas
-        if (fechaActual.after(fechaVenc)) {
+        /*if (fechaActual.after(fechaVenc)) {
             estado = "Vencida";
         } else {
             estado = "Activa";
-        }
-        seg.setEstado(estado);
+        }*/
+        //seg.setEstado(estado);
         
         seg.setUnPatente(pat);
         controlPersis.guardarSeg(seg); 
@@ -323,12 +323,12 @@ public class Controladora {
         // Variable para almacenar el estado
         String estado;
         // Comparación de fechas
-        if (fechaActual.after(fechaVenc)) {
+        /*if (fechaActual.after(fechaVenc)) {
             estado = "Vencida";
         } else {
             estado = "Activa";
         }
-        seg.setEstado(estado);
+        seg.setEstado(estado);*/
         
         seg.setUnPatente(pat);
         controlPersis.editarSeg(seg); 

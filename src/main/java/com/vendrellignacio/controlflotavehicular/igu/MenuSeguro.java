@@ -2,7 +2,7 @@
 package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
-import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
+
 import com.vendrellignacio.controlflotavehicular.logic.Seguro;
 import java.util.List;
 import javax.swing.JDialog;
@@ -270,7 +270,7 @@ public class MenuSeguro extends javax.swing.JFrame {
                 return false; // Make all cells non-editable
             }
         };
-        String titulos[] = {"Id", "Aseguradora", "Poliza", "Estado", "Fecha Venc.", "Fecha Inicio", "Patente",
+        String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Venc.", "Fecha Inicio", "Patente",
             "Importe","Tipo"};
         model.setColumnIdentifiers(titulos);
         tablaSeg.setModel(model);
@@ -280,7 +280,7 @@ public class MenuSeguro extends javax.swing.JFrame {
         if (listaSeg != null){
             for (Seguro seg : listaSeg){
                 Object[] obj = {seg.getId_seguro(), seg.getAseguradora(), seg.getPoliza(), 
-                    seg.getEstado(), seg.getFechaVenc(), seg.getFechaInicio(), seg.getImporte(),
+                    /*seg.getEstado(),*/ seg.getFechaVenc(), seg.getFechaInicio(), seg.getImporte(),
                     seg.getUnPatente().getCodigoPatente(), seg.getTipo()};
                 
                 model.addRow(obj);
