@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -12,9 +13,11 @@ import javax.swing.table.DefaultTableModel;
 public class MenuNeumatico extends javax.swing.JFrame {
 
     Controladora control;
+    SimpleDateFormat formatoFecha;
     public MenuNeumatico() {
         initComponents();
         control = new Controladora();
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     
@@ -277,7 +280,7 @@ public class MenuNeumatico extends javax.swing.JFrame {
         List <Neumatico> listaNeu = control.traerNeus();
         if (listaNeu != null){
             for (Neumatico neu : listaNeu){
-                Object[] obj = {neu.getId_neumatico(), neu.getCod_neumatico(), neu.getFechaUso(), 
+                Object[] obj = {neu.getId_neumatico(), neu.getCod_neumatico(), formatoFecha.format(neu.getFechaUso()), 
                     neu.getKmTotal(), neu.getMarca(), neu.getEstado(),
                     neu.getUnPatente().getCodigoPatente()};
                 

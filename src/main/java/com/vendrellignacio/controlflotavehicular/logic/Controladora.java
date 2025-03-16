@@ -339,11 +339,23 @@ public class Controladora {
         return controlPersis.traerMultas();
     }
 
-    public void crearMulta(String pagado, String importe, Viaje via, String infraccion, String estadoMul) {
+    public void crearMulta(String pagado, String importe, Viaje via, String infraccion) {
         Multa mul = new Multa();
-        mul.setEstado(estadoMul);
-        mul.setImporte(Double.parseDouble(importe));
-        mul.setImpPagado(Double.parseDouble(pagado));
+        // Obtener valores actuales
+        double importeTotal = Double.parseDouble(importe);
+        double importePagado = Double.parseDouble(pagado);
+        // Variable para almacenar el estado
+        String estado;
+        // Comparación de importes
+        if (importePagado >= importeTotal) {
+            estado = "Pagada";
+        } else {
+            estado = "Pendiente";
+        }
+        mul.setEstado(estado);
+        //mul.setEstado(estadoMul);
+        mul.setImporte(importeTotal);
+        mul.setImpPagado(importePagado);
         mul.setInfraccion(infraccion);
         mul.setUnViaje(via);
         controlPersis.crearMulta(mul);
@@ -473,4 +485,60 @@ public List<Mantenimiento> buscarMantenimientosPorKmMayor(int km) {
 public List<Mantenimiento> buscarMantenimientosPorRangoKm(int kmInicial, int kmFinal) {
     return controlPersis.traerMantenimientosPorRangoKm(kmInicial, kmFinal);
 }
+//-------------------IMPORTAR MANT
+// En la clase Controladora.java
+public boolean guardarMantenimientosImportados(List<Mantenimiento> mantenimientos) {
+    try {
+        for (Mantenimiento man : mantenimientos) {
+            // Usar tu lógica existente para guardar en la base de datos
+            controlPersis.crearMan(man);
+        }
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+/////////////////////////////////////////////////////////////////////////
+    public Patente buscarPorPatente(String patente) {
+        return controlPersis.traerPatbyPatente(patente);
+    }
+/////////////////////////////////////////////////////////////////////////
+    //////////////////////BUSCAR NEUMATICO/////////////////////////////
+    public Neumatico buscarNeumaticoPorCodigo(String texto) {
+        return controlPersis.buscarNeumaticoPorCodigo(texto);
+    }
+
+    public List<Neumatico> buscarNeumaticosPorFecha(Date fechaInicial, Date fechaLimite) {
+        return controlPersis.traerNeumaticoPorFecha(fechaInicial, fechaLimite);
+    }
+
+    public List<Neumatico> buscarNeumaticosPorKmMenor(double km) {
+        return controlPersis.traerNeumaticoPorKmMenor(km);
+    }
+
+    public List<Neumatico> buscarNeumaticosPorKmMayor(double km) {
+        return controlPersis.traerNeumaticoPorKmMayor(km);
+    }
+
+    public List<Neumatico> buscarNeumaticosPorRangoKm(double kmInicial, double kmFinal) {
+        return controlPersis.traerNeumaticoPorRangoKm(kmInicial, kmFinal);
+    }
+
+    public boolean guardarNeumaticosImportados(List<Neumatico> neumaticosImportados) {
+        try {
+        for (Neumatico neu : neumaticosImportados) {
+            // Usar tu lógica existente para guardar en la base de datos
+            controlPersis.crearNeumatico(neu);
+        }
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+    }
+
+
+
+
 }

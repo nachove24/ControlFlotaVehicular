@@ -227,7 +227,7 @@ public class Buscador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAcopladoActionPerformed
 
     private void btnNeumaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNeumaticoActionPerformed
-        MenuNeumatico menu = new MenuNeumatico();
+        BuscarNeu menu = new BuscarNeu();
         //Lo hacemos visible:
         menu.setVisible(true);
         //Lo centramos

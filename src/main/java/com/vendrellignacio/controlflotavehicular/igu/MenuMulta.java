@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import com.vendrellignacio.controlflotavehicular.logic.Multa;
+import java.text.SimpleDateFormat;
 
 
 import java.util.List;
@@ -14,9 +15,11 @@ import javax.swing.table.DefaultTableModel;
 public class MenuMulta extends javax.swing.JFrame {
 
     Controladora control;
+    SimpleDateFormat formatoFecha;
     public MenuMulta() {
         initComponents();
         control = new Controladora();
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     

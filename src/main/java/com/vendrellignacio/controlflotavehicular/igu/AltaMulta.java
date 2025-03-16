@@ -36,8 +36,6 @@ public class AltaMulta extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JToggleButton();
         btnGuardar = new javax.swing.JToggleButton();
-        jLabel9 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,9 +91,6 @@ public class AltaMulta extends javax.swing.JFrame {
                     .addComponent(btnGuardar)))
         );
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
-        jLabel9.setText("Estado");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -112,27 +107,19 @@ public class AltaMulta extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtImpPagado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(14, 14, 14)))
+                                .addComponent(txtImpPagado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(89, 89, 89)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(11, 11, 11)
-                                        .addComponent(txtViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel8)
+                                .addGap(11, 11, 11)
+                                .addComponent(txtViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
+                        .addGap(76, 76, 76)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -149,7 +136,7 @@ public class AltaMulta extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txtViaje))
-                        .addGap(35, 35, 35))
+                        .addGap(39, 39, 39))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -158,13 +145,9 @@ public class AltaMulta extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtImpPagado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(48, 48, 48)
+                        .addGap(47, 47, 47)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,7 +180,7 @@ public class AltaMulta extends javax.swing.JFrame {
         txtImpPagado.setText("");
         txtImporte.setText("");
         txtInfraccion.setText("");
-        txtEstado.setText("");
+        //txtEstado.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -217,11 +200,11 @@ public class AltaMulta extends javax.swing.JFrame {
             String pagado = txtImpPagado.getText();
             String importe = txtImporte.getText();
             String infraccion = txtInfraccion.getText();
-            String estadoMul = txtEstado.getText();
+            //String estadoMul = txtEstado.getText();
             //String patente = txtPatente.getText();
             //neuPatente = idPat.toString();
             System.out.println(via);
-            control.crearMulta(pagado,importe,via,infraccion,estadoMul); 
+            control.crearMulta(pagado,importe,via,infraccion/*,estadoMul*/); 
             
             JOptionPane optionPane = new JOptionPane("Se guardó correctamente.");
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -242,10 +225,8 @@ public class AltaMulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtImpPagado;
     private javax.swing.JTextField txtImporte;
     private javax.swing.JTextField txtInfraccion;

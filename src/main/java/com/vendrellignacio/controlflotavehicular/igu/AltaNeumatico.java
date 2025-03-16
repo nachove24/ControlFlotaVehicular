@@ -36,9 +36,9 @@ public class AltaNeumatico extends javax.swing.JFrame {
         txtMarca = new javax.swing.JTextField();
         txtCodigoNeu = new javax.swing.JTextField();
         txtKmTotales = new javax.swing.JTextField();
-        txtEstado = new javax.swing.JTextField();
         txtPatente = new javax.swing.JTextField();
         dcFechaUso = new com.toedter.calendar.JDateChooser();
+        cmbEstado = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +101,8 @@ public class AltaNeumatico extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         jLabel8.setText("Estado");
 
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "En Uso", "En Desuso" }));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -127,10 +129,10 @@ public class AltaNeumatico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtPatente, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -143,7 +145,7 @@ public class AltaNeumatico extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txtCodigoNeu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(dcFechaUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,42 +200,51 @@ public class AltaNeumatico extends javax.swing.JFrame {
         txtCodigoNeu.setText("");
         txtKmTotales.setText("");
         txtMarca.setText("");
-        txtEstado.setText("");
+        cmbEstado.setSelectedIndex(0);
         txtPatente.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //ACOPLADO /\ CHASIS\\
-        String neuPatente = txtPatente.getText();
-        Integer idPat = control.traerIdAco(neuPatente);
-        if (idPat == null){
-            idPat = control.traerIdCha(neuPatente);
-        }
-        if (idPat == null){
-            JOptionPane optionPane = new JOptionPane("LA PATENTE NO EXISTE");
-            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-            JDialog dialog = optionPane.createDialog("Ingrese otra patente, la patente ingresada no existe.");
+    String neuPatente = txtPatente.getText();
+    Integer idPat = control.traerIdAco(neuPatente);
+    if (idPat == null){
+        idPat = control.traerIdCha(neuPatente);
+    }
+    if (idPat == null){
+        JOptionPane optionPane = new JOptionPane("LA PATENTE NO EXISTE");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Ingrese otra patente, la patente ingresada no existe.");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    } else {
+        Date fechaUso = dcFechaUso.getDate();
+        String codNeum = txtCodigoNeu.getText();
+        
+        // Validación para verificar que el código contiene al menos una letra
+        if (!codNeum.matches(".*[a-zA-Z].*")) {
+            JOptionPane optionPane = new JOptionPane("EL CÓDIGO DEBE CONTENER AL MENOS UNA LETRA");
+            optionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Código Inválido");
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
-        }else{
-            Date fechaUso = dcFechaUso.getDate();
-            String codNeum = txtCodigoNeu.getText();
-            String kmTotales = txtKmTotales.getText();
-            String marcaNeum = txtMarca.getText();
-            String estadoNeum = txtEstado.getText();
-            //String patente = txtPatente.getText();
-            //neuPatente = idPat.toString();
-            System.out.println(idPat);
-            control.crearNeumatico(fechaUso, codNeum,kmTotales,marcaNeum,estadoNeum,neuPatente);
-            
-            JOptionPane optionPane = new JOptionPane("Se guardó correctamente.");
-            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-            JDialog dialog = optionPane.createDialog("Guardado Exitoso");
-            dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
+            return; // Detener el proceso de guardado
         }
         
+        String kmTotales = txtKmTotales.getText();
+        String marcaNeum = txtMarca.getText();
+        String estadoNeum = cmbEstado.getSelectedItem().toString();
+        //String patente = txtPatente.getText();
+        //neuPatente = idPat.toString();
+        System.out.println(idPat);
+        control.crearNeumatico(fechaUso, codNeum, kmTotales, marcaNeum, estadoNeum, neuPatente);
         
+        JOptionPane optionPane = new JOptionPane("Se guardó correctamente.");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Guardado Exitoso");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
     }//GEN-LAST:event_btnGuardarActionPerformed
     
     
@@ -242,6 +253,7 @@ public class AltaNeumatico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnGuardar;
     private javax.swing.JToggleButton btnLimpiar;
+    private javax.swing.JComboBox<String> cmbEstado;
     private com.toedter.calendar.JDateChooser dcFechaUso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -253,7 +265,6 @@ public class AltaNeumatico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtCodigoNeu;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtKmTotales;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtPatente;

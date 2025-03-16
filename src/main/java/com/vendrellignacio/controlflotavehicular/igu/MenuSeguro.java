@@ -4,6 +4,7 @@ package com.vendrellignacio.controlflotavehicular.igu;
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 
 import com.vendrellignacio.controlflotavehicular.logic.Seguro;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -13,9 +14,11 @@ import javax.swing.table.DefaultTableModel;
 public class MenuSeguro extends javax.swing.JFrame {
 
     Controladora control;
+    SimpleDateFormat formatoFecha;
     public MenuSeguro() {
         initComponents();
         control = new Controladora();
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     
@@ -280,7 +283,7 @@ public class MenuSeguro extends javax.swing.JFrame {
         if (listaSeg != null){
             for (Seguro seg : listaSeg){
                 Object[] obj = {seg.getId_seguro(), seg.getAseguradora(), seg.getPoliza(), 
-                    /*seg.getEstado(),*/ seg.getFechaVenc(), seg.getFechaInicio(), seg.getImporte(),
+                    /*seg.getEstado(),*/ formatoFecha.format(seg.getFechaVenc()), formatoFecha.format(seg.getFechaInicio()), seg.getImporte(),
                     seg.getUnPatente().getCodigoPatente(), seg.getTipo()};
                 
                 model.addRow(obj);

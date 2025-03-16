@@ -7,6 +7,7 @@ import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 //import java.awt.BorderLayout;
 import java.awt.Component;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -26,10 +27,11 @@ public class MenuViaje extends javax.swing.JFrame {
         this.control = control;
         this.usr = usr;
     }*/
-
+    SimpleDateFormat formatoFecha;
     public MenuViaje() {
         initComponents();
         control = new Controladora();
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     
@@ -297,13 +299,24 @@ public class MenuViaje extends javax.swing.JFrame {
         List <Viaje> listaVia = control.traerViajes();
         if (listaVia != null){
             for (Viaje via : listaVia){
-                Object[] obj = {via.getId_viaje(), via.getFechaSalida(), via.getFechaLlegada(), 
-                    via.getUnChasis().getPatente().getCodigoPatente(), via.getUnAcoplado().getPatente().getCodigoPatente(), 
-                    via.getLugarOrigen(), via.getDestino(),
-                    via.getCtg(), via.getDte(), via.getGuia(),
-                    via.getKmRecorrido(),via.getKmInicial(),via.getKmFinal(),
-                    via.getCostoCarga(),via.getPesoCarga(),
-                    via.getUnGasto().getTotalCombus(),via.getUnGasto().getPeaje(),via.getUnGasto().getComida()};
+                Object[] obj = {via.getId_viaje(), 
+                    formatoFecha.format(via.getFechaSalida()), 
+                    formatoFecha.format(via.getFechaLlegada()), 
+                    via.getUnChasis().getPatente().getCodigoPatente(), 
+                    via.getUnAcoplado().getPatente().getCodigoPatente(), 
+                    via.getLugarOrigen(), 
+                    via.getDestino(),
+                    via.getCtg(), 
+                    via.getDte(), 
+                    via.getGuia(),
+                    via.getKmRecorrido(),
+                    via.getKmInicial(),
+                    via.getKmFinal(),
+                    via.getCostoCarga(),
+                    via.getPesoCarga(),
+                    via.getUnGasto().getTotalCombus(),
+                    via.getUnGasto().getPeaje(),
+                    via.getUnGasto().getComida()};
                 
                 model.addRow(obj);
             }

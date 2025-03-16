@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import com.vendrellignacio.controlflotavehicular.logic.Impuesto;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -12,9 +13,11 @@ import javax.swing.table.DefaultTableModel;
 public class MenuImpuesto extends javax.swing.JFrame {
 
     Controladora control;
+    SimpleDateFormat formatoFecha;
     public MenuImpuesto() {
         initComponents();
         control = new Controladora();
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     
@@ -277,7 +280,7 @@ public class MenuImpuesto extends javax.swing.JFrame {
     List <Impuesto> listaImp = control.traerImps();
     if (listaImp != null){
         for (Impuesto imp : listaImp){
-            Object[] obj = {imp.getId_impuesto(), imp.getAno(), imp.getFechaPago(), 
+            Object[] obj = {imp.getId_impuesto(), imp.getAno(), formatoFecha.format(imp.getFechaPago()), 
                 imp.getUnPatente().getCodigoPatente()};
             
             model.addRow(obj);

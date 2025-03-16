@@ -39,9 +39,9 @@ public class ModificarNeu extends javax.swing.JFrame {
         txtMarca = new javax.swing.JTextField();
         txtCodigoNeu = new javax.swing.JTextField();
         txtKmTotales = new javax.swing.JTextField();
-        txtEstado = new javax.swing.JTextField();
         txtPatente = new javax.swing.JTextField();
         dcFechaUso = new com.toedter.calendar.JDateChooser();
+        cmbEstado = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,7 +89,7 @@ public class ModificarNeu extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        jLabel1.setText("Registro Neumatico");
+        jLabel1.setText("Modificar Neumatico");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         jLabel3.setText("Fecha Uso");
@@ -108,6 +108,8 @@ public class ModificarNeu extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         jLabel8.setText("Estado");
+
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "En Uso", "En Desuso" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -136,10 +138,13 @@ public class ModificarNeu extends javax.swing.JFrame {
                         .addComponent(jLabel6)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +156,7 @@ public class ModificarNeu extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txtCodigoNeu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(dcFechaUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,19 +177,19 @@ public class ModificarNeu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(278, 278, 278)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(178, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(169, 169, 169))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(169, 169, 169))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(278, 278, 278)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,7 +211,7 @@ public class ModificarNeu extends javax.swing.JFrame {
         txtCodigoNeu.setText("");
         txtKmTotales.setText("");
         txtMarca.setText("");
-        txtEstado.setText("");
+        cmbEstado.setSelectedIndex(0);
         txtPatente.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -226,9 +231,20 @@ public class ModificarNeu extends javax.swing.JFrame {
         }else{
             Date fechaUso = dcFechaUso.getDate();
             String codNeum = txtCodigoNeu.getText();
+            // Validación para verificar que el código contiene al menos una letra
+        if (!codNeum.matches(".*[a-zA-Z].*")) {
+            JOptionPane optionPane = new JOptionPane("EL CÓDIGO DEBE CONTENER AL MENOS UNA LETRA");
+            optionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Código Inválido");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            return; // Detener el proceso de guardado
+        }
+            
+            
             String kmTotales = txtKmTotales.getText();
             String marcaNeum = txtMarca.getText();
-            String estadoNeum = txtEstado.getText();
+            String estadoNeum = cmbEstado.getSelectedItem().toString();
             //String patente = txtPatente.getText();
             //neuPatente = idPat.toString();
             System.out.println(idPat);
@@ -248,7 +264,7 @@ public class ModificarNeu extends javax.swing.JFrame {
         neu = control.traerNeu(idNeu);
         dcFechaUso.setDate(neu.getFechaUso());
         txtCodigoNeu.setText(neu.getCod_neumatico());
-        txtEstado.setText(neu.getEstado());
+        cmbEstado.setSelectedItem(neu.getEstado());
         txtKmTotales.setText(String.valueOf(neu.getKmTotal()));
         txtMarca.setText(neu.getMarca());
         txtPatente.setText(neu.getUnPatente().getCodigoPatente());
@@ -260,6 +276,7 @@ public class ModificarNeu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnGuardar;
     private javax.swing.JToggleButton btnLimpiar;
+    private javax.swing.JComboBox<String> cmbEstado;
     private com.toedter.calendar.JDateChooser dcFechaUso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -271,7 +288,6 @@ public class ModificarNeu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtCodigoNeu;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtKmTotales;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtPatente;

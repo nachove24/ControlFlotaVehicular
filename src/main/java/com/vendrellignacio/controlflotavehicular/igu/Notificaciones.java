@@ -2,25 +2,34 @@
 package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
+import com.vendrellignacio.controlflotavehicular.logic.Multa;
+import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Seguro;
 import com.vendrellignacio.controlflotavehicular.logic.Tecnica;
 import java.awt.Color;
 import java.awt.Component;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 
 public class Notificaciones extends javax.swing.JFrame {
 
     Controladora control;
+    //Formato para que se vea de forma simple
+    SimpleDateFormat formatoFecha;
     public Notificaciones() {
         initComponents();
         control = new Controladora();
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     }
-
+    
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -38,9 +47,9 @@ public class Notificaciones extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        tablaNeu = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        tablaMulta = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -128,7 +137,7 @@ public class Notificaciones extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        tablaNeu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -139,7 +148,7 @@ public class Notificaciones extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane7.setViewportView(jTable7);
+        jScrollPane7.setViewportView(tablaNeu);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -157,7 +166,7 @@ public class Notificaciones extends javax.swing.JFrame {
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -168,7 +177,7 @@ public class Notificaciones extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
+        jScrollPane5.setViewportView(tablaMulta);
 
         jLabel5.setText("Neumatico");
 
@@ -273,11 +282,15 @@ public class Notificaciones extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         cargarTablaTecnica();
         cargarTablaSeguros();
+        cargarTablaMultas();
+        cargarTablaNeumaticos();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         cargarTablaTecnica();
         cargarTablaSeguros();
+        cargarTablaMultas();
+        cargarTablaNeumaticos();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void cargarTablaTecnica() {
@@ -296,6 +309,8 @@ public class Notificaciones extends javax.swing.JFrame {
     
     // Obtener fecha actual
     Date fechaActual = new Date();
+    //Formato para que se vea de forma simple
+    //SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     // Período de alerta (15 días)
     final long MILLIS_POR_DIA = 24 * 60 * 60 * 1000;
     
@@ -321,7 +336,7 @@ public class Notificaciones extends javax.swing.JFrame {
             // Agregar solo los registros relevantes (vencidos o próximos a vencer)
             Object[] obj = {
                 tec.getId_tecnica(),
-                tec.getVencVTV(),
+                formatoFecha.format(tec.getVencVTV()),
                 tec.getAno(),
                 tec.getUnPatente().getCodigoPatente(),
                 diasRestantes < 0 ? "VENCIDO" : diasRestantes,
@@ -362,8 +377,6 @@ public class Notificaciones extends javax.swing.JFrame {
         }
     });
 }
-
-    
     private void cargarTablaSeguros() {
     // Crear modelo de tabla no editable
     DefaultTableModel model = new DefaultTableModel() {
@@ -405,8 +418,8 @@ public class Notificaciones extends javax.swing.JFrame {
             // Agregar solo los registros relevantes (vencidos o próximos a vencer)
             Object[] obj = {
                 seguro.getId_seguro(),
-                seguro.getFechaInicio(),
-                seguro.getFechaVenc(),
+                formatoFecha.format(seguro.getFechaInicio()),
+                formatoFecha.format(seguro.getFechaVenc()),
                 
                 diasRestantes < 0 ? "VENCIDO" : diasRestantes,
                 alerta
@@ -446,7 +459,289 @@ public class Notificaciones extends javax.swing.JFrame {
         }
     });
 }
-
+    private void cargarTablaMultas() {
+    // Crear modelo de tabla no editable
+    DefaultTableModel model = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    // Definir columnas
+    String titulos[] = {"Id", "Infracción", "Importe Total", "Importe Pagado", "Importe Pendiente", "Estado"};
+    model.setColumnIdentifiers(titulos);
+    tablaMulta.setModel(model);
+    
+    // Traer los registros desde la BD
+    List<Multa> listaMultas = control.traerMultas();
+    if (listaMultas != null) {
+        for (Multa multa : listaMultas) {
+            // Calcular importe pendiente
+            double importePendiente = multa.getImporte() - multa.getImpPagado();
+            
+            // Filtrar solo las multas que no fueron totalmente pagadas
+            if (importePendiente > 0) {
+                Object[] obj = {
+                    multa.getId_multa(),
+                    multa.getInfraccion(),
+                    multa.getImporte(),
+                    multa.getImpPagado(),
+                    importePendiente,
+                    multa.getEstado()
+                };
+                
+                model.addRow(obj);
+            }
+        }
+    }
+    
+    // Aplicar renderizador personalizado para colorear las filas según el monto pendiente
+    tablaMulta.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            
+            // Obtener el importe pendiente de la columna 4
+            double importePendiente = (Double) table.getModel().getValueAt(row, 4);
+            double importeTotal = (Double) table.getModel().getValueAt(row, 2);
+            
+            // Calcular el porcentaje pendiente
+            double porcentajePendiente = (importePendiente / importeTotal) * 100;
+            
+            // Establecer colores según el porcentaje pendiente
+            if (porcentajePendiente >= 75) {
+                c.setBackground(Color.RED);
+                c.setForeground(Color.WHITE);
+            } else if (porcentajePendiente >= 50) {
+                c.setBackground(new Color(255, 165, 0)); // Naranja
+                c.setForeground(Color.BLACK);
+            } else if (porcentajePendiente >= 25) {
+                c.setBackground(Color.YELLOW);
+                c.setForeground(Color.BLACK);
+            } else {
+                c.setBackground(new Color(144, 238, 144)); // Verde claro
+                c.setForeground(Color.BLACK);
+            }
+            
+            if (isSelected) {
+                c.setBackground(table.getSelectionBackground());
+                c.setForeground(table.getSelectionForeground());
+            }
+            
+            return c;
+        }
+    });
+    
+    // Configurar formato para mostrar valores monetarios con dos decimales
+    NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+    TableColumnModel columnModel = tablaMulta.getColumnModel();
+    
+    // Aplicar formato de moneda a las columnas de importes (índices 2, 3 y 4)
+    for (int i = 2; i <= 4; i++) {
+        columnModel.getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
+            {
+                setHorizontalAlignment(SwingConstants.RIGHT);
+            }
+            
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                
+                if (value instanceof Double) {
+                    setText(currencyFormat.format((Double) value));
+                }
+                
+                // Mantener el color de fondo según el renderizador principal
+                if (!isSelected) {
+                    double importePendiente = (Double) table.getModel().getValueAt(row, 4);
+                    double importeTotal = (Double) table.getModel().getValueAt(row, 2);
+                    double porcentajePendiente = (importePendiente / importeTotal) * 100;
+                    
+                    if (porcentajePendiente >= 75) {
+                        c.setBackground(Color.RED);
+                        c.setForeground(Color.WHITE);
+                    } else if (porcentajePendiente >= 50) {
+                        c.setBackground(new Color(255, 165, 0)); // Naranja
+                        c.setForeground(Color.BLACK);
+                    } else if (porcentajePendiente >= 25) {
+                        c.setBackground(Color.YELLOW);
+                        c.setForeground(Color.BLACK);
+                    } else {
+                        c.setBackground(new Color(144, 238, 144)); // Verde claro
+                        c.setForeground(Color.BLACK);
+                    }
+                }
+                
+                return c;
+            }
+        });
+    }
+}
+    private void cargarTablaNeumaticos() {
+    // Crear modelo de tabla no editable
+    DefaultTableModel model = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    // Definir columnas
+    String titulos[] = {"ID", "Código", "Fecha de Uso", "Kilómetros Totales", "Marca", "Estado"};
+    model.setColumnIdentifiers(titulos);
+    tablaNeu.setModel(model);
+    
+    // Obtener fecha actual para calcular días en uso
+    Date fechaActual = new Date();
+    final long MILLIS_POR_DIA = 24 * 60 * 60 * 1000;
+    
+    // Traer los registros desde la BD
+    List<Neumatico> listaNeumaticos = control.traerNeus();
+    if (listaNeumaticos != null) {
+        for (Neumatico neumatico : listaNeumaticos) {
+            // Filtrar solo los neumáticos en uso
+            if ("En Uso".equals(neumatico.getEstado())) {
+                // Calcular días en uso
+                long diasEnUso = 0;
+                if (neumatico.getFechaUso() != null) {
+                    long diferenciaMilis = fechaActual.getTime() - neumatico.getFechaUso().getTime();
+                    diasEnUso = diferenciaMilis / MILLIS_POR_DIA;
+                }
+                
+                Object[] obj = {
+                    neumatico.getId_neumatico(),
+                    neumatico.getCod_neumatico(),
+                    formatoFecha.format(neumatico.getFechaUso()),
+                    neumatico.getKmTotal(),
+                    neumatico.getMarca(),
+                    diasEnUso + " días en uso"
+                };
+                
+                model.addRow(obj);
+            }
+        }
+    }
+    
+    // Aplicar renderizador personalizado para colorear las filas según los km recorridos
+    tablaNeu.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            
+            // Obtener los kilómetros totales de la columna 3
+            Double kmTotal = (Double) table.getModel().getValueAt(row, 3);
+            
+            // Establecer colores según los kilómetros totales
+            // Los umbrales dependen del tipo de neumático y condiciones de uso
+            // Aquí se usan valores genéricos que puedes ajustar
+            if (kmTotal >= 70000) {
+                c.setBackground(Color.RED);
+                c.setForeground(Color.WHITE);
+            } else if (kmTotal >= 50000) {
+                c.setBackground(new Color(255, 165, 0)); // Naranja
+                c.setForeground(Color.BLACK);
+            } else if (kmTotal >= 30000) {
+                c.setBackground(Color.YELLOW);
+                c.setForeground(Color.BLACK);
+            } else {
+                c.setBackground(new Color(144, 238, 144)); // Verde claro
+                c.setForeground(Color.BLACK);
+            }
+            
+            if (isSelected) {
+                c.setBackground(table.getSelectionBackground());
+                c.setForeground(table.getSelectionForeground());
+            }
+            
+            return c;
+        }
+    });
+    
+    // Formato para la columna de kilómetros
+    NumberFormat numberFormat = NumberFormat.getNumberInstance();
+    TableColumnModel columnModel = tablaNeu.getColumnModel();
+    
+    // Aplicar formato a la columna de kilómetros (índice 3)
+    columnModel.getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
+        {
+            setHorizontalAlignment(SwingConstants.RIGHT);
+        }
+        
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            
+            if (value instanceof Double) {
+                setText(numberFormat.format((Double) value) + " km");
+            }
+            
+            // Mantener el color de fondo según el renderizador principal
+            if (!isSelected) {
+                Double kmTotal = (Double) table.getModel().getValueAt(row, 3);
+                
+                if (kmTotal >= 70000) {
+                    c.setBackground(Color.RED);
+                    c.setForeground(Color.WHITE);
+                } else if (kmTotal >= 50000) {
+                    c.setBackground(new Color(255, 165, 0));
+                    c.setForeground(Color.BLACK);
+                } else if (kmTotal >= 30000) {
+                    c.setBackground(Color.YELLOW);
+                    c.setForeground(Color.BLACK);
+                } else {
+                    c.setBackground(new Color(144, 238, 144));
+                    c.setForeground(Color.BLACK);
+                }
+            }
+            
+            return c;
+        }
+    });
+    
+    // Formato para la columna de fecha
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    columnModel.getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+        {
+            setHorizontalAlignment(SwingConstants.CENTER);
+        }
+        
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            
+            if (value instanceof Date) {
+                setText(dateFormat.format((Date) value));
+            }
+            
+            // Mantener el color de fondo según el renderizador principal
+            if (!isSelected) {
+                Double kmTotal = (Double) table.getModel().getValueAt(row, 3);
+                
+                if (kmTotal >= 70000) {
+                    c.setBackground(Color.RED);
+                    c.setForeground(Color.WHITE);
+                } else if (kmTotal >= 50000) {
+                    c.setBackground(new Color(255, 165, 0));
+                    c.setForeground(Color.BLACK);
+                } else if (kmTotal >= 30000) {
+                    c.setBackground(Color.YELLOW);
+                    c.setForeground(Color.BLACK);
+                } else {
+                    c.setBackground(new Color(144, 238, 144));
+                    c.setForeground(Color.BLACK);
+                }
+            }
+            
+            return c;
+        }
+    });
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JLabel jLabel1;
@@ -463,8 +758,8 @@ public class Notificaciones extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable7;
+    private javax.swing.JTable tablaMulta;
+    private javax.swing.JTable tablaNeu;
     private javax.swing.JTable tablaSeg;
     private javax.swing.JTable tablaTec;
     // End of variables declaration//GEN-END:variables

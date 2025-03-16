@@ -12,9 +12,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 /**
@@ -165,6 +167,74 @@ public NeumaticoJpaController() {
         } finally {
             em.close();
         }
+    }
+
+    public Neumatico buscarPorCodigo(String codigo) {
+    EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT n FROM Neumatico n WHERE n.cod_neumatico = :codigo";
+        return em.createQuery(query, Neumatico.class)
+            .setParameter("codigo", codigo)
+            .getSingleResult();
+    } catch (NoResultException e) {
+        return null;
+    } finally {
+        em.close();
+    }
+}
+
+    List<Neumatico> buscarPorRangoFechas(Date fechaInicial, Date fechaLimite) {
+        EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT n FROM Neumatico n WHERE n.fechaUso BETWEEN :fechaInicial AND :fechaLimite ORDER BY n.fechaUso DESC";
+        
+        return em.createQuery(query, Neumatico.class)
+            .setParameter("fechaInicial", fechaInicial)
+            .setParameter("fechaLimite", fechaLimite)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Neumatico> buscarPorKmMenor(double km) {
+        EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT n FROM Neumatico n WHERE n.kmTotal < :km ORDER BY n.kmTotal DESC";
+        
+        return em.createQuery(query, Neumatico.class)
+            .setParameter("km", km)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Neumatico> buscarPorKmMayor(double km) {
+        EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT n FROM Neumatico n WHERE n.kmTotal > :km ORDER BY n.kmTotal ASC";
+        
+        return em.createQuery(query, Neumatico.class)
+            .setParameter("km", km)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Neumatico> buscarPorRangoKm(double kmInicial, double kmFinal) {
+          EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT n FROM Neumatico n WHERE n.kmTotal BETWEEN :kmInicial AND :kmFinal ORDER BY n.kmTotal ASC";
+        
+        return em.createQuery(query, Neumatico.class)
+            .setParameter("kmInicial", kmInicial)
+            .setParameter("kmFinal", kmFinal)
+            .getResultList();
+    } finally {
+        em.close();
+    }
     }
     
 }

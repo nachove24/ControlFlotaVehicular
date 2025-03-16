@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import com.vendrellignacio.controlflotavehicular.logic.Mantenimiento;
+import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,11 +26,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 
-public class BuscarMan extends javax.swing.JFrame {
+public class BuscarNeu extends javax.swing.JFrame {
 
     Controladora control;
     SimpleDateFormat formatoFecha;
-    public BuscarMan() {
+    public BuscarNeu() {
         initComponents();
         control = new Controladora();
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -57,7 +58,7 @@ public class BuscarMan extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaMan = new javax.swing.JTable();
+        tablaNeu = new javax.swing.JTable();
         btnExportar = new javax.swing.JButton();
         btnImportar = new javax.swing.JButton();
 
@@ -69,12 +70,12 @@ public class BuscarMan extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
-        jLabel1.setText("Mantenimiento");
+        jLabel1.setText("Neumático");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         jLabel2.setText("Buscar por:");
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Id", "Fecha", "Kilometros" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Id/Código", "Fecha", "Kilometros" }));
 
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +99,7 @@ public class BuscarMan extends javax.swing.JFrame {
 
         jLabel5.setText("Kilometros:");
 
-        jLabel6.setText("Id:");
+        jLabel6.setText("Id / Código:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -106,12 +107,12 @@ public class BuscarMan extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -129,7 +130,7 @@ public class BuscarMan extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(176, 176, 176)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3))
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(79, 79, 79)
@@ -165,8 +166,8 @@ public class BuscarMan extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
-        tablaMan.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tablaMan.setModel(new javax.swing.table.DefaultTableModel(
+        tablaNeu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tablaNeu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -177,7 +178,7 @@ public class BuscarMan extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tablaMan);
+        jScrollPane1.setViewportView(tablaNeu);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -226,7 +227,7 @@ public class BuscarMan extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(147, 147, 147)
+                .addGap(162, 162, 162)
                 .addComponent(btnExportar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnImportar)
@@ -272,70 +273,69 @@ public class BuscarMan extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String filtro = (String) cmbFiltro.getSelectedItem();
         
-        if("Id".equals(filtro)){
-            String texto = txtBuscar.getText();
-
-            try {
-                int idBuscado = Integer.parseInt(txtBuscar.getText());
-                Mantenimiento man = control.traerMan(idBuscado);
-    
-                if (man == null) {
-                    mostrarMensaje("Ingrese otro ID, el ID ingresado no existe.", "error","EL ID NO EXISTE");
-                    txtBuscar.setText("");
-                    txtBuscar.requestFocus();
-                } else {
-                    mostrarRegistroUnico(man);
+        if(null != filtro)switch (filtro) {
+            case "Id/Código" -> {
+                String texto = txtBuscar.getText().trim();
+                if (texto.isEmpty()) {
+                    mostrarMensaje("Ingrese un ID o código para buscar", "error", "Campo vacío");
+                    return;
+                }   try {
+                    // Intentar buscar por ID (número)
+                    int idBuscado = Integer.parseInt(texto);
+                    Neumatico neumatico = control.traerNeu(idBuscado);
+                    
+                    if (neumatico == null) {
+                        // Si no se encuentra por ID, mostrar mensaje
+                        mostrarMensaje("No se encontró neumático con el ID ingresado.", "error", "ID NO EXISTE");
+                        txtBuscar.setText("");
+                        txtBuscar.requestFocus();
+                    } else {
+                        // Mostrar resultado único
+                        mostrarRegistroUnico(neumatico);
+                    }
+                } catch (NumberFormatException e) {
+                    // Si no es un número, buscar por código
+                    Neumatico neumatico = control.buscarNeumaticoPorCodigo(texto);
+                    
+                    if (neumatico == null) {
+                        mostrarMensaje("No se encontró neumático con el código ingresado.", "error", "CÓDIGO NO EXISTE");
+                        txtBuscar.setText("");
+                        txtBuscar.requestFocus();
+                    } else {
+                        mostrarRegistroUnico(neumatico);
+                    }
                 }
-            } catch (NumberFormatException e) {
-                // No es un número entero válido
-                JOptionPane.showMessageDialog(this, 
-                "Por favor ingrese un número entero válido", 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
-                txtBuscar.setText(""); // Opcional: limpiar el campo
-                txtBuscar.requestFocus(); // Opcional: devolver el foco al campo
-                return; // Salir del método
-              }
-        }if("Fecha".equals(filtro)){
-            Date fechaInicial = dcFechaInicial.getDate();
-            Date fechaLimite = dcFechaLimite.getDate();
-
-            if (fechaInicial == null || fechaLimite == null) {
-                JOptionPane.showMessageDialog(this,
-                "Por favor seleccione ambas fechas",
-                 "Error",
-             JOptionPane.ERROR_MESSAGE);
-                return;
             }
-
-            // Verificar que la fecha inicial no sea posterior a la fecha límite
-            if (fechaInicial.after(fechaLimite)) {
-                JOptionPane.showMessageDialog(this,
-                "La fecha inicial no puede ser posterior a la fecha límite",
-                 "Error",
-             JOptionPane.ERROR_MESSAGE);
-                return;
+            case "Fecha" -> {
+                Date fechaInicial = dcFechaInicial.getDate();
+                Date fechaLimite = dcFechaLimite.getDate();
+                if (fechaInicial == null || fechaLimite == null) {
+                    JOptionPane.showMessageDialog(this,
+                            "Por favor seleccione ambas fechas",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }   // Verificar que la fecha inicial no sea posterior a la fecha límite
+                if (fechaInicial.after(fechaLimite)) {
+                    JOptionPane.showMessageDialog(this,
+                            "La fecha inicial no puede ser posterior a la fecha límite",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }   List<Neumatico> listaNeumaticos = control.buscarNeumaticosPorFecha(fechaInicial, fechaLimite);
+                if (listaNeumaticos == null || listaNeumaticos.isEmpty()) {
+                    JOptionPane.showMessageDialog(this,
+                            "No se encontraron neumáticos entre las fechas seleccionadas",
+                            "Información",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    cargarTabla();
+                    return;
+                }   mostrarNeumaticosFiltrados(listaNeumaticos);
             }
-            //LLAMAR METODO PARA BUSCAR REGISTROS DE FECHA
-            List<Mantenimiento> listaMan = control.buscarMantenimientosPorFecha(fechaInicial, fechaLimite);
-    
-            if (listaMan == null || listaMan.isEmpty()) {
-                JOptionPane.showMessageDialog(this,
-                    "No se encontraron registros entre las fechas seleccionadas",
-                    "Información",
-                JOptionPane.INFORMATION_MESSAGE);
-                cargarTabla();
-                return;
+            case "Kilometros" -> buscarPorKilometros();
+            default -> {
             }
-
-            mostrarMantenimientosFiltrados(listaMan);
-            
-            
-            
-            
-        } if("Kilometros".equals(filtro)) {
-            buscarPorKilometros();
-        }
+        } 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
@@ -348,267 +348,277 @@ public class BuscarMan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRestaurarActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Guardar archivo");
-    fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
-    
-    if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-        File file = fileChooser.getSelectedFile();
-        // Asegurar que tenga extensión .csv
-        if (!file.getName().toLowerCase().endsWith(".csv")) {
-            file = new File(file.getAbsolutePath() + ".csv");
-        }
+       JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar archivo");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
         
-        try (FileWriter fw = new FileWriter(file);
-             BufferedWriter bw = new BufferedWriter(fw);
-             PrintWriter pw = new PrintWriter(bw)) {
-            
-            // Escribir encabezados
-            pw.println("id,fecha,kilometros,observaciones,patente");
-            
-            // Obtener los datos actuales (los que están en la tabla o todos)
-            List<Mantenimiento> listaMan = control.traerMans();
-            
-            // Escribir cada registro
-            for (Mantenimiento man : listaMan) {
-                pw.println(
-                    man.getId_mantenimiento() + "," +
-                    formatoFecha.format(man.getFecha()) + "," +
-                    man.getKm() + "," +
-                    man.getObsv().replace(",", ";") + "," +  // Reemplazar comas para evitar conflictos CSV
-                    man.getUnPatente().getCodigoPatente()
-                );
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            // Asegurar que tenga extensión .csv
+            if (!file.getName().toLowerCase().endsWith(".csv")) {
+                file = new File(file.getAbsolutePath() + ".csv");
             }
             
-            mostrarMensaje("Archivo exportado exitosamente", "info", "Exportación Completa");
-            
-        } catch (IOException e) {
-            mostrarMensaje("Error al exportar: " + e.getMessage(), "error", "Error");
-            e.printStackTrace();
+            try (FileWriter fw = new FileWriter(file);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw)) {
+                
+                // Escribir encabezados
+                pw.println("id,codigo,fecha,kmTotal,marca,estado,patente");
+                
+                // Obtener los datos actuales
+                List<Neumatico> listaNeumaticos = control.traerNeus();
+                
+                // Escribir cada registro
+                for (Neumatico neumatico : listaNeumaticos) {
+                    pw.println(
+                        neumatico.getId_neumatico() + "," +
+                        neumatico.getCod_neumatico() + "," +
+                        formatoFecha.format(neumatico.getFechaUso()) + "," +
+                        neumatico.getKmTotal() + "," +
+                        neumatico.getMarca().replace(",", ";") + "," +
+                        neumatico.getEstado() + "," +
+                        (neumatico.getUnPatente() != null ? neumatico.getUnPatente().getCodigoPatente() : "N/A")
+                    );
+                }
+                
+                mostrarMensaje("Archivo exportado exitosamente", "info", "Exportación Completa");
+                
+            } catch (IOException e) {
+                mostrarMensaje("Error al exportar: " + e.getMessage(), "error", "Error");
+                e.printStackTrace();
+            }
         }
-    }
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
     JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Seleccionar archivo");
-    fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
-    
-    if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-        File file = fileChooser.getSelectedFile();
+        fileChooser.setDialogTitle("Seleccionar archivo");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
         
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            // Saltar la primera línea (encabezados)
-            br.readLine();
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
             
-            List<Mantenimiento> mantenimientosImportados = new ArrayList<>();
-            // Asegurarnos que usamos el formato correcto para parsear fechas
-            SimpleDateFormat formatoFechaImport = new SimpleDateFormat("dd/MM/yyyy");
-            
-            while ((line = br.readLine()) != null) {
-                String[] datos = line.split(",");
-                if (datos.length >= 5) {
-                    try {
-                        // Convertir datos a un objeto Mantenimiento
-                        Mantenimiento man = new Mantenimiento();
-                        
-                        // Convertir fecha de String a Date
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                // Saltar la primera línea (encabezados)
+                br.readLine();
+                
+                List<Neumatico> neumaticosImportados = new ArrayList<>();
+                SimpleDateFormat formatoFechaImport = new SimpleDateFormat("dd/MM/yyyy");
+                
+                while ((line = br.readLine()) != null) {
+                    String[] datos = line.split(",");
+                    if (datos.length >= 6) {
                         try {
-                            Date fecha = formatoFechaImport.parse(datos[1]);
-                            man.setFecha(fecha);
-                            System.out.println("Fecha en string: " + datos[1]);
-                            System.out.println("Fecha parseada: " + fecha);
-                        } catch (ParseException e) {
-                            System.out.println("Error al parsear la fecha: " + datos[1]);
+                            // Convertir datos a un objeto Neumatico
+                            Neumatico neumatico = new Neumatico();
+                            
+                            // Código del neumático
+                            neumatico.setCod_neumatico(datos[1]);
+                            
+                            // Convertir fecha de String a Date
+                            try {
+                                Date fecha = formatoFechaImport.parse(datos[2]);
+                                neumatico.setFechaUso(fecha);
+                            } catch (ParseException e) {
+                                System.out.println("Error al parsear la fecha: " + datos[2]);
+                                e.printStackTrace();
+                                continue;
+                            }
+                            
+                            // Convertir kmTotal
+                            try {
+                                Double kmTotal = Double.valueOf(datos[3]);
+                                neumatico.setKmTotal(kmTotal);
+                            } catch (NumberFormatException e) {
+                                System.out.println("Error al parsear kilómetros: " + datos[3]);
+                                continue;
+                            }
+                            
+                            // Marca
+                            neumatico.setMarca(datos[4]);
+                            
+                            // Estado
+                            neumatico.setEstado(datos[5]);
+                            
+                            // Patente (si existe)
+                            if (datos.length > 6 && !datos[6].equals("N/A")) {
+                                Patente vehiculo = control.buscarPorPatente(datos[6]);
+                                if (vehiculo == null) {
+                                    System.out.println("No se encontró vehículo con patente: " + datos[6]);
+                                    // Continuar sin asignar vehículo
+                                } else {
+                                    neumatico.setUnPatente(vehiculo);
+                                }
+                            }
+                            
+                            neumaticosImportados.add(neumatico);
+                            
+                        } catch (Exception e) {
+                            System.out.println("Error procesando línea: " + line);
                             e.printStackTrace();
-                            continue;
                         }
-                        
-                        // Convertir km - SOLUCIÓN PARA MANEJAR DECIMALES
-                        try {
-                            double kmDouble = Double.parseDouble(datos[2]);
-                            int km = (int)kmDouble; // Convierte a entero descartando decimales
-                            man.setKm(km);
-                            System.out.println("Km parseados correctamente: " + km);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Error al parsear kilómetros: " + datos[2]);
-                            continue;
-                        }
-                        
-                        // Observaciones
-                        man.setObsv(datos[3]);
-                        
-                        // Buscar vehículo por patente
-                        String patente = datos[4];
-                        // Verificar si la patente existe
-                        Patente vehiculo = control.buscarPorPatente(patente);
-                        if (vehiculo == null) {
-                            System.out.println("No se encontró vehículo con patente: " + patente);
-                            continue;
-                        }
-                        man.setUnPatente(vehiculo);
-                        
-                        mantenimientosImportados.add(man);
-                        System.out.println("Registro procesado correctamente: " + line);
-                        
-                    } catch (Exception e) {
-                        System.out.println("Error procesando línea: " + line);
-                        e.printStackTrace();
                     }
                 }
-            }
-            
-            System.out.println("Total de registros válidos: " + mantenimientosImportados.size());
-            
-            // Confirmar importación
-            if (!mantenimientosImportados.isEmpty()) {
-                int respuesta = JOptionPane.showConfirmDialog(
-                    this, 
-                    "Se importarán " + mantenimientosImportados.size() + " registros. ¿Desea continuar?",
-                    "Confirmar importación",
-                    JOptionPane.YES_NO_OPTION);
-                    
-                if (respuesta == JOptionPane.YES_OPTION) {
-                    // Guardar en la base de datos
-                    boolean exito = control.guardarMantenimientosImportados(mantenimientosImportados);
-                    
-                    if (exito) {
-                        mostrarMensaje("Importación completada con éxito", "info", "Importación");
-                        // Recargar tabla
-                        cargarTabla();
-                    } else {
-                        mostrarMensaje("Ocurrió un error durante la importación", "error", "Error");
+                
+                // Confirmar importación
+                if (!neumaticosImportados.isEmpty()) {
+                    int respuesta = JOptionPane.showConfirmDialog(
+                        this, 
+                        "Se importarán " + neumaticosImportados.size() + " registros. ¿Desea continuar?",
+                        "Confirmar importación",
+                        JOptionPane.YES_NO_OPTION);
+                        
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        // Guardar en la base de datos
+                        boolean exito = control.guardarNeumaticosImportados(neumaticosImportados);
+                        
+                        if (exito) {
+                            mostrarMensaje("Importación completada con éxito", "info", "Importación");
+                            // Recargar tabla
+                            cargarTabla();
+                        } else {
+                            mostrarMensaje("Ocurrió un error durante la importación", "error", "Error");
+                        }
                     }
+                } else {
+                    mostrarMensaje("No se encontraron registros válidos para importar", "error", "Sin registros");
                 }
-            } else {
-                mostrarMensaje("No se encontraron registros válidos para importar", "error", "Sin registros");
+                
+            } catch (IOException e) {
+                mostrarMensaje("Error al leer el archivo: " + e.getMessage(), "error", "Error");
+                e.printStackTrace();
             }
-            
-        } catch (IOException e) {
-            mostrarMensaje("Error al leer el archivo: " + e.getMessage(), "error", "Error");
-            e.printStackTrace();
         }
-    }
     }//GEN-LAST:event_btnImportarActionPerformed
 
     
+    // Método para cargar la tabla con todos los neumáticos
     private void cargarTabla() {
-    // Create a table model with data
-    DefaultTableModel model = new DefaultTableModel() {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false; // Make all cells non-editable
-        }
-    };
-    String titulos[] = {"Id", "Fecha", "Kilómetros", "Observaciones", "Patente"};
-    model.setColumnIdentifiers(titulos);
-    tablaMan.setModel(model);
-    
-    //traer los registros desde la bd
-    List <Mantenimiento> listaMan = control.traerMans();
-    if (listaMan != null && !listaMan.isEmpty()) {
-        // Ordenar la lista por fecha en orden descendente (más reciente primero)
-        Collections.sort(listaMan, (Mantenimiento m1, Mantenimiento m2) -> m2.getFecha().compareTo(m1.getFecha()) // Orden descendente
-        );
+        // Create a table model with data
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Make all cells non-editable
+            }
+        };
+        
+        String titulos[] = {"Id", "Código", "Fecha Uso", "Kilómetros", "Marca", "Estado", "Patente"};
+        model.setColumnIdentifiers(titulos);
+        tablaNeu.setModel(model);
+        
+        //traer los registros desde la bd
+        List<Neumatico> listaNeumaticos = control.traerNeus();
+        if (listaNeumaticos != null && !listaNeumaticos.isEmpty()) {
+            // Ordenar la lista por fecha en orden descendente (más reciente primero)
+            Collections.sort(listaNeumaticos, (Neumatico n1, Neumatico n2) -> 
+                n2.getFechaUso().compareTo(n1.getFechaUso())
+            );
 
-        // Agregar los datos ordenados al modelo de la tabla
-        for (Mantenimiento man : listaMan) {
-            Object[] obj = {
-                man.getId_mantenimiento(), 
-                formatoFecha.format(man.getFecha()), 
-                man.getKm(), 
-                man.getObsv(), 
-                man.getUnPatente().getCodigoPatente()
-            };
-            model.addRow(obj);
+            // Agregar los datos ordenados al modelo de la tabla
+            for (Neumatico neumatico : listaNeumaticos) {
+                Object[] obj = {
+                    neumatico.getId_neumatico(),
+                    neumatico.getCod_neumatico(),
+                    formatoFecha.format(neumatico.getFechaUso()),
+                    neumatico.getKmTotal(),
+                    neumatico.getMarca(),
+                    neumatico.getEstado(),
+                    neumatico.getUnPatente() != null ? neumatico.getUnPatente().getCodigoPatente() : "N/A"
+                };
+                model.addRow(obj);
+            }
         }
+        tablaNeu.setModel(model);
     }
-    tablaMan.setModel(model);
-} 
-    private void mostrarRegistroUnico(Mantenimiento man) {
-    DefaultTableModel model = new DefaultTableModel() {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    
-    String titulos[] = {"Id", "Fecha", "Kilómetros", "Observaciones", "Patente"};
-    model.setColumnIdentifiers(titulos);
-    
-    Object[] obj = {
-        man.getId_mantenimiento(), 
-        formatoFecha.format(man.getFecha()), 
-        man.getKm(), 
-        man.getObsv(), 
-        man.getUnPatente().getCodigoPatente()
-    };
-    
-    model.addRow(obj);
-    tablaMan.setModel(model);
-}
-    
-    private void mostrarMantenimientosFiltrados(List<Mantenimiento> listaMan) {
-    DefaultTableModel model = new DefaultTableModel() {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    
-    String titulos[] = {"Id", "Fecha", "Kilómetros", "Observaciones", "Patente"};
-    model.setColumnIdentifiers(titulos);
-    
-    for (Mantenimiento man : listaMan) {
+     private void mostrarRegistroUnico(Neumatico neumatico) {
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        String titulos[] = {"Id", "Código", "Fecha Uso", "Kilómetros", "Marca", "Estado", "Patente"};
+        model.setColumnIdentifiers(titulos);
+        
         Object[] obj = {
-            man.getId_mantenimiento(), 
-            formatoFecha.format(man.getFecha()), 
-            man.getKm(), 
-            man.getObsv(), 
-            man.getUnPatente().getCodigoPatente()
+            neumatico.getId_neumatico(),
+            neumatico.getCod_neumatico(),
+            formatoFecha.format(neumatico.getFechaUso()),
+            neumatico.getKmTotal(),
+            neumatico.getMarca(),
+            neumatico.getEstado(),
+            neumatico.getUnPatente() != null ? neumatico.getUnPatente().getCodigoPatente() : "N/A"
+        };
+        
+        model.addRow(obj);
+        tablaNeu.setModel(model);
+    }
+    
+    private void mostrarNeumaticosFiltrados(List<Neumatico> listaNeu) {
+    DefaultTableModel model = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    String titulos[] = {"Id", "Código", "Fecha Uso", "Kilómetros", "Marca", "Estado", "Patente"};
+    model.setColumnIdentifiers(titulos);
+    
+    for (Neumatico neu : listaNeu) {
+        Object[] obj = {
+            neu.getId_neumatico(),
+            neu.getCod_neumatico(),
+            formatoFecha.format(neu.getFechaUso()),
+            neu.getKmTotal(),
+            neu.getMarca(),
+            neu.getEstado(),
+            neu.getUnPatente() != null ? neu.getUnPatente().getCodigoPatente() : "N/A"
         };
         model.addRow(obj);
     }
     
-    tablaMan.setModel(model);
+    tablaNeu.setModel(model);
 }
     
     private void buscarPorKilometros() {
     String seleccion = cmbKm.getSelectedItem().toString();
     
-    List<Mantenimiento> listaMan;
+    List<Neumatico> listaNeumaticos;
     
     // Analizar la selección del combo
     if (seleccion.startsWith("<")) {
         // Menor que (ejemplo: <100)
-        int km = Integer.parseInt(seleccion.substring(1));
-        listaMan = control.buscarMantenimientosPorKmMenor(km);
+        double km = Double.parseDouble(seleccion.substring(1));
+        listaNeumaticos = control.buscarNeumaticosPorKmMenor(km);
     } 
     else if (seleccion.startsWith(">")) {
         // Mayor que (ejemplo: >1000)
-        int km = Integer.parseInt(seleccion.substring(1));
-        listaMan = control.buscarMantenimientosPorKmMayor(km);
+        double km = Double.parseDouble(seleccion.substring(1));
+        listaNeumaticos = control.buscarNeumaticosPorKmMayor(km);
     }
     else {
         // Rango (ejemplo: 100-500)
         String[] rango = seleccion.split("-");
-        int kmInicial = Integer.parseInt(rango[0]);
-        int kmFinal = Integer.parseInt(rango[1]);
-        listaMan = control.buscarMantenimientosPorRangoKm(kmInicial, kmFinal);
+        double kmInicial = Double.parseDouble(rango[0]);
+        double kmFinal = Double.parseDouble(rango[1]);
+        listaNeumaticos = control.buscarNeumaticosPorRangoKm(kmInicial, kmFinal);
     }
     
-    if (listaMan == null || listaMan.isEmpty()) {
+    if (listaNeumaticos == null || listaNeumaticos.isEmpty()) {
         JOptionPane.showMessageDialog(this,
-            "No se encontraron registros para el rango de kilómetros seleccionado",
+            "No se encontraron neumáticos para el rango de kilómetros seleccionado",
             "Información",
             JOptionPane.INFORMATION_MESSAGE);
         cargarTabla();
         return;
     }
-
-    mostrarMantenimientosFiltrados(listaMan);
+    mostrarNeumaticosFiltrados(listaNeumaticos);
 }
+
     
     public void mostrarMensaje (String mensaje, String tipo, String titulo){
 	JOptionPane optionPane = new JOptionPane(mensaje);
@@ -643,7 +653,7 @@ public class BuscarMan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaMan;
+    private javax.swing.JTable tablaNeu;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

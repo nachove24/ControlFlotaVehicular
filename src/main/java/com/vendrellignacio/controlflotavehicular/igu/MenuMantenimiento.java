@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import com.vendrellignacio.controlflotavehicular.logic.Mantenimiento;
+import java.text.SimpleDateFormat;
 
 
 
@@ -15,9 +16,11 @@ import javax.swing.table.DefaultTableModel;
 public class MenuMantenimiento extends javax.swing.JFrame {
 
     Controladora control;
+    SimpleDateFormat formatoFecha;
     public MenuMantenimiento() {
         initComponents();
         control = new Controladora();
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     
@@ -76,23 +79,23 @@ public class MenuMantenimiento extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
-        jLabel1.setText("Multa");
+        jLabel1.setText("Mantenimiento");
 
-        btnCrear.setText("Registrar Multa");
+        btnCrear.setText("Registrar Mantenimiento");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearActionPerformed(evt);
             }
         });
 
-        btnEditar.setText("Editar Multa");
+        btnEditar.setText("Editar Mantenimiento");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
             }
         });
 
-        btnBorrar.setText("Borrar Multa");
+        btnBorrar.setText("Borrar Mantenimiento");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -280,7 +283,7 @@ public class MenuMantenimiento extends javax.swing.JFrame {
     List <Mantenimiento> listaMan = control.traerMans();
     if (listaMan != null){
         for (Mantenimiento man : listaMan){
-            Object[] obj = {man.getId_mantenimiento(), man.getFecha(), man.getKm(), 
+            Object[] obj = {man.getId_mantenimiento(), formatoFecha.format(man.getFecha()), man.getKm(), 
                 man.getObsv(), man.getUnPatente().getCodigoPatente()};
             
             model.addRow(obj);

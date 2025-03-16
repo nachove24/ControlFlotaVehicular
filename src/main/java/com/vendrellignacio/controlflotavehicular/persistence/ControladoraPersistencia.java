@@ -345,6 +345,42 @@ public List<Mantenimiento> traerMantenimientosPorRangoKm(int kmInicial, int kmFi
         return null;
     }
 }
+//////////////////////BUSCAR NEUMATICO////////////////////////////////////
+    public Neumatico buscarNeumaticoPorCodigo(String texto) {
+        return neumaticoJpa.buscarPorCodigo(texto);
+    }
+
+    public List<Neumatico> traerNeumaticoPorFecha(Date fechaInicial, Date fechaLimite) {
+        try {
+            return neumaticoJpa.buscarPorRangoFechas(fechaInicial, fechaLimite);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Neumatico> traerNeumaticoPorKmMenor(double km) {
+        try {
+            return neumaticoJpa.buscarPorKmMenor(km);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Neumatico> traerNeumaticoPorKmMayor(double km) {
+        try {
+            return neumaticoJpa.buscarPorKmMayor(km);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Neumatico> traerNeumaticoPorRangoKm(double kmInicial, double kmFinal) {
+        try {
+        return neumaticoJpa.buscarPorRangoKm(kmInicial, kmFinal);
+        } catch (Exception e) {
+            return null;
+        }
+    }
     
     
     

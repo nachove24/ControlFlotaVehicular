@@ -2,8 +2,8 @@
 package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
-import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Tecnica;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -13,9 +13,11 @@ import javax.swing.table.DefaultTableModel;
 public class MenuTecnica extends javax.swing.JFrame {
 
     Controladora control;
+    SimpleDateFormat formatoFecha;
     public MenuTecnica() {
         initComponents();
         control = new Controladora();
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     
@@ -278,7 +280,7 @@ public class MenuTecnica extends javax.swing.JFrame {
         List <Tecnica> listaTec = control.traerTecs();
         if (listaTec != null){
             for (Tecnica tec : listaTec){
-                Object[] obj = {tec.getId_tecnica(), tec.getVencVTV(), tec.getAno(),
+                Object[] obj = {tec.getId_tecnica(), formatoFecha.format(tec.getVencVTV()), tec.getAno(),
                     tec.getUnPatente().getCodigoPatente()};
                 
                 model.addRow(obj);
