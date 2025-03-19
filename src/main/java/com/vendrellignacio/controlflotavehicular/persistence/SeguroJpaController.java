@@ -4,6 +4,7 @@
  */
 package com.vendrellignacio.controlflotavehicular.persistence;
 
+
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -12,9 +13,11 @@ import javax.persistence.criteria.Root;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.logic.Seguro;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 /**
@@ -166,6 +169,82 @@ public class SeguroJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    Seguro buscarPorPoliza(String texto) {
+        EntityManager em = getEntityManager();
+        int textoInt = Integer.parseInt(texto);
+    try {
+        String query = "SELECT s FROM Seguro s WHERE s.poliza = :numeroPoliza";
+        return em.createQuery(query, Seguro.class)
+            .setParameter("numeroPoliza", textoInt)
+            .getSingleResult();
+    } catch (NoResultException e) {
+        return null;
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Seguro> buscarPorAseguradora(String texto) {
+        EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT s FROM Seguro s WHERE LOWER(s.aseguradora) LIKE LOWER(:textoAseguradora)";
+        return em.createQuery(query, Seguro.class)
+            .setParameter("textoAseguradora", "%" + texto + "%")
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+    
+    /**
+ * Busca seguros cuya fecha de vencimiento esté dentro del rango especificado.
+ * 
+ * @param fechaInicial fecha inicial del rango de búsqueda
+ * @param fechaLimite fecha final del rango de búsqueda
+ * @return lista de seguros con vencimiento dentro del rango especificado
+ */
+
+    List<Seguro> buscarPorRangoFechas(Date fechaInicial, Date fechaLimite) {
+        EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT s FROM Seguro s WHERE s.fechaVenc BETWEEN :fechaInicial AND :fechaLimite ORDER BY s.fechaVenc ASC";
+        
+        return em.createQuery(query, Seguro.class)
+            .setParameter("fechaInicial", fechaInicial)
+            .setParameter("fechaLimite", fechaLimite)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Seguro> buscarPorRangoFechas2(Date fechaInicial, Date fechaLimite) {
+        EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT s FROM Seguro s WHERE s.fechaInicio BETWEEN :fechaInicial AND :fechaLimite ORDER BY s.fechaInicio ASC";
+        
+        return em.createQuery(query, Seguro.class)
+            .setParameter("fechaInicial", fechaInicial)
+            .setParameter("fechaLimite", fechaLimite)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    boolean existePoliza(String poliza) {
+         EntityManager em = emf.createEntityManager();
+         int polizaInt = Integer.parseInt(poliza);
+    try {
+        Query query = em.createQuery("SELECT COUNT(s) FROM Seguro s WHERE s.poliza = :poliza");
+        query.setParameter("poliza", polizaInt);
+        Long count = (Long) query.getSingleResult();
+        return count > 0; // Si hay al menos una póliza con ese número, devuelve true
+    } finally {
+        em.close();
+    }
     }
     
 }

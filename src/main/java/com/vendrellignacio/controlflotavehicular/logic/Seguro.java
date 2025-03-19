@@ -3,6 +3,7 @@ package com.vendrellignacio.controlflotavehicular.logic;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,8 @@ public class Seguro implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id_seguro;
     private String aseguradora;
-    private String poliza;
+    @Column(unique = true)
+    private int poliza;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -32,7 +34,7 @@ public class Seguro implements Serializable {
     public Seguro() {
     }
 
-    public Seguro(int id_seguro, String aseguradora, String poliza, Date fechaInicio, Date fechaVenc, double importe, String estado, String tipo, Patente unPatente) {
+    public Seguro(int id_seguro, String aseguradora, int poliza, Date fechaInicio, Date fechaVenc, double importe, String estado, String tipo, Patente unPatente) {
         this.id_seguro = id_seguro;
         this.aseguradora = aseguradora;
         this.poliza = poliza;
@@ -60,11 +62,11 @@ public class Seguro implements Serializable {
         this.aseguradora = aseguradora;
     }
 
-    public String getPoliza() {
+    public int getPoliza() {
         return poliza;
     }
 
-    public void setPoliza(String poliza) {
+    public void setPoliza(int poliza) {
         this.poliza = poliza;
     }
 

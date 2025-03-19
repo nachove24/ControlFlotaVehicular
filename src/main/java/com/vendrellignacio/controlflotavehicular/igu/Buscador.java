@@ -93,7 +93,7 @@ public class Buscador extends javax.swing.JFrame {
         });
 
         btnSeguro.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\impuesto.png")); // NOI18N
-        btnSeguro.setText("Añadir Seguro");
+        btnSeguro.setText("Seguro");
         btnSeguro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeguroActionPerformed(evt);
@@ -259,7 +259,7 @@ public class Buscador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImpuestoActionPerformed
 
     private void btnSeguroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguroActionPerformed
-        MenuSeguro menu = new MenuSeguro();
+        BuscarSeg menu = new BuscarSeg();
         //Lo hacemos visible:
         menu.setVisible(true);
         //Lo centramos

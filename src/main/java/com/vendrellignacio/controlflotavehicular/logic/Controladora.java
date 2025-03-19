@@ -279,7 +279,7 @@ public class Controladora {
         pat = controlPersis.traerPatbyPatente(segPatente);
         Seguro seg = new Seguro();
         seg.setImporte(Double.parseDouble(importe));
-        seg.setPoliza(poliza);
+        seg.setPoliza(Integer.parseInt(poliza));
         seg.setFechaInicio(fechaInicio);
         seg.setFechaVenc(fechaVenc);
         seg.setTipo(tipo);
@@ -313,7 +313,7 @@ public class Controladora {
         pat = controlPersis.traerPatbyPatente(segPatente);
         
         seg.setImporte(Double.parseDouble(importe));
-        seg.setPoliza(poliza);
+        seg.setPoliza(Integer.parseInt(poliza));
         seg.setFechaInicio(fechaInicio);
         seg.setFechaVenc(fechaVenc);
         seg.setTipo(tipo);
@@ -536,6 +536,26 @@ public boolean guardarMantenimientosImportados(List<Mantenimiento> mantenimiento
         e.printStackTrace();
         return false;
     }
+    }
+///////////////////////////BUSCAR SEGURO///////////////////////////////////////////
+    public Seguro buscarSeguroPorPoliza(String texto) {
+        return controlPersis.buscarSegPorPoliza(texto);
+    }
+
+    public List<Seguro> buscarSegurosPorAseguradora(String texto) {
+         return controlPersis.buscarSegPorAseguradora(texto);
+    }
+
+    public List<Seguro> buscarSegurosPorFechaVencimiento(Date fechaInicial, Date fechaLimite) {
+        return controlPersis.traerSeguroPorFecha(fechaInicial, fechaLimite); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Seguro> buscarSegurosPorFechaInicio(Date fechaInicial, Date fechaLimite) {
+        return controlPersis.traerSeguroPorFecha2(fechaInicial, fechaLimite);// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean existePoliza(String poliza) {
+        return controlPersis.existePoliza(poliza);
     }
 
 

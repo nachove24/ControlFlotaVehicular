@@ -226,37 +226,47 @@ public class AltaSeguro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // ACOPLADO / CHASIS
+    String segPatente = txtPatente.getText();
+    Integer idPat = control.traerIdAco(segPatente);
+    if (idPat == null) {
+        idPat = control.traerIdCha(segPatente);
+    }
+
+    if (idPat == null) {
+        JOptionPane optionPane = new JOptionPane("LA PATENTE NO EXISTE");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Ingrese otra patente, la patente ingresada no existe.");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    } else {
+        Date fechaVenc = dcFechaVenc.getDate();
+        Date fechaInicio = dcFechaInicio.getDate();
+        String poliza = txtPoliza.getText();
+        String tipo = txtTipo.getText();
+        String importe = txtImporte.getText();
+        String aseguradora = txtAseguradora.getText();
+
+        // 🔍 Verificar si la póliza ya existe en la base de datos
+        boolean polizaExiste = control.existePoliza(poliza); // Debes implementar este método en tu controlador
         
-        //ACOPLADO /\ CHASIS\\
-        String segPatente = txtPatente.getText();
-        Integer idPat = control.traerIdAco(segPatente);
-        if (idPat == null){
-            idPat = control.traerIdCha(segPatente);
-        }
-        if (idPat == null){
-            JOptionPane optionPane = new JOptionPane("LA PATENTE NO EXISTE");
-            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-            JDialog dialog = optionPane.createDialog("Ingrese otra patente, la patente ingresada no existe.");
+        if (polizaExiste) {
+            JOptionPane optionPane = new JOptionPane("LA PÓLIZA YA EXISTE");
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Error al guardar");
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
-        }else{
-            Date fechaVenc = dcFechaVenc.getDate();
-            Date fechaInicio = dcFechaInicio.getDate();
-            String poliza = txtPoliza.getText();
-            String tipo = txtTipo.getText();
-            String importe = txtImporte.getText();
-            String aseguradora = txtAseguradora.getText();
-            //String patente = txtPatente.getText();
-            //neuPatente = idPat.toString();
-            System.out.println(idPat);
-            control.crearSeguro(fechaVenc, fechaInicio,poliza,tipo,importe,segPatente,aseguradora);
-            
+        } else {
+            // Si la póliza no existe, se guarda en la base de datos
+            control.crearSeguro(fechaVenc, fechaInicio, poliza, tipo, importe, segPatente, aseguradora);
+
             JOptionPane optionPane = new JOptionPane("Se guardó correctamente.");
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
             JDialog dialog = optionPane.createDialog("Guardado Exitoso");
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
-        }       
+        }
+     }     
     }//GEN-LAST:event_btnGuardarActionPerformed
     
     

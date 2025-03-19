@@ -14,6 +14,7 @@ public class ModificarSeg extends javax.swing.JFrame {
     Controladora control;
     int idSeg;
     Seguro seg;
+    String polizaActual;
     public ModificarSeg(int idSeg, Controladora control) {
         initComponents();
         this.control = control;
@@ -234,37 +235,49 @@ public class ModificarSeg extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-        //ACOPLADO /\ CHASIS\\
-        String segPatente = txtPatente.getText();
-        Integer idPat = control.traerIdAco(segPatente);
-        if (idPat == null){
-            idPat = control.traerIdCha(segPatente);
-        }
-        if (idPat == null){
-            JOptionPane optionPane = new JOptionPane("LA PATENTE NO EXISTE");
-            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-            JDialog dialog = optionPane.createDialog("Ingrese otra patente, la patente ingresada no existe.");
-            dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
-        }else{
-            Date fechaVenc = dcFechaVenc.getDate();
-            Date fechaInicio = dcFechaInicio.getDate();
-            String poliza = txtPoliza.getText();
-            String tipo = txtTipo.getText();
-            String importe = txtImporte.getText();
-            String aseguradora = txtAseguradora.getText();
-            //String patente = txtPatente.getText();
-            //neuPatente = idPat.toString();
-            System.out.println(idPat);
-            control.editarSeguro(seg,fechaVenc, fechaInicio,poliza,tipo,importe,segPatente,aseguradora);
-            
-            JOptionPane optionPane = new JOptionPane("Se guardó correctamente.");
-            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-            JDialog dialog = optionPane.createDialog("Guardado Exitoso");
-            dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
-        }       
+      //ACOPLADO /\ CHASIS\\
+String segPatente = txtPatente.getText();
+Integer idPat = control.traerIdAco(segPatente);
+if (idPat == null) {
+    idPat = control.traerIdCha(segPatente);
+}
+
+if (idPat == null) {
+    JOptionPane optionPane = new JOptionPane("LA PATENTE NO EXISTE");
+    optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+    JDialog dialog = optionPane.createDialog("Ingrese otra patente, la patente ingresada no existe.");
+    dialog.setAlwaysOnTop(true);
+    dialog.setVisible(true);
+} else {
+    Date fechaVenc = dcFechaVenc.getDate();
+    Date fechaInicio = dcFechaInicio.getDate();
+    String poliza = txtPoliza.getText();
+    String tipo = txtTipo.getText();
+    String importe = txtImporte.getText();
+    String aseguradora = txtAseguradora.getText();
+
+    // Obtener la póliza actual del seguro antes de la modificación
+    //String polizaActual = obtenerPolizaPorSeguro();
+
+    // Verificar si la nueva póliza es diferente y ya existe en la base de datos
+    if (!poliza.equals(polizaActual) && control.existePoliza(poliza)) {
+        JOptionPane optionPane = new JOptionPane("La póliza ingresada ya existe en otro registro.");
+        optionPane.setMessageType(JOptionPane.WARNING_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Error");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    } else {
+        System.out.println(idPat);
+        control.editarSeguro(seg, fechaVenc, fechaInicio, poliza, tipo, importe, segPatente, aseguradora);
+
+        JOptionPane optionPane = new JOptionPane("Se guardó correctamente.");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Guardado Exitoso");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
+}
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -274,7 +287,8 @@ public class ModificarSeg extends javax.swing.JFrame {
         txtPatente.setText(seg.getUnPatente().getCodigoPatente());
         dcFechaVenc.setDate(seg.getFechaVenc());
         txtAseguradora.setText(seg.getAseguradora());
-        txtPoliza.setText(seg.getPoliza());
+        txtPoliza.setText(String.valueOf(seg.getPoliza()));
+        polizaActual = String.valueOf(seg.getPoliza());
         txtTipo.setText(seg.getTipo());
     }//GEN-LAST:event_formWindowOpened
     
@@ -302,4 +316,8 @@ public class ModificarSeg extends javax.swing.JFrame {
     private javax.swing.JTextField txtPoliza;
     private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
+
+    /*private String obtenerPolizaPorSeguro() {
+        
+    }*/
 }

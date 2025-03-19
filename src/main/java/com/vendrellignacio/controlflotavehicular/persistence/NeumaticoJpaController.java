@@ -18,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -170,12 +171,20 @@ public NeumaticoJpaController() {
     }
 
     public Neumatico buscarPorCodigo(String codigo) {
-    EntityManager em = getEntityManager();
+     EntityManager em = getEntityManager();
     try {
-        String query = "SELECT n FROM Neumatico n WHERE n.cod_neumatico = :codigo";
-        return em.createQuery(query, Neumatico.class)
-            .setParameter("codigo", codigo)
-            .getSingleResult();
+        String query;
+        TypedQuery<Neumatico> typedQuery;
+
+        if (codigo.matches("\\d+")) { // Verifica si el código es solo números
+            query = "SELECT n FROM Neumatico n WHERE CAST(n.cod_neumatico AS string) = :codigo";
+        } else {
+            query = "SELECT n FROM Neumatico n WHERE n.cod_neumatico = :codigo";
+        }
+
+        typedQuery = em.createQuery(query, Neumatico.class).setParameter("codigo", codigo);
+
+        return typedQuery.getSingleResult();
     } catch (NoResultException e) {
         return null;
     } finally {

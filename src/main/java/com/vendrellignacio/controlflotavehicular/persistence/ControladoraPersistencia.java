@@ -381,6 +381,34 @@ public List<Mantenimiento> traerMantenimientosPorRangoKm(int kmInicial, int kmFi
             return null;
         }
     }
+///////////////////////SEGURO BUSCAR/////////////////////////////////////////
+    public Seguro buscarSegPorPoliza(String texto) {
+        return seguroJpa.buscarPorPoliza(texto);
+    }
+
+    public List<Seguro> buscarSegPorAseguradora(String texto) {
+        return seguroJpa.buscarPorAseguradora(texto);
+    }
+
+    public List<Seguro> traerSeguroPorFecha(Date fechaInicial, Date fechaLimite) {
+        try {
+            return seguroJpa.buscarPorRangoFechas(fechaInicial, fechaLimite);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Seguro> traerSeguroPorFecha2(Date fechaInicial, Date fechaLimite) {
+        try {
+            return seguroJpa.buscarPorRangoFechas2(fechaInicial, fechaLimite);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean existePoliza(String poliza) {
+        return seguroJpa.existePoliza(poliza);
+    }
     
     
     

@@ -4,6 +4,7 @@ package com.vendrellignacio.controlflotavehicular.igu;
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
 import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
+import com.vendrellignacio.controlflotavehicular.logic.Seguro;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,11 +26,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 
-public class BuscarNeu extends javax.swing.JFrame {
+public class BuscarSeg extends javax.swing.JFrame {
 
     Controladora control;
     SimpleDateFormat formatoFecha;
-    public BuscarNeu() {
+    public BuscarSeg() {
         initComponents();
         control = new Controladora();
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -52,9 +53,9 @@ public class BuscarNeu extends javax.swing.JFrame {
         dcFechaInicial = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmbKm = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        txtBuscarPoliza = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaNeu = new javax.swing.JTable();
@@ -74,7 +75,7 @@ public class BuscarNeu extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         jLabel2.setText("Buscar por:");
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Id/Código", "Fecha", "Kilometros" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Id/Aseguradora", "Fecha Inicio", "Fecha Vencimiento", "Poliza" }));
 
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,11 +95,9 @@ public class BuscarNeu extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha inicial:");
 
-        cmbKm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<100", "100-500", "500-1000", ">1000", ">2000" }));
+        jLabel5.setText("Poliza:");
 
-        jLabel5.setText("Kilometros:");
-
-        jLabel6.setText("Id / Código:");
+        jLabel6.setText("Id/Aseguradora:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,31 +109,34 @@ public class BuscarNeu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(dcFechaLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRestaurar))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(65, 65, 65)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(dcFechaLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnBuscar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnRestaurar))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(dcFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbKm, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel5)
-                        .addGap(96, 96, 96))))
+                                .addComponent(jLabel4))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(141, 141, 141))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(txtBuscarPoliza, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap()))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,13 +146,13 @@ public class BuscarNeu extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dcFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbKm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(dcFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarPoliza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -215,15 +217,6 @@ public class BuscarNeu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(162, 162, 162)
@@ -231,6 +224,15 @@ public class BuscarNeu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnImportar)
                 .addGap(25, 25, 25))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,75 +274,116 @@ public class BuscarNeu extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String filtro = (String) cmbFiltro.getSelectedItem();
         
-        if(null != filtro)switch (filtro) {
-            case "Id/Código" -> {
-                String texto = txtBuscar.getText().trim();
-                if (texto.isEmpty()) {
-                    mostrarMensaje("Ingrese un ID o código para buscar", "error", "Campo vacío");
-                    return;
-                }   try {
-                    // Intentar buscar por ID (número)
-                    int idBuscado = Integer.parseInt(texto);
-                    Neumatico neumatico = control.traerNeu(idBuscado);
-                    
-                    if (neumatico == null) {
-                        // Si no se encuentra por ID, mostrar mensaje
-                        mostrarMensaje("No se encontró neumático con el ID ingresado.", "error", "ID NO EXISTE");
-                        txtBuscar.setText("");
-                        txtBuscar.requestFocus();
-                    } else {
-                        // Mostrar resultado único
-                        mostrarRegistroUnico(neumatico);
-                    }
-                } catch (NumberFormatException e) {
-                    // Si no es un número, buscar por código
-                    Neumatico neumatico = control.buscarNeumaticoPorCodigo(texto);
-                    
-                    if (neumatico == null) {
-                        mostrarMensaje("No se encontró neumático con el código ingresado.", "error", "CÓDIGO NO EXISTE");
-                        txtBuscar.setText("");
-                        txtBuscar.requestFocus();
-                    } else {
-                        mostrarRegistroUnico(neumatico);
-                    }
-                }
+if(null != filtro)switch (filtro) {
+    case "Id/Aseguradora" -> {
+        String texto = txtBuscar.getText().trim();
+        if (texto.isEmpty()) {
+            mostrarMensaje("Ingrese un ID o código para buscar", "error", "Campo vacío");
+            return;
+        }   
+        try {
+            // Intentar buscar por ID (número)
+            int idBuscado = Integer.parseInt(texto);
+            Seguro seguro = control.traerSeg(idBuscado);
+            
+            if (seguro == null) {
+                // Si no se encuentra por ID, mostrar mensaje
+                mostrarMensaje("No se encontró seguro con el ID ingresado.", "error", "ID NO EXISTE");
+                txtBuscar.setText("");
+                txtBuscar.requestFocus();
+            } else {
+                // Mostrar resultado único
+                mostrarRegistroUnico(seguro);
             }
-            case "Fecha" -> {
-                Date fechaInicial = dcFechaInicial.getDate();
-                Date fechaLimite = dcFechaLimite.getDate();
-                if (fechaInicial == null || fechaLimite == null) {
-                    JOptionPane.showMessageDialog(this,
-                            "Por favor seleccione ambas fechas",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }   // Verificar que la fecha inicial no sea posterior a la fecha límite
-                if (fechaInicial.after(fechaLimite)) {
-                    JOptionPane.showMessageDialog(this,
-                            "La fecha inicial no puede ser posterior a la fecha límite",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }   List<Neumatico> listaNeumaticos = control.buscarNeumaticosPorFecha(fechaInicial, fechaLimite);
-                if (listaNeumaticos == null || listaNeumaticos.isEmpty()) {
-                    JOptionPane.showMessageDialog(this,
-                            "No se encontraron neumáticos entre las fechas seleccionadas",
-                            "Información",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    cargarTabla();
-                    return;
-                }   mostrarNeumaticosFiltrados(listaNeumaticos);
+        } catch (NumberFormatException e) {
+                List<Seguro> listaSeguros = control.buscarSegurosPorAseguradora(texto);
+                if (listaSeguros == null || listaSeguros.isEmpty()) {
+                mostrarMensaje("No se encontraron seguros con la aseguradora ingresada.", "error", "ASEGURADORA NO EXISTE");
+                txtBuscar.setText("");
+                txtBuscar.requestFocus();
+                return;
+                }else{mostrarSegurosFiltrados(listaSeguros);}
+        }
+    }
+    case "Fecha Vencimiento" -> {
+        Date fechaInicial = dcFechaInicial.getDate();
+        Date fechaLimite = dcFechaLimite.getDate();
+        if (fechaInicial == null || fechaLimite == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor seleccione ambas fechas",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }   
+        // Verificar que la fecha inicial no sea posterior a la fecha límite
+        if (fechaInicial.after(fechaLimite)) {
+            JOptionPane.showMessageDialog(this,
+                    "La fecha inicial no puede ser posterior a la fecha límite",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }   
+        List<Seguro> listaSeguros = control.buscarSegurosPorFechaVencimiento(fechaInicial, fechaLimite);
+        if (listaSeguros == null || listaSeguros.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "No se encontraron seguros entre las fechas seleccionadas",
+                    "Información",
+                    JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+            return;
+        }   
+        mostrarSegurosFiltrados(listaSeguros);
+    }
+    case "Fecha Inicio" -> {
+        Date fechaInicial = dcFechaInicial.getDate();
+        Date fechaLimite = dcFechaLimite.getDate();
+        if (fechaInicial == null || fechaLimite == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor seleccione ambas fechas",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }   
+        // Verificar que la fecha inicial no sea posterior a la fecha límite
+        if (fechaInicial.after(fechaLimite)) {
+            JOptionPane.showMessageDialog(this,
+                    "La fecha inicial no puede ser posterior a la fecha límite",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }   
+        List<Seguro> listaSeguros = control.buscarSegurosPorFechaInicio(fechaInicial, fechaLimite);
+        if (listaSeguros == null || listaSeguros.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "No se encontraron seguros entre las fechas seleccionadas",
+                    "Información",
+                    JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+            return;
+        }   
+        mostrarSegurosFiltrados(listaSeguros);
+    }
+    case "Poliza" -> {
+            String texto = txtBuscarPoliza.getText();
+         // Si no es un número, buscar por número de póliza
+            Seguro seguro = control.buscarSeguroPorPoliza(texto);
+            
+            if (seguro == null) {
+                mostrarMensaje("No se encontraron seguros con la poliza ingresada.", "error", "POLIZA NO EXISTE");
+                } else {
+                mostrarRegistroUnico(seguro);
             }
-            case "Kilometros" -> buscarPorKilometros();
-            default -> {
-            }
-        } 
+    }
+    default -> {
+        cargarTabla();
+    }
+}
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
         cargarTabla();
         cmbFiltro.setSelectedIndex(0);
-        cmbKm.setSelectedIndex(0);
+        txtBuscarPoliza.setText("");
         txtBuscar.setText("");
         dcFechaInicial.setDate(null);
         dcFechaLimite.setDate(null);
@@ -503,35 +546,36 @@ public class BuscarNeu extends javax.swing.JFrame {
             }
         };
         
-        String titulos[] = {"Id", "Código", "Fecha Uso", "Kilómetros", "Marca", "Estado", "Patente"};
+        String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
         model.setColumnIdentifiers(titulos);
         tablaNeu.setModel(model);
         
         //traer los registros desde la bd
-        List<Neumatico> listaNeumaticos = control.traerNeus();
-        if (listaNeumaticos != null && !listaNeumaticos.isEmpty()) {
+        List<Seguro> listaSeguros = control.traerSegs();
+        if (listaSeguros != null && !listaSeguros.isEmpty()) {
             // Ordenar la lista por fecha en orden descendente (más reciente primero)
-            Collections.sort(listaNeumaticos, (Neumatico n1, Neumatico n2) -> 
-                n2.getFechaUso().compareTo(n1.getFechaUso())
-            );
+            Collections.sort(listaSeguros, (Seguro s1, Seguro s2) -> 
+                 s2.getFechaInicio().compareTo(s1.getFechaInicio())
+             );
 
             // Agregar los datos ordenados al modelo de la tabla
-            for (Neumatico neumatico : listaNeumaticos) {
+            for (Seguro seguro : listaSeguros) {
                 Object[] obj = {
-                    neumatico.getId_neumatico(),
-                    neumatico.getCod_neumatico(),
-                    formatoFecha.format(neumatico.getFechaUso()),
-                    neumatico.getKmTotal(),
-                    neumatico.getMarca(),
-                    neumatico.getEstado(),
-                    neumatico.getUnPatente() != null ? neumatico.getUnPatente().getCodigoPatente() : "N/A"
+                    seguro.getId_seguro(),
+                    seguro.getAseguradora(),
+                    seguro.getPoliza(),
+                    formatoFecha.format(seguro.getFechaInicio()),
+                    formatoFecha.format(seguro.getFechaVenc()),
+                    seguro.getImporte(),
+                    seguro.getTipo(),
+                    seguro.getUnPatente() != null ? seguro.getUnPatente().getCodigoPatente() : "N/A"
                 };
                 model.addRow(obj);
             }
         }
         tablaNeu.setModel(model);
     }
-     private void mostrarRegistroUnico(Neumatico neumatico) {
+     private void mostrarRegistroUnico(Seguro seguro) {
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -539,24 +583,25 @@ public class BuscarNeu extends javax.swing.JFrame {
             }
         };
         
-        String titulos[] = {"Id", "Código", "Fecha Uso", "Kilómetros", "Marca", "Estado", "Patente"};
+        String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
         model.setColumnIdentifiers(titulos);
         
         Object[] obj = {
-            neumatico.getId_neumatico(),
-            neumatico.getCod_neumatico(),
-            formatoFecha.format(neumatico.getFechaUso()),
-            neumatico.getKmTotal(),
-            neumatico.getMarca(),
-            neumatico.getEstado(),
-            neumatico.getUnPatente() != null ? neumatico.getUnPatente().getCodigoPatente() : "N/A"
+            seguro.getId_seguro(),
+            seguro.getAseguradora(),
+            seguro.getPoliza(),
+            formatoFecha.format(seguro.getFechaInicio()),
+            formatoFecha.format(seguro.getFechaVenc()),
+            seguro.getImporte(),
+            seguro.getTipo(),
+            seguro.getUnPatente() != null ? seguro.getUnPatente().getCodigoPatente() : "N/A"
         };
         
         model.addRow(obj);
         tablaNeu.setModel(model);
     }
     
-    private void mostrarNeumaticosFiltrados(List<Neumatico> listaNeu) {
+    private void mostrarSegurosFiltrados(List<Seguro> listaSeg) {
     DefaultTableModel model = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -564,58 +609,24 @@ public class BuscarNeu extends javax.swing.JFrame {
         }
     };
     
-    String titulos[] = {"Id", "Código", "Fecha Uso", "Kilómetros", "Marca", "Estado", "Patente"};
+    String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
     model.setColumnIdentifiers(titulos);
     
-    for (Neumatico neu : listaNeu) {
+    for (Seguro seg : listaSeg) {
         Object[] obj = {
-            neu.getId_neumatico(),
-            neu.getCod_neumatico(),
-            formatoFecha.format(neu.getFechaUso()),
-            neu.getKmTotal(),
-            neu.getMarca(),
-            neu.getEstado(),
-            neu.getUnPatente() != null ? neu.getUnPatente().getCodigoPatente() : "N/A"
+            seg.getId_seguro(),
+            seg.getAseguradora(),
+            seg.getPoliza(),
+            formatoFecha.format(seg.getFechaInicio()),
+            formatoFecha.format(seg.getFechaVenc()),
+            seg.getImporte(),
+            seg.getTipo(),
+            seg.getUnPatente() != null ? seg.getUnPatente().getCodigoPatente() : "N/A"
         };
         model.addRow(obj);
     }
     
     tablaNeu.setModel(model);
-}
-    
-    private void buscarPorKilometros() {
-    String seleccion = cmbKm.getSelectedItem().toString();
-    
-    List<Neumatico> listaNeumaticos;
-    
-    // Analizar la selección del combo
-    if (seleccion.startsWith("<")) {
-        // Menor que (ejemplo: <100)
-        double km = Double.parseDouble(seleccion.substring(1));
-        listaNeumaticos = control.buscarNeumaticosPorKmMenor(km);
-    } 
-    else if (seleccion.startsWith(">")) {
-        // Mayor que (ejemplo: >1000)
-        double km = Double.parseDouble(seleccion.substring(1));
-        listaNeumaticos = control.buscarNeumaticosPorKmMayor(km);
-    }
-    else {
-        // Rango (ejemplo: 100-500)
-        String[] rango = seleccion.split("-");
-        double kmInicial = Double.parseDouble(rango[0]);
-        double kmFinal = Double.parseDouble(rango[1]);
-        listaNeumaticos = control.buscarNeumaticosPorRangoKm(kmInicial, kmFinal);
-    }
-    
-    if (listaNeumaticos == null || listaNeumaticos.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-            "No se encontraron neumáticos para el rango de kilómetros seleccionado",
-            "Información",
-            JOptionPane.INFORMATION_MESSAGE);
-        cargarTabla();
-        return;
-    }
-    mostrarNeumaticosFiltrados(listaNeumaticos);
 }
 
     
@@ -639,7 +650,6 @@ public class BuscarNeu extends javax.swing.JFrame {
     private javax.swing.JButton btnImportar;
     private javax.swing.JButton btnRestaurar;
     private javax.swing.JComboBox<String> cmbFiltro;
-    private javax.swing.JComboBox<String> cmbKm;
     private com.toedter.calendar.JDateChooser dcFechaInicial;
     private com.toedter.calendar.JDateChooser dcFechaLimite;
     private javax.swing.JLabel jLabel1;
@@ -654,5 +664,6 @@ public class BuscarNeu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaNeu;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtBuscarPoliza;
     // End of variables declaration//GEN-END:variables
 }
