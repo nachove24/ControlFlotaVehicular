@@ -1,10 +1,12 @@
 
 package com.vendrellignacio.controlflotavehicular.igu;
 
+import com.vendrellignacio.controlflotavehicular.logic.Acoplado;
+import com.vendrellignacio.controlflotavehicular.logic.Chasis;
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
-// import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
+import com.vendrellignacio.controlflotavehicular.logic.Impuesto;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
-import com.vendrellignacio.controlflotavehicular.logic.Seguro;
+import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,7 +18,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-//import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JDialog;
@@ -26,11 +27,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 
-public class BuscarSeg extends javax.swing.JFrame {
+public class BuscarVia extends javax.swing.JFrame {
 
     Controladora control;
     SimpleDateFormat formatoFecha;
-    public BuscarSeg() {
+    public BuscarVia() {
         initComponents();
         control = new Controladora();
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -55,10 +56,10 @@ public class BuscarSeg extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtBuscarPoliza = new javax.swing.JTextField();
+        txtDestino = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaNeu = new javax.swing.JTable();
+        tablaVia = new javax.swing.JTable();
         btnExportar = new javax.swing.JButton();
         btnImportar = new javax.swing.JButton();
 
@@ -70,12 +71,12 @@ public class BuscarSeg extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
-        jLabel1.setText("Seguro");
+        jLabel1.setText("Viaje");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         jLabel2.setText("Buscar por:");
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Id/Aseguradora", "Fecha Inicio", "Fecha Vencimiento", "Poliza" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Id", "Fecha Salida", "Fecha Llegada", "Destino" }));
 
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,9 +96,9 @@ public class BuscarSeg extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha inicial:");
 
-        jLabel5.setText("Poliza:");
+        jLabel5.setText("Destino:");
 
-        jLabel6.setText("Id/Aseguradora:");
+        jLabel6.setText("Id:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,12 +111,9 @@ public class BuscarSeg extends javax.swing.JFrame {
                 .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(65, 65, 65)))
+                    .addComponent(jLabel6)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -131,12 +129,9 @@ public class BuscarSeg extends javax.swing.JFrame {
                                 .addComponent(jLabel4))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(141, 141, 141))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(txtBuscarPoliza, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap()))))))
+                                .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5))
+                            .addContainerGap()))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,10 +143,10 @@ public class BuscarSeg extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dcFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBuscarPoliza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,8 +162,8 @@ public class BuscarSeg extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
-        tablaNeu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tablaNeu.setModel(new javax.swing.table.DefaultTableModel(
+        tablaVia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tablaVia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -179,7 +174,7 @@ public class BuscarSeg extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tablaNeu);
+        jScrollPane1.setViewportView(tablaVia);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -272,40 +267,35 @@ public class BuscarSeg extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
  
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String filtro = (String) cmbFiltro.getSelectedItem();
+       String filtro = (String) cmbFiltro.getSelectedItem();
         
-if(null != filtro)switch (filtro) {
-    case "Id/Aseguradora" -> {
+if (null != filtro) switch (filtro) {
+    case "Id" -> {
         String texto = txtBuscar.getText().trim();
         if (texto.isEmpty()) {
-            mostrarMensaje("Ingrese un ID o código para buscar", "error", "Campo vacío");
+            mostrarMensaje("Ingrese un ID para buscar", "error", "Campo vacío");
             return;
         }   
         try {
-            // Intentar buscar por ID (número)
+            // Buscar por ID
             int idBuscado = Integer.parseInt(texto);
-            Seguro seguro = control.traerSeg(idBuscado);
+            Viaje viaje = control.traerVia(idBuscado);
             
-            if (seguro == null) {
-                // Si no se encuentra por ID, mostrar mensaje
-                mostrarMensaje("No se encontró seguro con el ID ingresado.", "error", "ID NO EXISTE");
+            if (viaje == null) {
+                mostrarMensaje("No se encontró viaje con el ID ingresado.", "error", "ID NO EXISTE");
                 txtBuscar.setText("");
                 txtBuscar.requestFocus();
             } else {
                 // Mostrar resultado único
-                mostrarRegistroUnico(seguro);
+                mostrarRegistroUnico(viaje);
             }
         } catch (NumberFormatException e) {
-                List<Seguro> listaSeguros = control.buscarSegurosPorAseguradora(texto);
-                if (listaSeguros == null || listaSeguros.isEmpty()) {
-                mostrarMensaje("No se encontraron seguros con la aseguradora ingresada.", "error", "ASEGURADORA NO EXISTE");
-                txtBuscar.setText("");
-                txtBuscar.requestFocus();
-                return;
-                }else{mostrarSegurosFiltrados(listaSeguros);}
+            mostrarMensaje("El ID debe ser un número", "error", "FORMATO INCORRECTO");
+            txtBuscar.setText("");
+            txtBuscar.requestFocus();
         }
     }
-    case "Fecha Vencimiento" -> {
+    case "Fecha Salida" -> {
         Date fechaInicial = dcFechaInicial.getDate();
         Date fechaLimite = dcFechaLimite.getDate();
         if (fechaInicial == null || fechaLimite == null) {
@@ -323,18 +313,18 @@ if(null != filtro)switch (filtro) {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }   
-        List<Seguro> listaSeguros = control.buscarSegurosPorFechaVencimiento(fechaInicial, fechaLimite);
-        if (listaSeguros == null || listaSeguros.isEmpty()) {
+        List<Viaje> listaViajes = control.buscarViajesPorFechaSalida(fechaInicial, fechaLimite);
+        if (listaViajes == null || listaViajes.isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                    "No se encontraron seguros entre las fechas seleccionadas",
+                    "No se encontraron viajes entre las fechas de salida seleccionadas",
                     "Información",
                     JOptionPane.INFORMATION_MESSAGE);
             cargarTabla();
             return;
         }   
-        mostrarSegurosFiltrados(listaSeguros);
+        mostrarViajesFiltrados(listaViajes);
     }
-    case "Fecha Inicio" -> {
+    case "Fecha Llegada" -> {
         Date fechaInicial = dcFechaInicial.getDate();
         Date fechaLimite = dcFechaLimite.getDate();
         if (fechaInicial == null || fechaLimite == null) {
@@ -352,27 +342,31 @@ if(null != filtro)switch (filtro) {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }   
-        List<Seguro> listaSeguros = control.buscarSegurosPorFechaInicio(fechaInicial, fechaLimite);
-        if (listaSeguros == null || listaSeguros.isEmpty()) {
+        List<Viaje> listaViajes = control.buscarViajesPorFechaLlegada(fechaInicial, fechaLimite);
+        if (listaViajes == null || listaViajes.isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                    "No se encontraron seguros entre las fechas seleccionadas",
+                    "No se encontraron viajes entre las fechas de llegada seleccionadas",
                     "Información",
                     JOptionPane.INFORMATION_MESSAGE);
             cargarTabla();
             return;
         }   
-        mostrarSegurosFiltrados(listaSeguros);
+        mostrarViajesFiltrados(listaViajes);
     }
-    case "Poliza" -> {
-            String texto = txtBuscarPoliza.getText();
-         // Si no es un número, buscar por número de póliza
-            Seguro seguro = control.buscarSeguroPorPoliza(texto);
-            
-            if (seguro == null) {
-                mostrarMensaje("No se encontraron seguros con la poliza ingresada.", "error", "POLIZA NO EXISTE");
-                } else {
-                mostrarRegistroUnico(seguro);
-            }
+    case "Destino" -> {
+        String destino = txtBuscar.getText().trim();
+        if (destino.isEmpty()) {
+            mostrarMensaje("Ingrese un destino para buscar", "error", "Campo vacío");
+            return;
+        }
+        List<Viaje> listaViajes = control.buscarViajesPorDestino(destino);
+        if (listaViajes == null || listaViajes.isEmpty()) {
+            mostrarMensaje("No se encontraron viajes al destino ingresado.", "error", "DESTINO SIN REGISTROS");
+            txtBuscar.setText("");
+            txtBuscar.requestFocus();
+            return;
+        }
+        mostrarViajesFiltrados(listaViajes);
     }
     default -> {
         cargarTabla();
@@ -383,14 +377,15 @@ if(null != filtro)switch (filtro) {
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
         cargarTabla();
         cmbFiltro.setSelectedIndex(0);
-        txtBuscarPoliza.setText("");
+        txtDestino.setText("");
         txtBuscar.setText("");
         dcFechaInicial.setDate(null);
         dcFechaLimite.setDate(null);
     }//GEN-LAST:event_btnRestaurarActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-       JFileChooser fileChooser = new JFileChooser();
+                                               
+    JFileChooser fileChooser = new JFileChooser();
     fileChooser.setDialogTitle("Guardar archivo");
     fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
     
@@ -406,22 +401,30 @@ if(null != filtro)switch (filtro) {
             PrintWriter pw = new PrintWriter(bw)) {
             
             // Escribir encabezados
-            pw.println("id,aseguradora,poliza,fechaInicio,fechaVenc,importe,tipo,patente");
+            pw.println("id,fechaSalida,fechaLlegada,lugarOrigen,destino,kmInicial,kmFinal,kmRecorrido,pesoCarga,costoCarga,ctg,guia,dte,acoplado,chasis,gasto");
             
             // Obtener los datos actuales
-            List<Seguro> listaSeguros = control.traerSegs();
+            List<Viaje> listaViajes = control.traerViajes();
             
             // Escribir cada registro
-            for (Seguro seguro : listaSeguros) {
+            for (Viaje viaje : listaViajes) {
                 pw.println(
-                    seguro.getId_seguro() + "," +
-                    seguro.getAseguradora().replace(",", ";") + "," +
-                    seguro.getPoliza() + "," +
-                    formatoFecha.format(seguro.getFechaInicio()) + "," +
-                    formatoFecha.format(seguro.getFechaVenc()) + "," +
-                    seguro.getImporte() + "," +
-                    seguro.getTipo().replace(",", ";") + "," +
-                    (seguro.getUnPatente() != null ? seguro.getUnPatente().getCodigoPatente() : "N/A")
+                    viaje.getId_viaje() + "," +
+                    formatoFecha.format(viaje.getFechaSalida()) + "," +
+                    formatoFecha.format(viaje.getFechaLlegada()) + "," +
+                    viaje.getLugarOrigen().replace(",", ";") + "," +
+                    viaje.getDestino().replace(",", ";") + "," +
+                    viaje.getKmInicial() + "," +
+                    viaje.getKmFinal() + "," +
+                    viaje.getKmRecorrido() + "," +
+                    viaje.getPesoCarga() + "," +
+                    viaje.getCostoCarga() + "," +
+                    viaje.getCtg() + "," +
+                    viaje.getGuia() + "," +
+                    viaje.getDte() + "," +
+                    (viaje.getUnAcoplado() != null ? viaje.getUnAcoplado().getId_acoplado(): "N/A") + "," +
+                    (viaje.getUnChasis() != null ? viaje.getUnChasis().getId_chasis(): "N/A") + "," +
+                    (viaje.getUnGasto() != null ? viaje.getUnGasto().getId_gasto(): "N/A")
                 );
             }
             
@@ -436,7 +439,7 @@ if(null != filtro)switch (filtro) {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
     JFileChooser fileChooser = new JFileChooser();
-fileChooser.setDialogTitle("Seleccionar archivo de seguros");
+fileChooser.setDialogTitle("Seleccionar archivo de viajes");
 fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
 
 if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -447,102 +450,177 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
         // Saltar la primera línea (encabezados)
         br.readLine();
         
-        List<Seguro> segurosImportados = new ArrayList<>();
+        List<Viaje> viajesImportados = new ArrayList<>();
         SimpleDateFormat formatoFechaImport = new SimpleDateFormat("dd/MM/yyyy");
         
         while ((line = br.readLine()) != null) {
             String[] datos = line.split(",");
-            if (datos.length >= 7) {
+            if (datos.length >= 13) {
                 try {
-                    // Convertir datos a un objeto Seguro
-                    Seguro seguro = new Seguro();
+                    // Convertir datos a un objeto Viaje
+                    Viaje viaje = new Viaje();
                     
-                    // Aseguradora
-                    seguro.setAseguradora(datos[1]);
+                    int columna = 1; // Empezamos en 1 para saltar el id que es generado automáticamente
                     
-                    // Póliza
+                    // Convertir fecha de salida
                     try {
-                        int poliza = Integer.parseInt(datos[2]);
-                        seguro.setPoliza(poliza);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error al parsear número de póliza: " + datos[2]);
-                        continue;
-                    }
-                    
-                    // Convertir fecha de inicio
-                    try {
-                        Date fechaInicio = formatoFechaImport.parse(datos[3]);
-                        seguro.setFechaInicio(fechaInicio);
+                        Date fechaSalida = formatoFechaImport.parse(datos[columna++]);
+                        viaje.setFechaSalida(fechaSalida);
                     } catch (ParseException e) {
-                        System.out.println("Error al parsear la fecha de inicio: " + datos[3]);
+                        System.out.println("Error al parsear la fecha de salida: " + datos[columna-1]);
                         e.printStackTrace();
                         continue;
                     }
                     
-                    // Convertir fecha de vencimiento
+                    // Convertir fecha de llegada
                     try {
-                        Date fechaVenc = formatoFechaImport.parse(datos[4]);
-                        seguro.setFechaVenc(fechaVenc);
+                        Date fechaLlegada = formatoFechaImport.parse(datos[columna++]);
+                        viaje.setFechaLlegada(fechaLlegada);
                     } catch (ParseException e) {
-                        System.out.println("Error al parsear la fecha de vencimiento: " + datos[4]);
+                        System.out.println("Error al parsear la fecha de llegada: " + datos[columna-1]);
                         e.printStackTrace();
                         continue;
                     }
                     
-                    // Importe
+                    // Lugar de origen
+                    viaje.setLugarOrigen(datos[columna++]);
+                    
+                    // Destino
+                    viaje.setDestino(datos[columna++]);
+                    
+                    // Kilómetros iniciales
                     try {
-                        double importe = Double.parseDouble(datos[5]);
-                        seguro.setImporte(importe);
+                        double kmInicial = Double.parseDouble(datos[columna++]);
+                        viaje.setKmInicial(kmInicial);
                     } catch (NumberFormatException e) {
-                        System.out.println("Error al parsear importe: " + datos[5]);
+                        System.out.println("Error al parsear kilómetros iniciales: " + datos[columna-1]);
                         continue;
                     }
                     
-                    // Tipo de seguro
-                    seguro.setTipo(datos[6]);
+                    // Kilómetros finales
+                    try {
+                        double kmFinal = Double.parseDouble(datos[columna++]);
+                        viaje.setKmFinal(kmFinal);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error al parsear kilómetros finales: " + datos[columna-1]);
+                        continue;
+                    }
                     
-                    // Patente (si existe)
-                    if (datos.length > 7 && !datos[7].isEmpty() && !datos[7].equals("N/A")) {
-                        Patente vehiculo = control.buscarPorPatente(datos[7]);
-                        if (vehiculo == null) {
-                            System.out.println("No se encontró vehículo con patente: " + datos[7]);
-                            // Continuar sin asignar vehículo
+                    // Kilómetros recorridos (opcional, se puede calcular)
+                    try {
+                        double kmRecorrido = Double.parseDouble(datos[columna++]);
+                        viaje.setKmRecorrido(kmRecorrido);
+                    } catch (NumberFormatException e) {
+                        // Si no se proporciona, calcularlo a partir de km inicial y final
+                        viaje.setKmRecorrido(viaje.getKmFinal() - viaje.getKmInicial());
+                        columna++;
+                    }
+                    
+                    // Peso de carga
+                    try {
+                        double pesoCarga = Double.parseDouble(datos[columna++]);
+                        viaje.setPesoCarga(pesoCarga);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error al parsear peso de carga: " + datos[columna-1]);
+                        continue;
+                    }
+                    
+                    // Costo de carga
+                    try {
+                        double costoCarga = Double.parseDouble(datos[columna++]);
+                        viaje.setCostoCarga(costoCarga);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error al parsear costo de carga: " + datos[columna-1]);
+                        continue;
+                    }
+                    
+                    // CTG
+                    try {
+                        int ctg = Integer.parseInt(datos[columna++]);
+                        viaje.setCtg(ctg);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error al parsear CTG: " + datos[columna-1]);
+                        continue;
+                    }
+                    
+                    // Guía
+                    try {
+                        int guia = Integer.parseInt(datos[columna++]);
+                        viaje.setGuia(guia);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error al parsear guía: " + datos[columna-1]);
+                        continue;
+                    }
+                    
+                    // DTE
+                    try {
+                        int dte = Integer.parseInt(datos[columna++]);
+                        viaje.setDte(dte);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error al parsear DTE: " + datos[columna-1]);
+                        continue;
+                    }
+                    
+                    // Acoplado (si existe)
+                    if (columna < datos.length && !datos[columna].isEmpty() && !datos[columna].equals("N/A")) {
+                        // Asumiendo que existe un método para buscar acoplado por un identificador
+                        Acoplado acoplado;
+                        acoplado = control.traerAco(Integer.parseInt(datos[columna]));
+                        if (acoplado == null) {
+                            System.out.println("No se encontró acoplado con ID: " + datos[columna]);
                         } else {
-                            seguro.setUnPatente(vehiculo);
+                            viaje.setUnAcoplado(acoplado);
+                        }
+                    }
+                    columna++;
+                    
+                    // Chasis (si existe)
+                    if (columna < datos.length && !datos[columna].isEmpty() && !datos[columna].equals("N/A")) {
+                        // Asumiendo que existe un método para buscar chasis por un identificador
+                        Chasis chasis = control.traerCha(Integer.parseInt(datos[columna]));
+                        if (chasis == null) {
+                            System.out.println("No se encontró chasis con ID: " + datos[columna]);
+                        } else {
+                            viaje.setUnChasis(chasis);
                         }
                     }
                     
-                    segurosImportados.add(seguro);
+                    // Nota: No importamos Gasto ni la lista de Multas aquí, ya que son relaciones 
+                    // que probablemente se manejarían por separado o después de crear el viaje
+                    
+                    viajesImportados.add(viaje);
                     
                 } catch (Exception e) {
                     System.out.println("Error procesando línea: " + line);
                     e.printStackTrace();
                 }
+            } else {
+                System.out.println("Línea con formato incorrecto (faltan columnas): " + line);
             }
         }
         
         // Confirmar importación
-        if (!segurosImportados.isEmpty()) {
+        if (!viajesImportados.isEmpty()) {
             int respuesta = JOptionPane.showConfirmDialog(
                 this, 
-                "Se importarán " + segurosImportados.size() + " seguros. ¿Desea continuar?",
+                "Se importarán " + viajesImportados.size() + " viajes. ¿Desea continuar?",
                 "Confirmar importación",
                 JOptionPane.YES_NO_OPTION);
                 
             if (respuesta == JOptionPane.YES_OPTION) {
                 // Guardar en la base de datos
-                boolean exito = control.guardarSegurosImportados(segurosImportados);
+                boolean exito = control.guardarViajesImportados(viajesImportados);
                 
                 if (exito) {
-                    mostrarMensaje("Importación de seguros completada con éxito", "info", "Importación");
+                    mostrarMensaje("Importación de viajes completada con éxito", "info", "Importación");
                     // Recargar tabla
                     cargarTabla();
                 } else {
-                    mostrarMensaje("Ocurrió un error durante la importación de seguros", "error", "Error");
+                    mostrarMensaje("Ocurrió un error durante la importación de viajes", "error", "Error");
                 }
             }
         } else {
-            mostrarMensaje("No se encontraron registros de seguros válidos para importar", "error", "Sin registros");
+            mostrarMensaje("No se encontraron registros de viajes válidos para importar", "error", "Sin registros");
         }
         
     } catch (IOException e) {
@@ -563,36 +641,52 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             }
         };
         
-        String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
+        String titulos[] = {"Id", "Fecha Salida", "Fecha Llegada",
+            "Pat. Chasis", "Pat. Acoplado",
+            "Lugar Origen", "Destino", 
+            "CTG", "DTE", "GUIA", 
+            "Km Recorrido", "Km Inicial", "Km Final",  
+            "Costo Carga", "Peso Carga",
+            "Combustible", "Peaje", "Comida"};
         model.setColumnIdentifiers(titulos);
-        tablaNeu.setModel(model);
+        tablaVia.setModel(model);
         
         //traer los registros desde la bd
-        List<Seguro> listaSeguros = control.traerSegs();
-        if (listaSeguros != null && !listaSeguros.isEmpty()) {
+        List<Viaje> listaViaje = control.traerViajes();
+        if (listaViaje != null && !listaViaje.isEmpty()) {
             // Ordenar la lista por fecha en orden descendente (más reciente primero)
-            Collections.sort(listaSeguros, (Seguro s1, Seguro s2) -> 
-                 s2.getFechaInicio().compareTo(s1.getFechaInicio())
+            Collections.sort(listaViaje, (Viaje v1, Viaje v2) -> 
+                 v2.getFechaSalida().compareTo(v1.getFechaSalida())
              );
 
             // Agregar los datos ordenados al modelo de la tabla
-            for (Seguro seguro : listaSeguros) {
+            for (Viaje via : listaViaje) {
                 Object[] obj = {
-                    seguro.getId_seguro(),
-                    seguro.getAseguradora(),
-                    seguro.getPoliza(),
-                    formatoFecha.format(seguro.getFechaInicio()),
-                    formatoFecha.format(seguro.getFechaVenc()),
-                    seguro.getImporte(),
-                    seguro.getTipo(),
-                    seguro.getUnPatente() != null ? seguro.getUnPatente().getCodigoPatente() : "N/A"
+                    via.getId_viaje(),
+                    formatoFecha.format(via.getFechaSalida()), 
+                    formatoFecha.format(via.getFechaLlegada()), 
+                    via.getUnChasis().getPatente().getCodigoPatente(), 
+                    via.getUnAcoplado().getPatente().getCodigoPatente(), 
+                    via.getLugarOrigen(), 
+                    via.getDestino(),
+                    via.getCtg(), 
+                    via.getDte(), 
+                    via.getGuia(),
+                    via.getKmRecorrido(),
+                    via.getKmInicial(),
+                    via.getKmFinal(),
+                    via.getCostoCarga(),
+                    via.getPesoCarga(),
+                    via.getUnGasto().getTotalCombus(),
+                    via.getUnGasto().getPeaje(),
+                    via.getUnGasto().getComida()
                 };
                 model.addRow(obj);
             }
         }
-        tablaNeu.setModel(model);
+        tablaVia.setModel(model);
     }
-     private void mostrarRegistroUnico(Seguro seguro) {
+     private void mostrarRegistroUnico(Viaje via) {
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -600,25 +694,41 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             }
         };
         
-        String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
+        String titulos[] = {"Id", "Fecha Salida", "Fecha Llegada",
+            "Pat. Chasis", "Pat. Acoplado",
+            "Lugar Origen", "Destino", 
+            "CTG", "DTE", "GUIA", 
+            "Km Recorrido", "Km Inicial", "Km Final",  
+            "Costo Carga", "Peso Carga",
+            "Combustible", "Peaje", "Comida"};
         model.setColumnIdentifiers(titulos);
         
-        Object[] obj = {
-            seguro.getId_seguro(),
-            seguro.getAseguradora(),
-            seguro.getPoliza(),
-            formatoFecha.format(seguro.getFechaInicio()),
-            formatoFecha.format(seguro.getFechaVenc()),
-            seguro.getImporte(),
-            seguro.getTipo(),
-            seguro.getUnPatente() != null ? seguro.getUnPatente().getCodigoPatente() : "N/A"
-        };
-        
+       
+            Object[] obj = {
+                    via.getId_viaje(), 
+                    formatoFecha.format(via.getFechaSalida()), 
+                    formatoFecha.format(via.getFechaLlegada()), 
+                    via.getUnChasis().getPatente().getCodigoPatente(), 
+                    via.getUnAcoplado().getPatente().getCodigoPatente(), 
+                    via.getLugarOrigen(), 
+                    via.getDestino(),
+                    via.getCtg(), 
+                    via.getDte(), 
+                    via.getGuia(),
+                    via.getKmRecorrido(),
+                    via.getKmInicial(),
+                    via.getKmFinal(),
+                    via.getCostoCarga(),
+                    via.getPesoCarga(),
+                    via.getUnGasto().getTotalCombus(),
+                    via.getUnGasto().getPeaje(),
+                    via.getUnGasto().getComida()
+            };
         model.addRow(obj);
-        tablaNeu.setModel(model);
+        tablaVia.setModel(model);
     }
     
-    private void mostrarSegurosFiltrados(List<Seguro> listaSeg) {
+    private void mostrarViajesFiltrados(List<Viaje> listaVia) {
     DefaultTableModel model = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -626,24 +736,40 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
         }
     };
     
-    String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
+    String titulos[] = {"Id", "Fecha Salida", "Fecha Llegada",
+            "Pat. Chasis", "Pat. Acoplado",
+            "Lugar Origen", "Destino", 
+            "CTG", "DTE", "GUIA", 
+            "Km Recorrido", "Km Inicial", "Km Final",  
+            "Costo Carga", "Peso Carga",
+            "Combustible", "Peaje", "Comida"};
     model.setColumnIdentifiers(titulos);
     
-    for (Seguro seg : listaSeg) {
-        Object[] obj = {
-            seg.getId_seguro(),
-            seg.getAseguradora(),
-            seg.getPoliza(),
-            formatoFecha.format(seg.getFechaInicio()),
-            formatoFecha.format(seg.getFechaVenc()),
-            seg.getImporte(),
-            seg.getTipo(),
-            seg.getUnPatente() != null ? seg.getUnPatente().getCodigoPatente() : "N/A"
-        };
+    for (Viaje via : listaVia){
+                Object[] obj = {
+                    via.getId_viaje(), 
+                    formatoFecha.format(via.getFechaSalida()), 
+                    formatoFecha.format(via.getFechaLlegada()), 
+                    via.getUnChasis().getPatente().getCodigoPatente(), 
+                    via.getUnAcoplado().getPatente().getCodigoPatente(), 
+                    via.getLugarOrigen(), 
+                    via.getDestino(),
+                    via.getCtg(), 
+                    via.getDte(), 
+                    via.getGuia(),
+                    via.getKmRecorrido(),
+                    via.getKmInicial(),
+                    via.getKmFinal(),
+                    via.getCostoCarga(),
+                    via.getPesoCarga(),
+                    via.getUnGasto().getTotalCombus(),
+                    via.getUnGasto().getPeaje(),
+                    via.getUnGasto().getComida()
+                };
         model.addRow(obj);
     }
     
-    tablaNeu.setModel(model);
+    tablaVia.setModel(model);
 }
 
     
@@ -679,8 +805,8 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaNeu;
+    private javax.swing.JTable tablaVia;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtBuscarPoliza;
+    private javax.swing.JTextField txtDestino;
     // End of variables declaration//GEN-END:variables
 }

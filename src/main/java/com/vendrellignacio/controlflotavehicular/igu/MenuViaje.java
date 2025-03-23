@@ -299,7 +299,8 @@ public class MenuViaje extends javax.swing.JFrame {
         List <Viaje> listaVia = control.traerViajes();
         if (listaVia != null){
             for (Viaje via : listaVia){
-                Object[] obj = {via.getId_viaje(), 
+                Object[] obj = {
+                    via.getId_viaje(), 
                     formatoFecha.format(via.getFechaSalida()), 
                     formatoFecha.format(via.getFechaLlegada()), 
                     via.getUnChasis().getPatente().getCodigoPatente(), 

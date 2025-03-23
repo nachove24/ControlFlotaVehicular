@@ -15,6 +15,7 @@ import com.vendrellignacio.controlflotavehicular.logic.Multa;
 import com.vendrellignacio.controlflotavehicular.logic.Viaje;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -245,6 +246,44 @@ public ViajeJpaController() {
         } finally {
             em.close();
         }
+    }
+
+    List<Viaje> traerPorFechaSalida(Date fechaInicial, Date fechaLimite) {
+         EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT v FROM Viaje v WHERE v.fechaSalida BETWEEN :inicio AND :fin";
+        return em.createQuery(query, Viaje.class)
+            .setParameter("inicio", fechaInicial)
+            .setParameter("fin", fechaLimite)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Viaje> traerPorFechaLlegada(Date fechaInicial, Date fechaLimite) {
+        EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT v FROM Viaje v WHERE v.fechaLlegada BETWEEN :inicio AND :fin";
+        return em.createQuery(query, Viaje.class)
+            .setParameter("inicio", fechaInicial)
+            .setParameter("fin", fechaLimite)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Viaje> buscarPorDestino(String destino) {
+        EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT v FROM Viaje v WHERE LOWER(v.destino) LIKE LOWER(:textoDestino)";
+        return em.createQuery(query, Viaje.class)
+            .setParameter("textoDestino", "%" + destino + "%")
+            .getResultList();
+    } finally {
+        em.close();
+    }
     }
     
 }

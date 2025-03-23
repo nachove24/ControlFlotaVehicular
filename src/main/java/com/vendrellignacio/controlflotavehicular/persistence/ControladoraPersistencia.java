@@ -412,6 +412,37 @@ public List<Mantenimiento> traerMantenimientosPorRangoKm(int kmInicial, int kmFi
     
     
     
+///////////////////////////////IMPUESTO//////////////////////////////////
+    public List<Impuesto> buscarImpporAno(int anoBuscado) {
+        return impuestoJpa.buscarPorAno(anoBuscado);
+    }
+
+    public List<Impuesto> traerImpuestoPorFecha(Date fechaInicial, Date fechaLimite) {
+        return impuestoJpa.traerPorFecha(fechaInicial, fechaLimite);
+    }
+
+    public List<Impuesto> buscarImpPorPatente(String codigoPatente) {
+        return impuestoJpa.buscarPorPatente(codigoPatente);
+    }
+///////////////////////////////VIAJE////////////////////////////////////////
+    public List<Viaje> traerViajePorSalida(Date fechaInicial, Date fechaLimite) {
+        return viajeJpa.traerPorFechaSalida(fechaInicial, fechaLimite);
+    }
+
+    public List<Viaje> traerViajePorLlegada(Date fechaInicial, Date fechaLimite) {
+        return viajeJpa.traerPorFechaLlegada(fechaInicial, fechaLimite);
+    }
+
+    public List<Viaje> buscarPorDestino(String destino) {
+        return viajeJpa.buscarPorDestino(destino);
+    }
+
+    /*public void crearViajes(Viaje via) {
+        viajeJpa.create(via);
+    }*/
+    
+    
+    
     
     
 

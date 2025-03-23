@@ -45,7 +45,7 @@ public class Buscador extends javax.swing.JFrame {
         });
 
         btnRegistrarViaje.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\camion-viajando.jpg")); // NOI18N
-        btnRegistrarViaje.setText("Registrar Viaje");
+        btnRegistrarViaje.setText("Viaje");
         btnRegistrarViaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarViajeActionPerformed(evt);
@@ -69,7 +69,7 @@ public class Buscador extends javax.swing.JFrame {
         });
 
         btnTecnica.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\registro.jpg")); // NOI18N
-        btnTecnica.setText("Registrar Técnica");
+        btnTecnica.setText("Tecnica");
         btnTecnica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTecnicaActionPerformed(evt);
@@ -77,7 +77,7 @@ public class Buscador extends javax.swing.JFrame {
         });
 
         btnMulta.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\multa.png")); // NOI18N
-        btnMulta.setText("Registrar Multa");
+        btnMulta.setText("Multa");
         btnMulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMultaActionPerformed(evt);
@@ -85,7 +85,7 @@ public class Buscador extends javax.swing.JFrame {
         });
 
         btnImpuesto.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Pictures\\Screenshots\\Captura de pantalla 2024-06-28 221135.png")); // NOI18N
-        btnImpuesto.setText("Registrar Impuesto");
+        btnImpuesto.setText("Impuesto");
         btnImpuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImpuestoActionPerformed(evt);
@@ -114,12 +114,12 @@ public class Buscador extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnTecnica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAcoplado, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                     .addComponent(btnChasis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAcoplado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTecnica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnMulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSeguro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -127,7 +127,7 @@ public class Buscador extends javax.swing.JFrame {
                     .addComponent(btnRegistrarViaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +164,7 @@ public class Buscador extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +211,7 @@ public class Buscador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChasisActionPerformed
 
     private void btnRegistrarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarViajeActionPerformed
-        MenuViaje menu = new MenuViaje();
+        BuscarVia menu = new BuscarVia();
         //Lo hacemos visible:
         menu.setVisible(true);
         //Lo centramos
@@ -251,7 +251,7 @@ public class Buscador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMultaActionPerformed
 
     private void btnImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpuestoActionPerformed
-        MenuImpuesto menu = new MenuImpuesto();
+        BuscarImp menu = new BuscarImp();
         //Lo hacemos visible:
         menu.setVisible(true);
         //Lo centramos

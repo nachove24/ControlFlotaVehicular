@@ -64,7 +64,7 @@
                               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="43" max="32767" attributes="0"/>
+                      <EmptySpace pref="54" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -96,13 +96,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="47" pref="47" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnTecnica" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnAcoplado" pref="158" max="32767" attributes="0"/>
                               <Component id="btnChasis" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnAcoplado" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnTecnica" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnImpuesto" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="btnMulta" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnSeguro" alignment="0" max="32767" attributes="0"/>
@@ -111,7 +111,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnMantenimiento" min="-2" pref="180" max="-2" attributes="0"/>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -161,7 +161,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="2" name="C:\Users\nacho\Downloads\camion-viajando.jpg"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Registrar Viaje"/>
+                    <Property name="text" type="java.lang.String" value="Viaje"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarViajeActionPerformed"/>
@@ -194,7 +194,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="2" name="C:\Users\nacho\Downloads\registro.jpg"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Registrar T&#xe9;cnica"/>
+                    <Property name="text" type="java.lang.String" value="Tecnica"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTecnicaActionPerformed"/>
@@ -205,7 +205,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="2" name="C:\Users\nacho\Downloads\multa.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Registrar Multa"/>
+                    <Property name="text" type="java.lang.String" value="Multa"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMultaActionPerformed"/>
@@ -216,7 +216,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="2" name="C:\Users\nacho\Pictures\Screenshots\Captura de pantalla 2024-06-28 221135.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Registrar Impuesto"/>
+                    <Property name="text" type="java.lang.String" value="Impuesto"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImpuestoActionPerformed"/>

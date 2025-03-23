@@ -2,6 +2,7 @@
 package com.vendrellignacio.controlflotavehicular.igu;
 
 import com.vendrellignacio.controlflotavehicular.logic.Controladora;
+import com.vendrellignacio.controlflotavehicular.logic.Impuesto;
 // import com.vendrellignacio.controlflotavehicular.logic.Neumatico;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.logic.Seguro;
@@ -26,11 +27,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 
-public class BuscarSeg extends javax.swing.JFrame {
+public class BuscarImp extends javax.swing.JFrame {
 
     Controladora control;
     SimpleDateFormat formatoFecha;
-    public BuscarSeg() {
+    public BuscarImp() {
         initComponents();
         control = new Controladora();
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -55,10 +56,12 @@ public class BuscarSeg extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtBuscarPoliza = new javax.swing.JTextField();
+        txtBuscarPatente = new javax.swing.JTextField();
+        txtBuscarAno = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaNeu = new javax.swing.JTable();
+        tablaImp = new javax.swing.JTable();
         btnExportar = new javax.swing.JButton();
         btnImportar = new javax.swing.JButton();
 
@@ -70,12 +73,12 @@ public class BuscarSeg extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
-        jLabel1.setText("Seguro");
+        jLabel1.setText("Impuesto");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         jLabel2.setText("Buscar por:");
 
-        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Id/Aseguradora", "Fecha Inicio", "Fecha Vencimiento", "Poliza" }));
+        cmbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Id", "Fecha Pago", "Año", "Patente" }));
 
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,9 +98,11 @@ public class BuscarSeg extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha inicial:");
 
-        jLabel5.setText("Poliza:");
+        jLabel5.setText("Patente:");
 
-        jLabel6.setText("Id/Aseguradora:");
+        jLabel6.setText("Id:");
+
+        jLabel7.setText("Año:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,12 +115,12 @@ public class BuscarSeg extends javax.swing.JFrame {
                 .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(65, 65, 65)))
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtBuscarAno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -131,12 +136,9 @@ public class BuscarSeg extends javax.swing.JFrame {
                                 .addComponent(jLabel4))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(141, 141, 141))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(txtBuscarPoliza, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap()))))))
+                                .addComponent(txtBuscarPatente, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5))
+                            .addContainerGap()))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,31 +146,37 @@ public class BuscarSeg extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBuscarPoliza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBuscar)
-                        .addComponent(btnRestaurar))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(dcFechaLimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(14, 14, 14))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dcFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBuscarPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnBuscar)
+                                .addComponent(btnRestaurar))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(dcFechaLimite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(14, 14, 14))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtBuscarAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        tablaNeu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tablaNeu.setModel(new javax.swing.table.DefaultTableModel(
+        tablaImp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tablaImp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -179,7 +187,7 @@ public class BuscarSeg extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tablaNeu);
+        jScrollPane1.setViewportView(tablaImp);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -275,37 +283,56 @@ public class BuscarSeg extends javax.swing.JFrame {
         String filtro = (String) cmbFiltro.getSelectedItem();
         
 if(null != filtro)switch (filtro) {
-    case "Id/Aseguradora" -> {
+    case "Id" -> {
         String texto = txtBuscar.getText().trim();
         if (texto.isEmpty()) {
-            mostrarMensaje("Ingrese un ID o código para buscar", "error", "Campo vacío");
+            mostrarMensaje("Ingrese un ID para buscar", "error", "Campo vacío");
             return;
         }   
         try {
-            // Intentar buscar por ID (número)
+            // Buscar por ID
             int idBuscado = Integer.parseInt(texto);
-            Seguro seguro = control.traerSeg(idBuscado);
+            Impuesto impuesto = control.traerImp(idBuscado);
             
-            if (seguro == null) {
-                // Si no se encuentra por ID, mostrar mensaje
-                mostrarMensaje("No se encontró seguro con el ID ingresado.", "error", "ID NO EXISTE");
+            if (impuesto == null) {
+                mostrarMensaje("No se encontró impuesto con el ID ingresado.", "error", "ID NO EXISTE");
                 txtBuscar.setText("");
                 txtBuscar.requestFocus();
             } else {
                 // Mostrar resultado único
-                mostrarRegistroUnico(seguro);
+                mostrarRegistroUnico(impuesto);
             }
         } catch (NumberFormatException e) {
-                List<Seguro> listaSeguros = control.buscarSegurosPorAseguradora(texto);
-                if (listaSeguros == null || listaSeguros.isEmpty()) {
-                mostrarMensaje("No se encontraron seguros con la aseguradora ingresada.", "error", "ASEGURADORA NO EXISTE");
+            mostrarMensaje("El ID debe ser un número", "error", "FORMATO INCORRECTO");
+            txtBuscar.setText("");
+            txtBuscar.requestFocus();
+        }
+    }
+    case "Año" -> {
+        String texto = txtBuscarAno.getText().trim();
+        if (texto.isEmpty()) {
+            mostrarMensaje("Ingrese un año para buscar", "error", "Campo vacío");
+            return;
+        }   
+        try {
+            // Buscar por año
+            int anoBuscado = Integer.parseInt(texto);
+            List<Impuesto> listaImpuestos = control.buscarImpuestosPorAno(anoBuscado);
+            
+            if (listaImpuestos == null || listaImpuestos.isEmpty()) {
+                mostrarMensaje("No se encontraron impuestos para el año ingresado.", "error", "AÑO SIN REGISTROS");
                 txtBuscar.setText("");
                 txtBuscar.requestFocus();
                 return;
-                }else{mostrarSegurosFiltrados(listaSeguros);}
+            }
+            mostrarImpuestosFiltrados(listaImpuestos);
+        } catch (NumberFormatException e) {
+            mostrarMensaje("El año debe ser un número", "error", "FORMATO INCORRECTO");
+            txtBuscar.setText("");
+            txtBuscar.requestFocus();
         }
     }
-    case "Fecha Vencimiento" -> {
+    case "Fecha Pago" -> {
         Date fechaInicial = dcFechaInicial.getDate();
         Date fechaLimite = dcFechaLimite.getDate();
         if (fechaInicial == null || fechaLimite == null) {
@@ -323,56 +350,31 @@ if(null != filtro)switch (filtro) {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }   
-        List<Seguro> listaSeguros = control.buscarSegurosPorFechaVencimiento(fechaInicial, fechaLimite);
-        if (listaSeguros == null || listaSeguros.isEmpty()) {
+        List<Impuesto> listaImpuestos = control.buscarImpuestosPorFechaPago(fechaInicial, fechaLimite);
+        if (listaImpuestos == null || listaImpuestos.isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                    "No se encontraron seguros entre las fechas seleccionadas",
+                    "No se encontraron impuestos entre las fechas seleccionadas",
                     "Información",
                     JOptionPane.INFORMATION_MESSAGE);
             cargarTabla();
             return;
         }   
-        mostrarSegurosFiltrados(listaSeguros);
+        mostrarImpuestosFiltrados(listaImpuestos);
     }
-    case "Fecha Inicio" -> {
-        Date fechaInicial = dcFechaInicial.getDate();
-        Date fechaLimite = dcFechaLimite.getDate();
-        if (fechaInicial == null || fechaLimite == null) {
-            JOptionPane.showMessageDialog(this,
-                    "Por favor seleccione ambas fechas",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+    case "Patente" -> {
+        String codigoPatente = txtBuscarPatente.getText().trim();
+        if (codigoPatente.isEmpty()) {
+            mostrarMensaje("Ingrese un código de patente para buscar", "error", "Campo vacío");
             return;
-        }   
-        // Verificar que la fecha inicial no sea posterior a la fecha límite
-        if (fechaInicial.after(fechaLimite)) {
-            JOptionPane.showMessageDialog(this,
-                    "La fecha inicial no puede ser posterior a la fecha límite",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+        }
+        List<Impuesto> listaImpuestos = control.buscarImpuestosPorPatente(codigoPatente);
+        if (listaImpuestos == null || listaImpuestos.isEmpty()) {
+            mostrarMensaje("No se encontraron impuestos para la patente ingresada.", "error", "PATENTE SIN REGISTROS");
+            txtBuscar.setText("");
+            txtBuscar.requestFocus();
             return;
-        }   
-        List<Seguro> listaSeguros = control.buscarSegurosPorFechaInicio(fechaInicial, fechaLimite);
-        if (listaSeguros == null || listaSeguros.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "No se encontraron seguros entre las fechas seleccionadas",
-                    "Información",
-                    JOptionPane.INFORMATION_MESSAGE);
-            cargarTabla();
-            return;
-        }   
-        mostrarSegurosFiltrados(listaSeguros);
-    }
-    case "Poliza" -> {
-            String texto = txtBuscarPoliza.getText();
-         // Si no es un número, buscar por número de póliza
-            Seguro seguro = control.buscarSeguroPorPoliza(texto);
-            
-            if (seguro == null) {
-                mostrarMensaje("No se encontraron seguros con la poliza ingresada.", "error", "POLIZA NO EXISTE");
-                } else {
-                mostrarRegistroUnico(seguro);
-            }
+        }
+        mostrarImpuestosFiltrados(listaImpuestos);
     }
     default -> {
         cargarTabla();
@@ -383,14 +385,14 @@ if(null != filtro)switch (filtro) {
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
         cargarTabla();
         cmbFiltro.setSelectedIndex(0);
-        txtBuscarPoliza.setText("");
+        txtBuscarPatente.setText("");
         txtBuscar.setText("");
         dcFechaInicial.setDate(null);
         dcFechaLimite.setDate(null);
     }//GEN-LAST:event_btnRestaurarActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-       JFileChooser fileChooser = new JFileChooser();
+    JFileChooser fileChooser = new JFileChooser();
     fileChooser.setDialogTitle("Guardar archivo");
     fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
     
@@ -406,22 +408,18 @@ if(null != filtro)switch (filtro) {
             PrintWriter pw = new PrintWriter(bw)) {
             
             // Escribir encabezados
-            pw.println("id,aseguradora,poliza,fechaInicio,fechaVenc,importe,tipo,patente");
+            pw.println("id,ano,fechaPago,patente");
             
             // Obtener los datos actuales
-            List<Seguro> listaSeguros = control.traerSegs();
+            List<Impuesto> listaImpuestos = control.traerImps();
             
             // Escribir cada registro
-            for (Seguro seguro : listaSeguros) {
+            for (Impuesto impuesto : listaImpuestos) {
                 pw.println(
-                    seguro.getId_seguro() + "," +
-                    seguro.getAseguradora().replace(",", ";") + "," +
-                    seguro.getPoliza() + "," +
-                    formatoFecha.format(seguro.getFechaInicio()) + "," +
-                    formatoFecha.format(seguro.getFechaVenc()) + "," +
-                    seguro.getImporte() + "," +
-                    seguro.getTipo().replace(",", ";") + "," +
-                    (seguro.getUnPatente() != null ? seguro.getUnPatente().getCodigoPatente() : "N/A")
+                    impuesto.getId_impuesto() + "," +
+                    impuesto.getAno() + "," +
+                    formatoFecha.format(impuesto.getFechaPago()) + "," +
+                    (impuesto.getUnPatente() != null ? impuesto.getUnPatente().getCodigoPatente() : "N/A")
                 );
             }
             
@@ -436,7 +434,7 @@ if(null != filtro)switch (filtro) {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
     JFileChooser fileChooser = new JFileChooser();
-fileChooser.setDialogTitle("Seleccionar archivo de seguros");
+fileChooser.setDialogTitle("Seleccionar archivo de impuestos");
 fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
 
 if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -447,72 +445,47 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
         // Saltar la primera línea (encabezados)
         br.readLine();
         
-        List<Seguro> segurosImportados = new ArrayList<>();
+        List<Impuesto> impuestosImportados = new ArrayList<>();
         SimpleDateFormat formatoFechaImport = new SimpleDateFormat("dd/MM/yyyy");
         
         while ((line = br.readLine()) != null) {
             String[] datos = line.split(",");
-            if (datos.length >= 7) {
+            if (datos.length >= 3) {
                 try {
-                    // Convertir datos a un objeto Seguro
-                    Seguro seguro = new Seguro();
+                    // Convertir datos a un objeto Impuesto
+                    Impuesto impuesto = new Impuesto();
                     
-                    // Aseguradora
-                    seguro.setAseguradora(datos[1]);
-                    
-                    // Póliza
+                    // Año del impuesto
                     try {
-                        int poliza = Integer.parseInt(datos[2]);
-                        seguro.setPoliza(poliza);
+                        int ano = Integer.parseInt(datos[1]);
+                        impuesto.setAno(ano);
                     } catch (NumberFormatException e) {
-                        System.out.println("Error al parsear número de póliza: " + datos[2]);
+                        System.out.println("Error al parsear año del impuesto: " + datos[1]);
                         continue;
                     }
                     
-                    // Convertir fecha de inicio
+                    // Convertir fecha de pago
                     try {
-                        Date fechaInicio = formatoFechaImport.parse(datos[3]);
-                        seguro.setFechaInicio(fechaInicio);
+                        Date fechaPago = formatoFechaImport.parse(datos[2]);
+                        impuesto.setFechaPago(fechaPago);
                     } catch (ParseException e) {
-                        System.out.println("Error al parsear la fecha de inicio: " + datos[3]);
+                        System.out.println("Error al parsear la fecha de pago: " + datos[2]);
                         e.printStackTrace();
                         continue;
                     }
-                    
-                    // Convertir fecha de vencimiento
-                    try {
-                        Date fechaVenc = formatoFechaImport.parse(datos[4]);
-                        seguro.setFechaVenc(fechaVenc);
-                    } catch (ParseException e) {
-                        System.out.println("Error al parsear la fecha de vencimiento: " + datos[4]);
-                        e.printStackTrace();
-                        continue;
-                    }
-                    
-                    // Importe
-                    try {
-                        double importe = Double.parseDouble(datos[5]);
-                        seguro.setImporte(importe);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error al parsear importe: " + datos[5]);
-                        continue;
-                    }
-                    
-                    // Tipo de seguro
-                    seguro.setTipo(datos[6]);
                     
                     // Patente (si existe)
-                    if (datos.length > 7 && !datos[7].isEmpty() && !datos[7].equals("N/A")) {
-                        Patente vehiculo = control.buscarPorPatente(datos[7]);
+                    if (datos.length > 3 && !datos[3].isEmpty() && !datos[3].equals("N/A")) {
+                        Patente vehiculo = control.buscarPorPatente(datos[3]);
                         if (vehiculo == null) {
-                            System.out.println("No se encontró vehículo con patente: " + datos[7]);
+                            System.out.println("No se encontró vehículo con patente: " + datos[3]);
                             // Continuar sin asignar vehículo
                         } else {
-                            seguro.setUnPatente(vehiculo);
+                            impuesto.setUnPatente(vehiculo);
                         }
                     }
                     
-                    segurosImportados.add(seguro);
+                    impuestosImportados.add(impuesto);
                     
                 } catch (Exception e) {
                     System.out.println("Error procesando línea: " + line);
@@ -522,27 +495,27 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
         }
         
         // Confirmar importación
-        if (!segurosImportados.isEmpty()) {
+        if (!impuestosImportados.isEmpty()) {
             int respuesta = JOptionPane.showConfirmDialog(
                 this, 
-                "Se importarán " + segurosImportados.size() + " seguros. ¿Desea continuar?",
+                "Se importarán " + impuestosImportados.size() + " impuestos. ¿Desea continuar?",
                 "Confirmar importación",
                 JOptionPane.YES_NO_OPTION);
                 
             if (respuesta == JOptionPane.YES_OPTION) {
                 // Guardar en la base de datos
-                boolean exito = control.guardarSegurosImportados(segurosImportados);
+                boolean exito = control.guardarImpuestosImportados(impuestosImportados);
                 
                 if (exito) {
-                    mostrarMensaje("Importación de seguros completada con éxito", "info", "Importación");
+                    mostrarMensaje("Importación de impuestos completada con éxito", "info", "Importación");
                     // Recargar tabla
                     cargarTabla();
                 } else {
-                    mostrarMensaje("Ocurrió un error durante la importación de seguros", "error", "Error");
+                    mostrarMensaje("Ocurrió un error durante la importación de impuestos", "error", "Error");
                 }
             }
         } else {
-            mostrarMensaje("No se encontraron registros de seguros válidos para importar", "error", "Sin registros");
+            mostrarMensaje("No se encontraron registros de impuestos válidos para importar", "error", "Sin registros");
         }
         
     } catch (IOException e) {
@@ -563,36 +536,32 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             }
         };
         
-        String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
+        String titulos[] = {"Id", "Año", "Fecha de Pago","Patente"};
         model.setColumnIdentifiers(titulos);
-        tablaNeu.setModel(model);
+        tablaImp.setModel(model);
         
         //traer los registros desde la bd
-        List<Seguro> listaSeguros = control.traerSegs();
-        if (listaSeguros != null && !listaSeguros.isEmpty()) {
+        List<Impuesto> listaImpuestos = control.traerImps();
+        if (listaImpuestos != null && !listaImpuestos.isEmpty()) {
             // Ordenar la lista por fecha en orden descendente (más reciente primero)
-            Collections.sort(listaSeguros, (Seguro s1, Seguro s2) -> 
-                 s2.getFechaInicio().compareTo(s1.getFechaInicio())
+            Collections.sort(listaImpuestos, (Impuesto i1, Impuesto i2) -> 
+                 i2.getFechaPago().compareTo(i1.getFechaPago())
              );
 
             // Agregar los datos ordenados al modelo de la tabla
-            for (Seguro seguro : listaSeguros) {
+            for (Impuesto impuesto : listaImpuestos) {
                 Object[] obj = {
-                    seguro.getId_seguro(),
-                    seguro.getAseguradora(),
-                    seguro.getPoliza(),
-                    formatoFecha.format(seguro.getFechaInicio()),
-                    formatoFecha.format(seguro.getFechaVenc()),
-                    seguro.getImporte(),
-                    seguro.getTipo(),
-                    seguro.getUnPatente() != null ? seguro.getUnPatente().getCodigoPatente() : "N/A"
+                    impuesto.getId_impuesto(),
+                    impuesto.getAno(),
+                    formatoFecha.format(impuesto.getFechaPago()),
+                    impuesto.getUnPatente() != null ? impuesto.getUnPatente().getCodigoPatente() : "N/A"
                 };
                 model.addRow(obj);
             }
         }
-        tablaNeu.setModel(model);
+        tablaImp.setModel(model);
     }
-     private void mostrarRegistroUnico(Seguro seguro) {
+     private void mostrarRegistroUnico(Impuesto impuesto) {
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -600,25 +569,21 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             }
         };
         
-        String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
+        String titulos[] = {"Id", "Año", "Fecha de Pago","Patente"};
         model.setColumnIdentifiers(titulos);
         
         Object[] obj = {
-            seguro.getId_seguro(),
-            seguro.getAseguradora(),
-            seguro.getPoliza(),
-            formatoFecha.format(seguro.getFechaInicio()),
-            formatoFecha.format(seguro.getFechaVenc()),
-            seguro.getImporte(),
-            seguro.getTipo(),
-            seguro.getUnPatente() != null ? seguro.getUnPatente().getCodigoPatente() : "N/A"
+            impuesto.getId_impuesto(),
+            impuesto.getAno(),
+            formatoFecha.format(impuesto.getFechaPago()),
+            impuesto.getUnPatente() != null ? impuesto.getUnPatente().getCodigoPatente() : "N/A"
         };
         
         model.addRow(obj);
-        tablaNeu.setModel(model);
+        tablaImp.setModel(model);
     }
     
-    private void mostrarSegurosFiltrados(List<Seguro> listaSeg) {
+    private void mostrarImpuestosFiltrados(List<Impuesto> listaImp) {
     DefaultTableModel model = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -626,24 +591,20 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
         }
     };
     
-    String titulos[] = {"Id", "Aseguradora", "Poliza", "Fecha Inicio", "Fecha Vencimiento", "Importe", "Tipo", "Patente"};
+    String titulos[] = {"Id", "Año", "Fecha de Pago","Patente"};
     model.setColumnIdentifiers(titulos);
     
-    for (Seguro seg : listaSeg) {
+    for (Impuesto imp : listaImp) {
         Object[] obj = {
-            seg.getId_seguro(),
-            seg.getAseguradora(),
-            seg.getPoliza(),
-            formatoFecha.format(seg.getFechaInicio()),
-            formatoFecha.format(seg.getFechaVenc()),
-            seg.getImporte(),
-            seg.getTipo(),
-            seg.getUnPatente() != null ? seg.getUnPatente().getCodigoPatente() : "N/A"
+            imp.getId_impuesto(),
+            imp.getAno(),
+            formatoFecha.format(imp.getFechaPago()),
+            imp.getUnPatente() != null ? imp.getUnPatente().getCodigoPatente() : "N/A"
         };
         model.addRow(obj);
     }
     
-    tablaNeu.setModel(model);
+    tablaImp.setModel(model);
 }
 
     
@@ -675,12 +636,14 @@ if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaNeu;
+    private javax.swing.JTable tablaImp;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtBuscarPoliza;
+    private javax.swing.JTextField txtBuscarAno;
+    private javax.swing.JTextField txtBuscarPatente;
     // End of variables declaration//GEN-END:variables
 }

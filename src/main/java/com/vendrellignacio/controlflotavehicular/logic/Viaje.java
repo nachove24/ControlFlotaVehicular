@@ -18,7 +18,6 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Viaje implements Serializable {
-    //atributos
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id_viaje;

@@ -558,6 +558,77 @@ public boolean guardarMantenimientosImportados(List<Mantenimiento> mantenimiento
         return controlPersis.existePoliza(poliza);
     }
 
+    public boolean guardarSegurosImportados(List<Seguro> segurosImportados) {
+         try {
+        for (Seguro seg : segurosImportados) {
+            // Usar tu lógica existente para guardar en la base de datos
+            controlPersis.guardarSeg(seg);
+        }
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+    }
+
+    ////////////////////IMPUESTO///////////////////////////////////////
+    
+    public List<Impuesto> buscarImpuestosPorAno(int anoBuscado) {
+        return controlPersis.buscarImpporAno(anoBuscado);
+    }
+
+    public List<Impuesto> buscarImpuestosPorFechaPago(Date fechaInicial, Date fechaLimite) {
+        return controlPersis.traerImpuestoPorFecha(fechaInicial, fechaLimite);
+    }
+
+    public List<Impuesto> buscarImpuestosPorPatente(String codigoPatente) {
+        return controlPersis.buscarImpPorPatente(codigoPatente);
+    }
+
+    public boolean guardarImpuestosImportados(List<Impuesto> impuestosImportados) {
+        try {
+        for (Impuesto imp : impuestosImportados) {
+            // Usar tu lógica existente para guardar en la base de datos
+            controlPersis.crearImp(imp);
+        }
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+    }
+///////////////////////////////////////////////VIAJE//////////////////////////////////////////
+    public List<Viaje> buscarViajesPorFechaSalida(Date fechaInicial, Date fechaLimite) {
+        return controlPersis.traerViajePorSalida(fechaInicial, fechaLimite);
+    }
+
+    public List<Viaje> buscarViajesPorFechaLlegada(Date fechaInicial, Date fechaLimite) {
+        return controlPersis.traerViajePorLlegada(fechaInicial, fechaLimite);
+    }
+
+    public List<Viaje> buscarViajesPorDestino(String destino) {
+        return controlPersis.buscarPorDestino(destino);
+    }
+
+    public boolean guardarViajesImportados(List<Viaje> viajesImportados) {
+         try {
+        for (Viaje via : viajesImportados) {
+            // Usar tu lógica existente para guardar en la base de datos
+            //controlPersis.crearViajes(via);
+            Gasto gas = new Gasto();
+            gas.setComida(0.0);
+            gas.setPeaje(0.0);
+            gas.setTotalCombus(0.0);
+            via.setUnGasto(gas);
+            controlPersis.crearViaje(via, gas);
+        }
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+    }
+
 
 
 

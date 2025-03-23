@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.vendrellignacio.controlflotavehicular.logic.Patente;
 import com.vendrellignacio.controlflotavehicular.persistence.exceptions.NonexistentEntityException;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -165,6 +166,43 @@ public ImpuestoJpaController() {
         } finally {
             em.close();
         }
+    }
+
+    List<Impuesto> buscarPorAno(int anoBuscado) {
+         EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT i FROM Impuesto i WHERE i.ano = :anoImp";
+        return em.createQuery(query, Impuesto.class)
+            .setParameter("anoImp", anoBuscado)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Impuesto> traerPorFecha(Date fechaInicial, Date fechaLimite) {
+         EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT i FROM Impuesto i WHERE i.fechaPago BETWEEN :inicio AND :fin";
+        return em.createQuery(query, Impuesto.class)
+            .setParameter("inicio", fechaInicial)
+            .setParameter("fin", fechaLimite)
+            .getResultList();
+    } finally {
+        em.close();
+    }
+    }
+
+    List<Impuesto> buscarPorPatente(String codigoPatente) {
+         EntityManager em = getEntityManager();
+    try {
+        String query = "SELECT i FROM Impuesto i WHERE i.unPatente.codigoPatente = :codigoPat";
+        return em.createQuery(query, Impuesto.class)
+            .setParameter("codigoPat", codigoPatente)
+            .getResultList();
+    } finally {
+        em.close();
+    }
     }
     
 }
