@@ -41,7 +41,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -107,9 +111,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnMulta" max="32767" attributes="0"/>
+                          <Component id="btnMulta" pref="180" max="32767" attributes="0"/>
                           <Component id="btnSeguro" max="32767" attributes="0"/>
-                          <Component id="btnNeumatico" alignment="0" pref="180" max="32767" attributes="0"/>
+                          <Component id="btnNeumatico" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnRegistrarViaje" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -151,7 +155,7 @@
             <Component class="javax.swing.JButton" name="btnChasis">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Downloads\chasis.jpg"/>
+                  <Image iconType="3" name="/META-INF/result_chasis.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Chasis"/>
               </Properties>
@@ -162,7 +166,7 @@
             <Component class="javax.swing.JButton" name="btnRegistrarViaje">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Downloads\camion-viajando.jpg"/>
+                  <Image iconType="3" name="/META-INF/result_camion-andando (1).png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Registrar Viaje"/>
               </Properties>
@@ -173,7 +177,7 @@
             <Component class="javax.swing.JButton" name="btnAcoplado">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Downloads\acoplado.png"/>
+                  <Image iconType="3" name="/META-INF/result_acoplado-removebg-preview.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Acoplados"/>
               </Properties>
@@ -184,7 +188,7 @@
             <Component class="javax.swing.JButton" name="btnNeumatico">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Downloads\neumatico.png"/>
+                  <Image iconType="3" name="/META-INF/result_neumatico.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Neumatico"/>
               </Properties>
@@ -195,7 +199,7 @@
             <Component class="javax.swing.JButton" name="btnTecnica">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Downloads\registro.jpg"/>
+                  <Image iconType="3" name="/META-INF/registro.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Registrar T&#xe9;cnica"/>
               </Properties>
@@ -206,7 +210,7 @@
             <Component class="javax.swing.JButton" name="btnMulta">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Downloads\multa.png"/>
+                  <Image iconType="3" name="/META-INF/multa.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Registrar Multa"/>
               </Properties>
@@ -217,7 +221,7 @@
             <Component class="javax.swing.JButton" name="btnImpuesto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Pictures\Screenshots\Captura de pantalla 2024-06-28 221135.png"/>
+                  <Image iconType="3" name="/META-INF/result_patente-logo.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Registrar Impuesto"/>
               </Properties>
@@ -228,7 +232,7 @@
             <Component class="javax.swing.JButton" name="btnSeguro">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Downloads\impuesto.png"/>
+                  <Image iconType="3" name="/META-INF/impuesto.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir Seguro"/>
               </Properties>
@@ -239,7 +243,7 @@
             <Component class="javax.swing.JButton" name="btnMantenimiento">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\nacho\Downloads\mantenimiento-logo.png"/>
+                  <Image iconType="3" name="/META-INF/mantenimiento-logo.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Mantenimiento"/>
               </Properties>

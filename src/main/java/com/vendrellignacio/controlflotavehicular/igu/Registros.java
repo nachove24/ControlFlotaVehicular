@@ -43,7 +43,7 @@ public class Registros extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         jLabel1.setText("Cargar Datos");
 
-        btnChasis.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\chasis.jpg")); // NOI18N
+        btnChasis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_chasis.png"))); // NOI18N
         btnChasis.setText("Chasis");
         btnChasis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +51,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnRegistrarViaje.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\camion-viajando.jpg")); // NOI18N
+        btnRegistrarViaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_camion-andando (1).png"))); // NOI18N
         btnRegistrarViaje.setText("Registrar Viaje");
         btnRegistrarViaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +59,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnAcoplado.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\acoplado.png")); // NOI18N
+        btnAcoplado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_acoplado-removebg-preview.png"))); // NOI18N
         btnAcoplado.setText("Acoplados");
         btnAcoplado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +67,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnNeumatico.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\neumatico.png")); // NOI18N
+        btnNeumatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_neumatico.png"))); // NOI18N
         btnNeumatico.setText("Neumatico");
         btnNeumatico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +75,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnTecnica.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\registro.jpg")); // NOI18N
+        btnTecnica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/registro.png"))); // NOI18N
         btnTecnica.setText("Registrar Técnica");
         btnTecnica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +83,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnMulta.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\multa.png")); // NOI18N
+        btnMulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/multa.png"))); // NOI18N
         btnMulta.setText("Registrar Multa");
         btnMulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +91,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnImpuesto.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Pictures\\Screenshots\\Captura de pantalla 2024-06-28 221135.png")); // NOI18N
+        btnImpuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_patente-logo.png"))); // NOI18N
         btnImpuesto.setText("Registrar Impuesto");
         btnImpuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +99,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnSeguro.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\impuesto.png")); // NOI18N
+        btnSeguro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/impuesto.png"))); // NOI18N
         btnSeguro.setText("Añadir Seguro");
         btnSeguro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +107,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnMantenimiento.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\mantenimiento-logo.png")); // NOI18N
+        btnMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/mantenimiento-logo.png"))); // NOI18N
         btnMantenimiento.setText("Mantenimiento");
         btnMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,9 +128,9 @@ public class Registros extends javax.swing.JFrame {
                     .addComponent(btnImpuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMulta, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                     .addComponent(btnSeguro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNeumatico, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(btnNeumatico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRegistrarViaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,7 +187,10 @@ public class Registros extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

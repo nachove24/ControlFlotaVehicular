@@ -36,7 +36,7 @@ public class Buscador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         jLabel1.setText("Buscar Datos");
 
-        btnChasis.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\chasis.jpg")); // NOI18N
+        btnChasis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_chasis.png"))); // NOI18N
         btnChasis.setText("Chasis");
         btnChasis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -44,7 +44,7 @@ public class Buscador extends javax.swing.JFrame {
             }
         });
 
-        btnRegistrarViaje.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\camion-viajando.jpg")); // NOI18N
+        btnRegistrarViaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_camion-andando (1).png"))); // NOI18N
         btnRegistrarViaje.setText("Viaje");
         btnRegistrarViaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,7 +52,7 @@ public class Buscador extends javax.swing.JFrame {
             }
         });
 
-        btnAcoplado.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\acoplado.png")); // NOI18N
+        btnAcoplado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_acoplado-removebg-preview.png"))); // NOI18N
         btnAcoplado.setText("Acoplados");
         btnAcoplado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,7 +60,7 @@ public class Buscador extends javax.swing.JFrame {
             }
         });
 
-        btnNeumatico.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\neumatico.png")); // NOI18N
+        btnNeumatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_neumatico.png"))); // NOI18N
         btnNeumatico.setText("Neumatico");
         btnNeumatico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,7 +68,7 @@ public class Buscador extends javax.swing.JFrame {
             }
         });
 
-        btnTecnica.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\registro.jpg")); // NOI18N
+        btnTecnica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/registro.png"))); // NOI18N
         btnTecnica.setText("Tecnica");
         btnTecnica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +76,7 @@ public class Buscador extends javax.swing.JFrame {
             }
         });
 
-        btnMulta.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\multa.png")); // NOI18N
+        btnMulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/multa.png"))); // NOI18N
         btnMulta.setText("Multa");
         btnMulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +84,7 @@ public class Buscador extends javax.swing.JFrame {
             }
         });
 
-        btnImpuesto.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Pictures\\Screenshots\\Captura de pantalla 2024-06-28 221135.png")); // NOI18N
+        btnImpuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/result_patente-logo.png"))); // NOI18N
         btnImpuesto.setText("Impuesto");
         btnImpuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +92,7 @@ public class Buscador extends javax.swing.JFrame {
             }
         });
 
-        btnSeguro.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\impuesto.png")); // NOI18N
+        btnSeguro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/impuesto.png"))); // NOI18N
         btnSeguro.setText("Seguro");
         btnSeguro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,7 +100,7 @@ public class Buscador extends javax.swing.JFrame {
             }
         });
 
-        btnMantenimiento.setIcon(new javax.swing.ImageIcon("C:\\Users\\nacho\\Downloads\\mantenimiento-logo.png")); // NOI18N
+        btnMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/mantenimiento-logo.png"))); // NOI18N
         btnMantenimiento.setText("Mantenimiento");
         btnMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

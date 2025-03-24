@@ -148,7 +148,7 @@
                 <Component class="javax.swing.JButton" name="btnChasis">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Downloads\chasis.jpg"/>
+                      <Image iconType="3" name="/META-INF/result_chasis.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Chasis"/>
                   </Properties>
@@ -159,7 +159,7 @@
                 <Component class="javax.swing.JButton" name="btnRegistrarViaje">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Downloads\camion-viajando.jpg"/>
+                      <Image iconType="3" name="/META-INF/result_camion-andando (1).png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Viaje"/>
                   </Properties>
@@ -170,7 +170,7 @@
                 <Component class="javax.swing.JButton" name="btnAcoplado">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Downloads\acoplado.png"/>
+                      <Image iconType="3" name="/META-INF/result_acoplado-removebg-preview.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Acoplados"/>
                   </Properties>
@@ -181,7 +181,7 @@
                 <Component class="javax.swing.JButton" name="btnNeumatico">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Downloads\neumatico.png"/>
+                      <Image iconType="3" name="/META-INF/result_neumatico.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Neumatico"/>
                   </Properties>
@@ -192,7 +192,7 @@
                 <Component class="javax.swing.JButton" name="btnTecnica">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Downloads\registro.jpg"/>
+                      <Image iconType="3" name="/META-INF/registro.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Tecnica"/>
                   </Properties>
@@ -203,7 +203,7 @@
                 <Component class="javax.swing.JButton" name="btnMulta">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Downloads\multa.png"/>
+                      <Image iconType="3" name="/META-INF/multa.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Multa"/>
                   </Properties>
@@ -214,7 +214,7 @@
                 <Component class="javax.swing.JButton" name="btnImpuesto">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Pictures\Screenshots\Captura de pantalla 2024-06-28 221135.png"/>
+                      <Image iconType="3" name="/META-INF/result_patente-logo.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Impuesto"/>
                   </Properties>
@@ -225,7 +225,7 @@
                 <Component class="javax.swing.JButton" name="btnSeguro">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Downloads\impuesto.png"/>
+                      <Image iconType="3" name="/META-INF/impuesto.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Seguro"/>
                   </Properties>
@@ -236,7 +236,7 @@
                 <Component class="javax.swing.JButton" name="btnMantenimiento">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\nacho\Downloads\mantenimiento-logo.png"/>
+                      <Image iconType="3" name="/META-INF/mantenimiento-logo.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Mantenimiento"/>
                   </Properties>
